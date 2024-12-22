@@ -7,11 +7,13 @@
     <div class="col-md-8">
         <h2>משפחות</h2>
     </div>
+    {% if can_create_family %}
     <div class="col-md-4 text-end">
         <a href="{% url 'treatment_app:family-create' %}" class="btn btn-success">
             <i class="fas fa-plus"></i> הוספת משפחה
         </a>
     </div>
+    {% endif %}
 </div>
 
 <div class="row">

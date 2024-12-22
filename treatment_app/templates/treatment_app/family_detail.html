@@ -3,294 +3,316 @@
 {% block title %}{{ family.name }} - מרכז טיפולי{% endblock %}
 
 {% block content %}
-<div class="row mb-4">
-    <div class="col-md-8">
-        <h2>{{ family.name }}</h2>
-    </div>
-    <div class="col-md-4 text-end">
-        <a href="{% url 'treatment_app:family-update' family.pk %}" class="btn btn-warning">
-            <i class="fas fa-edit"></i> עריכת משפחה
-        </a>
-        <a href="{% url 'treatment_app:family-delete' family.pk %}" class="btn btn-danger">
-            <i class="fas fa-trash"></i> מחיקת משפחה
-        </a>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-8">
-        <!-- פרטי המשפחה -->
-        <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h4 class="mb-0">פרטי המשפחה</h4>
-                <div>
-                    <a href="{% url 'treatment_app:family-update' family.pk %}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-edit"></i> ערוך
-                    </a>
-                    <a href="{% url 'treatment_app:family-delete' family.pk %}" class="btn btn-danger btn-sm">
-                        <i class="fas fa-trash"></i> מחק
-                    </a>
-                </div>
-            </div>
-            <div class="card-body">
-                <!-- Alert for missing forms -->
-                {% if not family.consent_form or not family.confidentiality_waiver %}
-                <div class="alert alert-danger mb-3">
-                    <h5 class="alert-heading">חסרים טפסים חשובים!</h5>
-                    <ul class="mb-0">
-                        {% if not family.consent_form %}
-                        <li>טופס הסכמה</li>
-                        {% endif %}
-                        {% if not family.confidentiality_waiver %}
-                        <li>טופס ויתור סודיות</li>
-                        {% endif %}
-                    </ul>
-                    <hr>
-                    <a href="{% url 'treatment_app:family-update' family.pk %}" class="btn btn-danger btn-sm">
-                        <i class="fas fa-file-upload"></i> העלה טפסים חסרים
-                    </a>
-                </div>
-                {% endif %}
-
-                <!-- Required Forms -->
-                <div class="mb-4">
-                    <h5>טפסים נדרשים</h5>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card {% if family.consent_form %}border-success{% else %}border-danger{% endif %}">
-                                <div class="card-body">
-                                    <h6 class="card-title">טופס הסכמה</h6>
-                                    {% if family.consent_form %}
-                                        <p class="card-text text-success">
-                                            <i class="fas fa-check-circle"></i>
-                                            קיים ({{ family.consent_form_date|default:"ללא תאריך" }})
-                                            <a href="{{ family.consent_form.url }}" class="btn btn-sm btn-outline-success" target="_blank">
-                                                <i class="fas fa-download"></i> הורד
-                                            </a>
-                                        </p>
-                                    {% else %}
-                                        <p class="card-text text-danger">
-                                            <i class="fas fa-times-circle"></i> חסר
-                                        </p>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card {% if family.confidentiality_waiver %}border-success{% else %}border-danger{% endif %}">
-                                <div class="card-body">
-                                    <h6 class="card-title">טופס ויתור סודיות</h6>
-                                    {% if family.confidentiality_waiver %}
-                                        <p class="card-text text-success">
-                                            <i class="fas fa-check-circle"></i>
-                                            קיים ({{ family.confidentiality_waiver_date|default:"ללא תאריך" }})
-                                            <a href="{{ family.confidentiality_waiver.url }}" class="btn btn-sm btn-outline-success" target="_blank">
-                                                <i class="fas fa-download"></i> הורד
-                                            </a>
-                                        </p>
-                                    {% else %}
-                                        <p class="card-text text-danger">
-                                            <i class="fas fa-times-circle"></i> חסר
-                                        </p>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Family Details -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <p><strong>טלפון:</strong> {{ family.phone }}</p>
-                        <p><strong>אימייל:</strong> {{ family.email|default:"לא הוזן" }}</p>
-                        <p><strong>כתובת:</strong> {{ family.address }}</p>
-                        <p><strong>מטפל אחראי:</strong> {{ family.therapist.get_full_name|default:family.therapist.username }}</p>
-                    </div>
-                    <div class="col-md-6">
-                        <h5>פרטי האב</h5>
-                        <p><strong>שם:</strong> {{ family.father_name|default:"לא הוזן" }}</p>
-                        <p><strong>טלפון:</strong> {{ family.father_phone|default:"לא הוזן" }}</p>
-                        <p><strong>אימייל:</strong> {{ family.father_email|default:"לא הוזן" }}</p>
-                        
-                        <h5 class="mt-3">פרטי האם</h5>
-                        <p><strong>שם:</strong> {{ family.mother_name|default:"לא הוזן" }}</p>
-                        <p><strong>טלפון:</strong> {{ family.mother_phone|default:"לא הוזן" }}</p>
-                        <p><strong>אימייל:</strong> {{ family.mother_email|default:"לא הוזן" }}</p>
-                    </div>
-                </div>
-                {% if family.notes %}
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <h5>הערות</h5>
-                            <p>{{ family.notes|linebreaks }}</p>
-                        </div>
-                    </div>
-                {% endif %}
-            </div>
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-md-8">
+            <h1>{{ family.name }}</h1>
         </div>
-
-        <!-- רשימת הילדים -->
-        <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center mb-3">
-                <h5 class="card-title mb-0">ילדים</h5>
-                <a href="{% url 'treatment_app:family-child-create' family.id %}" class="btn btn-sm btn-primary">
-                    <i class="fas fa-plus"></i> הוסף ילד
-                </a>
-            </div>
-            <div class="card-body">
-                {% if children %}
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>שם</th>
-                                    <th>גיל</th>
-                                    <th>בית ספר</th>
-                                    <th>כיתה</th>
-                                    <th>פעולות</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for child in children %}
-                                    <tr>
-                                        <td>{{ child.name }}</td>
-                                        <td>{{ child.birth_date|timesince }}</td>
-                                        <td>{{ child.school }}</td>
-                                        <td>{{ child.grade }}</td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <a href="{% url 'treatment_app:child-detail' child.pk %}" class="btn btn-primary btn-sm">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a href="{% url 'treatment_app:child-update' child.pk %}" class="btn btn-warning btn-sm">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <a href="{% url 'treatment_app:child-delete' child.pk %}" class="btn btn-danger btn-sm">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                {% else %}
-                    <p>אין ילדים במשפחה זו.</p>
-                {% endif %}
-            </div>
+        {% if can_edit_family or can_delete_family %}
+        <div class="col-md-4 text-end">
+            {% if can_edit_family %}
+            <a href="{% url 'treatment_app:family-update' family.pk %}" class="btn btn-warning me-2">
+                <i class="fas fa-edit"></i> ערוך
+            </a>
+            {% endif %}
+            {% if can_delete_family %}
+            <a href="{% url 'treatment_app:family-delete' family.pk %}" class="btn btn-danger">
+                <i class="fas fa-trash"></i> מחק
+            </a>
+            {% endif %}
         </div>
+        {% endif %}
     </div>
 
-    <div class="col-md-4">
-        <!-- מסמכים -->
-        <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center mb-3">
-                <h5 class="card-title mb-0">מסמכים</h5>
-                <a href="{% url 'treatment_app:family-document-create' family.id %}" class="btn btn-sm btn-primary">
-                    <i class="fas fa-plus"></i> הוסף מסמך
-                </a>
-            </div>
-            <div class="card-body">
-                {% if documents %}
-                    <div class="list-group">
-                        {% for document in documents %}
-                        <div class="list-group-item">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="mb-1">{{ document.name }}</h6>
-                                    <small class="text-muted">
-                                        {{ document.get_document_type_display }}
-                                        {% if document.child %}
-                                        | שויך ל{{ document.child.name }}
-                                        {% else %}
-                                        | שויך למשפחה
-                                        {% endif %}
-                                    </small>
-                                    {% if document.notes %}
-                                    <p class="mb-1"><small>{{ document.notes }}</small></p>
-                                    {% endif %}
-                                </div>
-                                <div>
-                                    <a href="{{ document.file.url }}" class="btn btn-sm btn-outline-primary" target="_blank">
-                                        <i class="fas fa-download"></i>
-                                    </a>
-                                    <a href="{% url 'treatment_app:document-update' document.pk %}" class="btn btn-sm btn-outline-primary">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="{% url 'treatment_app:document-delete' document.pk %}" class="btn btn-sm btn-outline-danger">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    <p class="text-muted">אין מסמכים להצגה</p>
-                {% endif %}
-            </div>
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2>{{ family.name }}</h2>
         </div>
-    </div>
-</div>
-
-<!-- טיפולים -->
-<div class="card mb-4">
-    <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">טיפולים</h5>
-        <div>
-            <a href="{% url 'treatment_app:family-treatment-create' family_id=family.pk %}" class="btn btn-primary btn-sm">
-                <i class="fas fa-plus"></i> הוסף טיפול משפחתי
+        <div class="col-md-4 text-end">
+            <a href="{% url 'treatment_app:family-update' family.pk %}" class="btn btn-warning">
+                <i class="fas fa-edit"></i> עריכת משפחה
+            </a>
+            <a href="{% url 'treatment_app:family-delete' family.pk %}" class="btn btn-danger">
+                <i class="fas fa-trash"></i> מחיקת משפחה
             </a>
         </div>
     </div>
-    <div class="card-body">
-        {% if treatments %}
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>סוג טיפול</th>
-                            <th>תאריך</th>
-                            <th>ילד</th>
-                            <th>סיכום</th>
-                            <th>פעולות</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for treatment in treatments %}
-                            <tr>
-                                <td>{{ treatment.get_type_display }}</td>
-                                <td>{{ treatment.date|date:"d/m/Y H:i" }}</td>
-                                <td>
-                                    {% if treatment.child %}
-                                        <a href="{% url 'treatment_app:child-detail' treatment.child.pk %}">
-                                            {{ treatment.child.name }}
+
+    <div class="row">
+        <div class="col-md-8">
+            <!-- פרטי המשפחה -->
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">פרטי המשפחה</h4>
+                    <div>
+                        <a href="{% url 'treatment_app:family-update' family.pk %}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-edit"></i> ערוך
+                        </a>
+                        <a href="{% url 'treatment_app:family-delete' family.pk %}" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i> מחק
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Alert for missing forms -->
+                    {% if not family.consent_form or not family.confidentiality_waiver %}
+                    <div class="alert alert-danger mb-3">
+                        <h5 class="alert-heading">חסרים טפסים חשובים!</h5>
+                        <ul class="mb-0">
+                            {% if not family.consent_form %}
+                            <li>טופס הסכמה</li>
+                            {% endif %}
+                            {% if not family.confidentiality_waiver %}
+                            <li>טופס ויתור סודיות</li>
+                            {% endif %}
+                        </ul>
+                        <hr>
+                        <a href="{% url 'treatment_app:family-update' family.pk %}" class="btn btn-danger btn-sm">
+                            <i class="fas fa-file-upload"></i> העלה טפסים חסרים
+                        </a>
+                    </div>
+                    {% endif %}
+
+                    <!-- Required Forms -->
+                    <div class="mb-4">
+                        <h5>טפסים נדרשים</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card {% if family.consent_form %}border-success{% else %}border-danger{% endif %}">
+                                    <div class="card-body">
+                                        <h6 class="card-title">טופס הסכמה</h6>
+                                        {% if family.consent_form %}
+                                            <p class="card-text text-success">
+                                                <i class="fas fa-check-circle"></i>
+                                                קיים ({{ family.consent_form_date|default:"ללא תאריך" }})
+                                                <a href="{{ family.consent_form.url }}" class="btn btn-sm btn-outline-success" target="_blank">
+                                                    <i class="fas fa-download"></i> הורד
+                                                </a>
+                                            </p>
+                                        {% else %}
+                                            <p class="card-text text-danger">
+                                                <i class="fas fa-times-circle"></i> חסר
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card {% if family.confidentiality_waiver %}border-success{% else %}border-danger{% endif %}">
+                                    <div class="card-body">
+                                        <h6 class="card-title">טופס ויתור סודיות</h6>
+                                        {% if family.confidentiality_waiver %}
+                                            <p class="card-text text-success">
+                                                <i class="fas fa-check-circle"></i>
+                                                קיים ({{ family.confidentiality_waiver_date|default:"ללא תאריך" }})
+                                                <a href="{{ family.confidentiality_waiver.url }}" class="btn btn-sm btn-outline-success" target="_blank">
+                                                    <i class="fas fa-download"></i> הורד
+                                                </a>
+                                            </p>
+                                        {% else %}
+                                            <p class="card-text text-danger">
+                                                <i class="fas fa-times-circle"></i> חסר
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Family Details -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>טלפון:</strong> {{ family.phone }}</p>
+                            <p><strong>אימייל:</strong> {{ family.email|default:"לא הוזן" }}</p>
+                            <p><strong>כתובת:</strong> {{ family.address }}</p>
+                            <p><strong>מטפל אחראי:</strong> {{ family.therapist.get_full_name|default:family.therapist.username }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>פרטי האב</h5>
+                            <p><strong>שם:</strong> {{ family.father_name|default:"לא הוזן" }}</p>
+                            <p><strong>טלפון:</strong> {{ family.father_phone|default:"לא הוזן" }}</p>
+                            <p><strong>אימייל:</strong> {{ family.father_email|default:"לא הוזן" }}</p>
+                            
+                            <h5 class="mt-3">פרטי האם</h5>
+                            <p><strong>שם:</strong> {{ family.mother_name|default:"לא הוזן" }}</p>
+                            <p><strong>טלפון:</strong> {{ family.mother_phone|default:"לא הוזן" }}</p>
+                            <p><strong>אימייל:</strong> {{ family.mother_email|default:"לא הוזן" }}</p>
+                        </div>
+                    </div>
+                    {% if family.notes %}
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <h5>הערות</h5>
+                                <p>{{ family.notes|linebreaks }}</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- רשימת הילדים -->
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="card-title mb-0">ילדים</h5>
+                    <a href="{% url 'treatment_app:family-child-create' family.id %}" class="btn btn-sm btn-primary">
+                        <i class="fas fa-plus"></i> הוסף ילד
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% if children %}
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>שם</th>
+                                        <th>גיל</th>
+                                        <th>בית ספר</th>
+                                        <th>כיתה</th>
+                                        <th>פעולות</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for child in children %}
+                                        <tr>
+                                            <td>{{ child.name }}</td>
+                                            <td>{{ child.birth_date|timesince }}</td>
+                                            <td>{{ child.school }}</td>
+                                            <td>{{ child.grade }}</td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <a href="{% url 'treatment_app:child-detail' child.pk %}" class="btn btn-primary btn-sm">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    <a href="{% url 'treatment_app:child-update' child.pk %}" class="btn btn-warning btn-sm">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <a href="{% url 'treatment_app:child-delete' child.pk %}" class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p>אין ילדים במשפחה זו.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <!-- מסמכים -->
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="card-title mb-0">מסמכים</h5>
+                    <a href="{% url 'treatment_app:family-document-create' family.id %}" class="btn btn-sm btn-primary">
+                        <i class="fas fa-plus"></i> הוסף מסמך
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% if documents %}
+                        <div class="list-group">
+                            {% for document in documents %}
+                            <div class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">{{ document.name }}</h6>
+                                        <small class="text-muted">
+                                            {{ document.get_document_type_display }}
+                                            {% if document.child %}
+                                            | שויך ל{{ document.child.name }}
+                                            {% else %}
+                                            | שויך למשפחה
+                                            {% endif %}
+                                        </small>
+                                        {% if document.notes %}
+                                        <p class="mb-1"><small>{{ document.notes }}</small></p>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <a href="{{ document.file.url }}" class="btn btn-sm btn-outline-primary" target="_blank">
+                                            <i class="fas fa-download"></i>
                                         </a>
-                                    {% else %}
-                                        -
-                                    {% endif %}
-                                </td>
-                                <td>{{ treatment.summary|truncatewords:10 }}</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a href="{% url 'treatment_app:treatment-update' treatment.pk %}" class="btn btn-sm btn-outline-primary">
+                                        <a href="{% url 'treatment_app:document-update' document.pk %}" class="btn btn-sm btn-outline-primary">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="{% url 'treatment_app:treatment-delete' treatment.pk %}" class="btn btn-sm btn-outline-danger">
+                                        <a href="{% url 'treatment_app:document-delete' document.pk %}" class="btn btn-sm btn-outline-danger">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </div>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">אין מסמכים להצגה</p>
+                    {% endif %}
+                </div>
             </div>
-        {% else %}
-            <p class="text-muted">אין טיפולים להצגה</p>
-        {% endif %}
+        </div>
+    </div>
+
+    <!-- טיפולים -->
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">טיפולים</h5>
+            <div>
+                <a href="{% url 'treatment_app:family-treatment-create' family_id=family.pk %}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus"></i> הוסף טיפול משפחתי
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            {% if treatments %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>סוג טיפול</th>
+                                <th>תאריך</th>
+                                <th>ילד</th>
+                                <th>סיכום</th>
+                                <th>פעולות</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for treatment in treatments %}
+                                <tr>
+                                    <td>{{ treatment.get_type_display }}</td>
+                                    <td>{{ treatment.date|date:"d/m/Y H:i" }}</td>
+                                    <td>
+                                        {% if treatment.child %}
+                                            <a href="{% url 'treatment_app:child-detail' treatment.child.pk %}">
+                                                {{ treatment.child.name }}
+                                            </a>
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ treatment.summary|truncatewords:10 }}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{% url 'treatment_app:treatment-update' treatment.pk %}" class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="{% url 'treatment_app:treatment-delete' treatment.pk %}" class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-muted">אין טיפולים להצגה</p>
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}

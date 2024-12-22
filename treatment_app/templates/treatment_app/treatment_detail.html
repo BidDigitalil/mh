@@ -70,7 +70,7 @@
             
             <div class="row mt-4">
                 <div class="col-12">
-                    <a href="{% url 'treatment_app:treatment-edit' treatment.pk %}" class="btn btn-primary">
+                    <a href="{% url 'treatment_app:treatment-update' treatment.pk %}" class="btn btn-primary">
                         {% trans "ערוך טיפול" %}
                     </a>
                     <a href="{% url 'treatment_app:treatment-delete' treatment.pk %}" class="btn btn-danger">

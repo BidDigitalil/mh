@@ -5,6 +5,7 @@ from crispy_forms.layout import Layout, Fieldset, Row, Column, Submit, Div, HTML
 from .models import Family, Child, Treatment, Document, TherapistProfile
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.db.models import Q
 
 class FamilyForm(forms.ModelForm):
     class Meta:
@@ -127,10 +128,9 @@ class FamilyForm(forms.ModelForm):
 
 class ChildForm(forms.ModelForm):
     therapist = forms.ModelChoiceField(
-        queryset=TherapistProfile.objects.all(), 
+        queryset=TherapistProfile.objects.filter(is_active=True), 
         required=False, 
-        label='מטפל',
-        widget=forms.Select(attrs={'class': 'form-control'})
+        label=_('מטפל')
     )
 
     class Meta:
@@ -139,8 +139,8 @@ class ChildForm(forms.ModelForm):
             'name', 'birth_date', 'gender', 'school', 'grade', 
             'teacher_name', 'teacher_phone', 
             'school_counselor_name', 'school_counselor_phone',
-            'allergies', 'medications', 'special_needs',
-            'medical_info', 'notes', 'therapist'
+            'allergies', 'medications', 'special_needs', 
+            'medical_info', 'notes', 'therapist', 'family'
         ]
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
@@ -157,38 +157,54 @@ class ChildForm(forms.ModelForm):
             'special_needs': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'medical_info': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'notes': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'family': forms.Select(attrs={'class': 'form-control'}),
         }
 
-    def __init__(self, *args, family=None, user=None, **kwargs):
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
-        
-        # Determine therapist queryset based on user role
+
+        # If a specific family is passed in initial, set it as the default
+        if 'initial' in kwargs and 'family' in kwargs['initial']:
+            self.fields['family'].initial = kwargs['initial']['family']
+            self.fields['family'].widget.attrs['readonly'] = True
+
+        # If not a superuser, modify choices
         if user and not user.is_superuser:
             try:
-                current_therapist = user.therapistprofile
-                # Therapists can only select themselves or no one
-                self.fields['therapist'].queryset = TherapistProfile.objects.filter(pk=current_therapist.pk)
+                therapist_profile = TherapistProfile.objects.get(user=user)
+                
+                # Limit family choices to those where therapist is assigned
+                # But allow no family selection
+                self.fields['family'].queryset = Family.objects.filter(
+                    Q(therapist=user) | 
+                    Q(children__therapist=therapist_profile)
+                ).distinct().union(Family.objects.none())
+                
+                # Set initial therapist to current therapist
+                self.fields['therapist'].initial = therapist_profile
+                
             except TherapistProfile.DoesNotExist:
-                # Non-therapist users cannot change therapist
-                self.fields['therapist'].disabled = True
-        
-        # If a family is provided, filter children to that family
-        if family:
-            # Ensure the child belongs to the specified family
-            self.fields['family'].initial = family
-            self.fields['family'].widget = forms.HiddenInput()
-        
-        # If an instance exists and has a therapist, set the initial value
-        if hasattr(self, 'instance') and self.instance.pk:
-            self.fields['therapist'].initial = self.instance.therapist
+                # Restrict all choices if no therapist profile
+                self.fields['family'].queryset = Family.objects.none()
+                self.fields['therapist'].queryset = TherapistProfile.objects.none()
 
-    def save(self, commit=True):
-        # Ensure the child is saved with the selected therapist
-        instance = super().save(commit=False)
+    def clean(self):
+        cleaned_data = super().clean()
         
-        if commit:
-            instance.save()
-        return instance
+        # Allow therapist assignment without family
+        family = cleaned_data.get('family')
+        therapist = cleaned_data.get('therapist')
+        
+        if therapist and not family:
+            pass
+        
+        # If family is selected, optional therapist validation
+        if family and therapist:
+            # Optional: Add additional validation if needed
+            pass
+        
+        return cleaned_data
 
 class TreatmentForm(forms.ModelForm):
     class Meta:

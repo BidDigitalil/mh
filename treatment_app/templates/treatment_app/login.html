@@ -2,22 +2,72 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="text-center">התחברות</h3>
-            </div>
-            <div class="card-body">
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form|crispy }}
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary">התחבר</button>
+<div class="container login-container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="my-2">
+                        <i class="fas fa-heartbeat me-2"></i> מרכז טיפול
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="id_username" name="username" placeholder="שם משתמש" required>
+                            <label for="id_username">
+                                <i class="fas fa-user me-2"></i> שם משתמש
+                            </label>
+                            <div class="invalid-feedback">
+                                אנא הזן שם משתמש
+                            </div>
+                        </div>
+                        
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="id_password" name="password" placeholder="סיסמה" required>
+                            <label for="id_password">
+                                <i class="fas fa-lock me-2"></i> סיסמה
+                            </label>
+                            <div class="invalid-feedback">
+                                אנא הזן סיסמה
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-sign-in-alt me-2"></i> התחבר
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center py-3">
+                    <div class="small">
+                        <a href="#" class="text-muted">שכחת סיסמה?</a>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // Custom login page JS
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginForm = document.querySelector('form');
+        loginForm.addEventListener('submit', function(event) {
+            const username = document.getElementById('id_username');
+            const password = document.getElementById('id_password');
+            
+            if (!username.value.trim() || !password.value.trim()) {
+                event.preventDefault();
+                username.classList.add('is-invalid');
+                password.classList.add('is-invalid');
+            }
+        });
+    });
+</script>
 {% endblock %}

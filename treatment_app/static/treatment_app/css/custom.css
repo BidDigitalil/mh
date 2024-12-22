@@ -1,0 +1,154 @@
+/* Global Styles */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --warning-color: #f39c12;
+    --info-color: #2980b9;
+    --light-gray: #f8f9fa;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-gray);
+    direction: rtl;
+    text-align: right;
+}
+
+/* Wrapper */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px 0;
+}
+
+/* Navbar */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: var(--primary-color) !important;
+}
+
+.nav-link {
+    color: #495057 !important;
+}
+
+.nav-link i {
+    margin-left: 5px;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn i {
+    margin-left: 5px;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-success {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+}
+
+.btn-warning {
+    background-color: var(--warning-color);
+    border-color: var(--warning-color);
+}
+
+.btn-info {
+    background-color: var(--info-color);
+    border-color: var(--info-color);
+}
+
+/* Cards */
+.card {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: var(--light-gray);
+    border-bottom: 1px solid #e9ecef;
+}
+
+/* Dashboard Styles */
+.dashboard-card {
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+}
+
+.dashboard-card i {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.dashboard-card-families {
+    background: var(--primary-color);
+}
+
+.dashboard-card-children {
+    background: var(--secondary-color);
+}
+
+.dashboard-card-treatments {
+    background: var(--danger-color);
+}
+
+/* Tables */
+.table-responsive {
+    margin-bottom: 20px;
+}
+
+.table thead {
+    background-color: var(--light-gray);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .dashboard-card {
+        margin-bottom: 15px;
+    }
+}
+
+/* Footer */
+.footer {
+    background-color: var(--light-gray);
+    border-top: 1px solid #e9ecef;
+    padding: 15px 0;
+}
+
+/* Forms */
+.form-control {
+    border-radius: 5px;
+}
+
+/* Icons */
+.section-icon {
+    color: var(--primary-color);
+    margin-left: 10px;
+    font-size: 1.5rem;
+}

@@ -26,6 +26,7 @@ urlpatterns = [
     path('treatment/create/', views.TreatmentCreateView.as_view(), name='treatment-create'),
     path('family/<int:family_id>/treatment/create/', views.TreatmentCreateView.as_view(), name='family-treatment-create'),
     path('child/<int:child_id>/treatment/create/', views.TreatmentCreateView.as_view(), name='child-treatment-create'),
+    path('treatment/<int:pk>/', views.TreatmentDetailView.as_view(), name='treatment-detail'),
     path('treatment/<int:pk>/update/', views.TreatmentUpdateView.as_view(), name='treatment-update'),
     path('treatment/<int:pk>/delete/', views.TreatmentDeleteView.as_view(), name='treatment-delete'),
     
