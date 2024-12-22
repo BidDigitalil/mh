@@ -26,7 +26,7 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-body">
-                <form method="post" novalidate>
+                <form method="post" enctype="multipart/form-data" novalidate>
                     {% csrf_token %}
                     
                     <div class="row">
@@ -82,6 +82,41 @@
                         </div>
                     </div>
 
+                    <h4 class="mt-4">טפסים נדרשים</h4>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        יש להעלות את הטפסים הנדרשים בפורמט PDF או Word
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">טופס הסכמה</label>
+                                {% if form.instance.consent_form %}
+                                    <div class="mb-2">
+                                        <a href="{{ form.instance.consent_form.url }}" class="btn btn-sm btn-success" target="_blank">
+                                            <i class="fas fa-file-download"></i> הורד טופס קיים
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                {{ form.consent_form|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">טופס ויתור סודיות</label>
+                                {% if form.instance.confidentiality_waiver %}
+                                    <div class="mb-2">
+                                        <a href="{{ form.instance.confidentiality_waiver.url }}" class="btn btn-sm btn-success" target="_blank">
+                                            <i class="fas fa-file-download"></i> הורד טופס קיים
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                {{ form.confidentiality_waiver|as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row mt-4">
                         <div class="col-md-12">
                             {{ form.notes|as_crispy_field }}
@@ -118,6 +153,7 @@
                     <li>כתובת המשפחה</li>
                     <li>בחירת מטפל אחראי</li>
                     <li>פרטי ההורים - שם, טלפון ואימייל</li>
+                    <li>טפסים נדרשים - הסכמה וויתור סודיות</li>
                     <li>הערות נוספות במידת הצורך</li>
                 </ul>
             </div>

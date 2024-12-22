@@ -1,6 +1,8 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
-from .models import Family, Child, Document, Treatment
+from .models import Family, Child, Document, Treatment, TherapistProfile
 
 class ChildInline(admin.TabularInline):
     model = Child
@@ -10,12 +12,45 @@ class DocumentInline(admin.TabularInline):
     model = Document
     extra = 0
 
+class TherapistProfileInline(admin.StackedInline):
+    model = TherapistProfile
+    can_delete = False
+    verbose_name_plural = 'פרופיל מטפל'
+
+class CustomUserAdmin(UserAdmin):
+    inlines = (TherapistProfileInline,)
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'get_is_therapist', 'get_is_active')
+    list_filter = ('is_staff', 'is_superuser', 'therapistprofile__is_active')
+    search_fields = ('username', 'first_name', 'last_name', 'email')
+
+    def get_is_therapist(self, obj):
+        return hasattr(obj, 'therapistprofile')
+    get_is_therapist.short_description = 'מטפל'
+    get_is_therapist.boolean = True
+
+    def get_is_active(self, obj):
+        if hasattr(obj, 'therapistprofile'):
+            return obj.therapistprofile.is_active
+        return obj.is_active
+    get_is_active.short_description = 'פעיל'
+    get_is_active.boolean = True
+
+    fieldsets = (
+        (None, {'fields': ('username', 'password')}),
+        ('מידע אישי', {'fields': ('first_name', 'last_name', 'email')}),
+        ('הרשאות', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        ('תאריכים חשובים', {'fields': ('last_login', 'date_joined')}),
+    )
+
+# Re-register UserAdmin
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
+
 @admin.register(Family)
 class FamilyAdmin(admin.ModelAdmin):
-    list_display = ('name', 'phone', 'therapist', 'created_at')
-    list_filter = ('therapist', 'created_at')
-    search_fields = ('name', 'phone', 'email', 'father_name', 'mother_name')
-    date_hierarchy = 'created_at'
+    list_display = ('name', 'phone', 'email', 'therapist')
+    search_fields = ('name', 'phone', 'email')
+    list_filter = ('therapist',)
     inlines = [ChildInline, DocumentInline]
     fieldsets = (
         (_('פרטי משפחה'), {
@@ -34,10 +69,9 @@ class FamilyAdmin(admin.ModelAdmin):
 
 @admin.register(Child)
 class ChildAdmin(admin.ModelAdmin):
-    list_display = ('name', 'family', 'birth_date', 'school', 'grade')
-    list_filter = ('family', 'grade', 'created_at')
-    search_fields = ('name', 'family__name', 'school')
-    date_hierarchy = 'created_at'
+    list_display = ('name', 'family', 'birth_date', 'gender')
+    list_filter = ('family', 'gender')
+    search_fields = ('name',)
     fieldsets = (
         (_('פרטים אישיים'), {
             'fields': ('family', 'name', 'birth_date', 'gender')

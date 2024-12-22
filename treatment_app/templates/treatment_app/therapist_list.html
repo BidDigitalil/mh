@@ -1,0 +1,100 @@
+{% extends "treatment_app/base.html" %}
+{% load i18n %}
+
+{% block title %}ניהול מטפלים{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>ניהול מטפלים</h2>
+                <a href="{% url 'treatment_app:therapist-create' %}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> הוסף מטפל חדש
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    {% if therapists %}
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>שם מלא</th>
+                                        <th>אימייל</th>
+                                        <th>טלפון</th>
+                                        <th>התמחות</th>
+                                        <th>סטטוס</th>
+                                        <th>פעולות</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for therapist in therapists %}
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar-sm bg-primary rounded-circle me-2 d-flex align-items-center justify-content-center">
+                                                        <span class="text-white">{{ therapist.user.first_name|first }}{{ therapist.user.last_name|first }}</span>
+                                                    </div>
+                                                    <div>{{ therapist.user.get_full_name }}</div>
+                                                </div>
+                                            </td>
+                                            <td>{{ therapist.user.email }}</td>
+                                            <td>{{ therapist.phone|default:"-" }}</td>
+                                            <td>{{ therapist.specialization|default:"-" }}</td>
+                                            <td>
+                                                {% if therapist.is_active %}
+                                                    <span class="badge bg-success">פעיל</span>
+                                                {% else %}
+                                                    <span class="badge bg-danger">לא פעיל</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <a href="{% url 'treatment_app:therapist-update' therapist.pk %}" 
+                                                       class="btn btn-sm btn-outline-primary"
+                                                       title="ערוך">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <a href="{% url 'treatment_app:therapist-delete' therapist.pk %}" 
+                                                       class="btn btn-sm btn-outline-danger"
+                                                       title="מחק"
+                                                       onclick="return confirm('האם אתה בטוח שברצונך למחוק את המטפל?');">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <div class="mb-3">
+                                <i class="fas fa-user-md fa-3x text-muted"></i>
+                            </div>
+                            <h5 class="text-muted">אין מטפלים במערכת</h5>
+                            <p class="text-muted">לחץ על "הוסף מטפל חדש" כדי להתחיל</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

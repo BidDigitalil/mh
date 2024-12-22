@@ -1,0 +1,73 @@
+{% extends "treatment_app/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}פרטי מסמך{% endblock %}
+
+{% block content %}
+<div class="container rtl">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">פרטי מסמך</h2>
+        </div>
+        <div class="card-body">
+            {% if object %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>שם המסמך</h4>
+                        <p>{{ object.name }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>סוג המסמך</h4>
+                        <p>{{ object.get_document_type_display }}</p>
+                    </div>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <h4>תאריך העלאה</h4>
+                        <p>{{ object.upload_date|date:"d/m/Y" }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>משפחה</h4>
+                        <p>
+                            {% if object.family %}
+                                {{ object.family.family_name }}
+                            {% else %}
+                                לא שויך למשפחה
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h4>קובץ מסמך</h4>
+                        {% if object.file %}
+                            <a href="{{ object.file.url }}" class="btn btn-info" target="_blank">
+                                <i class="fas fa-file-download"></i> הורד מסמך
+                            </a>
+                        {% else %}
+                            <p class="text-danger">אין קובץ מצורף</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <a href="{% url 'treatment_app:document-list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> חזרה לרשימת מסמכים
+                        </a>
+                        <a href="{% url 'treatment_app:document-update' object.pk %}" class="btn btn-warning">
+                            <i class="fas fa-edit"></i> ערוך מסמך
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-warning">
+                    מסמך זה לא נמצא במערכת
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

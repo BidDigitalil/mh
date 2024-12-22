@@ -126,17 +126,18 @@ USE_TZ = True
 AUTH_USER_MODEL = 'auth.User'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'treatment_app:dashboard'
+LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'login'
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    BASE_DIR / 'treatment_app' / 'static',
 ]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Media files
-MEDIA_URL = 'media/'
+# Media files (Uploaded files)
+MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Crispy forms
