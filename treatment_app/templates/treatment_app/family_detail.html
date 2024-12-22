@@ -1,0 +1,63 @@
+{% extends 'treatment_app/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header">
+        <h3>משפחת {{ family.name }}</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>פרטי משפחה</h4>
+                <p>
+                    <strong>טלפון:</strong> {{ family.phone }}<br>
+                    <strong>כתובת:</strong> {{ family.address }}<br>
+                    <strong>מטפל משפחתי:</strong> {{ family.therapist }}
+                </p>
+            </div>
+            <div class="col-md-6">
+                <h4>מסמכים</h4>
+                {% if family.consent_form %}
+                <p><a href="{{ family.consent_form.url }}" class="btn btn-sm btn-info">טופס הסכמה</a></p>
+                {% endif %}
+                {% if family.treatment_form %}
+                <p><a href="{{ family.treatment_form.url }}" class="btn btn-sm btn-info">טופס ויתור סודיות</a></p>
+                {% endif %}
+                <a href="{% url 'treatment_app:add_family_document' family.pk %}" class="btn btn-sm btn-primary">
+                    הוסף מסמך חדש
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h4>ילדים</h4>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {{ formset.management_form }}
+            
+            <div class="row">
+                {% for form in formset %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            {{ form|crispy }}
+                            {% if not forloop.last %}
+                            <hr>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <button type="submit" class="btn btn-primary">שמור שינויים</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "treatment_app/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2>רשימת מסמכים</h2>
+        </div>
+        <div class="col-md-4 text-left">
+            <a href="{% url 'treatment_app:document-create' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> הוספת מסמך חדש
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>שם המסמך</th>
+                            <th>סוג</th>
+                            <th>משפחה</th>
+                            <th>תאריך העלאה</th>
+                            <th>פעולות</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for document in documents %}
+                        <tr>
+                            <td>{{ document.title }}</td>
+                            <td>{{ document.get_document_type_display }}</td>
+                            <td><a href="{% url 'treatment_app:family-detail' document.family.id %}">{{ document.family.family_name }}</a></td>
+                            <td>{{ document.created_at|date:"d/m/Y" }}</td>
+                            <td>
+                                <a href="{% url 'treatment_app:document-detail' document.id %}" class="btn btn-info btn-sm">צפייה</a>
+                                <a href="{% url 'treatment_app:document-update' document.id %}" class="btn btn-primary btn-sm">עריכה</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">אין מסמכים במערכת</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {% if is_paginated %}
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                    </li>
+                    {% endif %}
+
+                    {% for i in paginator.page_range %}
+                    <li class="page-item {% if page_obj.number == i %}active{% endif %}">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

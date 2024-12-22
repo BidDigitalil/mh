@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2>{% trans "פרטי טיפול" %}</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>{% trans "מידע בסיסי" %}</h4>
+                    <dl class="row">
+                        <dt class="col-sm-4">{% trans "ילד" %}</dt>
+                        <dd class="col-sm-8">{{ treatment.child.name }}</dd>
+                        
+                        <dt class="col-sm-4">{% trans "משפחה" %}</dt>
+                        <dd class="col-sm-8">{{ treatment.child.family.family_name }}</dd>
+                        
+                        <dt class="col-sm-4">{% trans "מטפל" %}</dt>
+                        <dd class="col-sm-8">{{ treatment.therapist.user.get_full_name }}</dd>
+                        
+                        <dt class="col-sm-4">{% trans "תאריך" %}</dt>
+                        <dd class="col-sm-8">{{ treatment.date }}</dd>
+                        
+                        <dt class="col-sm-4">{% trans "סטטוס" %}</dt>
+                        <dd class="col-sm-8">{{ treatment.get_status_display }}</dd>
+                    </dl>
+                </div>
+                
+                <div class="col-md-6">
+                    <h4>{% trans "סיכום הטיפול" %}</h4>
+                    <p>{{ treatment.summary|linebreaks }}</p>
+                </div>
+            </div>
+
+            {% if treatment.documents.exists %}
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h4>{% trans "מסמכים קשורים" %}</h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>{% trans "שם המסמך" %}</th>
+                                <th>{% trans "סוג" %}</th>
+                                <th>{% trans "תאריך העלאה" %}</th>
+                                <th>{% trans "פעולות" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for document in treatment.documents.all %}
+                            <tr>
+                                <td>{{ document.name }}</td>
+                                <td>{{ document.get_document_type_display }}</td>
+                                <td>{{ document.created_at|date }}</td>
+                                <td>
+                                    <a href="{{ document.file.url }}" class="btn btn-sm btn-primary" target="_blank">
+                                        {% trans "צפה" %}
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+            
+            <div class="row mt-4">
+                <div class="col-12">
+                    <a href="{% url 'treatment_app:treatment-edit' treatment.pk %}" class="btn btn-primary">
+                        {% trans "ערוך טיפול" %}
+                    </a>
+                    <a href="{% url 'treatment_app:treatment-delete' treatment.pk %}" class="btn btn-danger">
+                        {% trans "מחק טיפול" %}
+                    </a>
+                    <a href="{% url 'treatment_app:treatment-list' %}" class="btn btn-secondary">
+                        {% trans "חזרה לרשימת הטיפולים" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

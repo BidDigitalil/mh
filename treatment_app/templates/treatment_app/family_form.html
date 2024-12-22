@@ -1,0 +1,94 @@
+{% extends "treatment_app/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">{% if form.instance.pk %}עריכת משפחה{% else %}הוספת משפחה חדשה{% endif %}</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" id="familyForm">
+                        {% csrf_token %}
+                        {% crispy form %}
+                        
+                        <div class="form-group mt-4">
+                            <div class="d-flex justify-content-between">
+                                <a href="{% url 'treatment_app:family-list' %}" class="btn btn-secondary">
+                                    <i class="fas fa-arrow-right ms-2"></i>
+                                    חזרה לרשימת המשפחות
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save ms-2"></i>
+                                    {% if form.instance.pk %}שמור שינויים{% else %}הוסף משפחה{% endif %}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const familyStatus = document.querySelector('#id_family_status');
+    const fatherDetails = document.querySelector('.father-details');
+    const motherDetails = document.querySelector('.mother-details');
+
+    function updateParentFields() {
+        const status = familyStatus.value;
+        
+        // קודם נסתיר את כל השדות
+        if (fatherDetails) fatherDetails.style.display = 'none';
+        if (motherDetails) motherDetails.style.display = 'none';
+        
+        // נציג את השדות הרלוונטיים בהתאם לסטטוס
+        switch(status) {
+            case 'married':
+                if (fatherDetails) fadeIn(fatherDetails);
+                if (motherDetails) fadeIn(motherDetails);
+                break;
+            case 'divorced':
+                if (fatherDetails) fadeIn(fatherDetails);
+                if (motherDetails) fadeIn(motherDetails);
+                break;
+            case 'single_father':
+                if (fatherDetails) fadeIn(fatherDetails);
+                break;
+            case 'single_mother':
+                if (motherDetails) fadeIn(motherDetails);
+                break;
+            case 'other':
+                if (fatherDetails) fadeIn(fatherDetails);
+                if (motherDetails) fadeIn(motherDetails);
+                break;
+        }
+    }
+
+    function fadeIn(element) {
+        element.style.opacity = 0;
+        element.style.display = 'block';
+        
+        let opacity = 0;
+        const timer = setInterval(function() {
+            if (opacity >= 1) {
+                clearInterval(timer);
+            }
+            element.style.opacity = opacity;
+            opacity += 0.1;
+        }, 50);
+    }
+
+    // מאזין לשינויים בסטטוס המשפחה
+    if (familyStatus) {
+        familyStatus.addEventListener('change', updateParentFields);
+        // הרצה ראשונית
+        updateParentFields();
+    }
+});
+</script>
+{% endblock %}
