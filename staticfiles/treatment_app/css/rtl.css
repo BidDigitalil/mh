@@ -1,0 +1,126 @@
+/* RTL Support */
+body {
+    direction: rtl;
+    text-align: right;
+}
+
+.navbar-nav {
+    padding-right: 0;
+}
+
+.ml-auto {
+    margin-right: auto !important;
+    margin-left: 0 !important;
+}
+
+.mr-auto {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}
+
+.text-left {
+    text-align: right !important;
+}
+
+.text-right {
+    text-align: left !important;
+}
+
+/* Form styling */
+.form-group {
+    text-align: right;
+}
+
+.input-group > .form-control {
+    border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.input-group > .input-group-append > .btn {
+    border-radius: 0.25rem 0 0 0.25rem;
+}
+
+/* Table styling */
+.table th,
+.table td {
+    text-align: right;
+}
+
+/* List styling */
+.list-group {
+    padding-right: 0;
+}
+
+/* Card styling */
+.card-header {
+    text-align: right;
+}
+
+/* Alert styling */
+.alert {
+    text-align: right;
+}
+
+/* Button group styling */
+.btn-group > .btn:first-child {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.btn-group > .btn:last-child {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/* Modal styling */
+.modal-header .close {
+    margin: -1rem auto -1rem -1rem;
+}
+
+.modal-footer {
+    justify-content: flex-start;
+}
+
+/* Dropdown styling */
+.dropdown-menu {
+    text-align: right;
+}
+
+.dropdown-item {
+    text-align: right;
+}
+
+/* Navigation styling */
+.breadcrumb-item + .breadcrumb-item::before {
+    padding-left: 0.5rem;
+    padding-right: 0;
+}
+
+/* Form validation styling */
+.was-validated .form-control:valid,
+.form-control.is-valid {
+    padding-left: calc(1.5em + 0.75rem);
+    padding-right: 0.75rem;
+    background-position: left calc(0.375em + 0.1875rem) center;
+}
+
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+    padding-left: calc(1.5em + 0.75rem);
+    padding-right: 0.75rem;
+    background-position: left calc(0.375em + 0.1875rem) center;
+}
+
+/* Custom styling */
+.form-check {
+    padding-right: 1.25rem;
+    padding-left: 0;
+}
+
+.form-check-input {
+    margin-right: -1.25rem;
+    margin-left: 0;
+}

@@ -1,63 +1,148 @@
-{% extends 'treatment_app/base.html' %}
-{% load crispy_forms_tags %}
+{% extends "treatment_app/base.html" %}
+
+{% block title %}{{ family.name }} - מרכז טיפולי{% endblock %}
 
 {% block content %}
-<div class="card mb-4">
-    <div class="card-header">
-        <h3>משפחת {{ family.name }}</h3>
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2>{{ family.name }}</h2>
     </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-6">
-                <h4>פרטי משפחה</h4>
-                <p>
-                    <strong>טלפון:</strong> {{ family.phone }}<br>
-                    <strong>כתובת:</strong> {{ family.address }}<br>
-                    <strong>מטפל משפחתי:</strong> {{ family.therapist }}
-                </p>
-            </div>
-            <div class="col-md-6">
-                <h4>מסמכים</h4>
-                {% if family.consent_form %}
-                <p><a href="{{ family.consent_form.url }}" class="btn btn-sm btn-info">טופס הסכמה</a></p>
-                {% endif %}
-                {% if family.treatment_form %}
-                <p><a href="{{ family.treatment_form.url }}" class="btn btn-sm btn-info">טופס ויתור סודיות</a></p>
-                {% endif %}
-                <a href="{% url 'treatment_app:add_family_document' family.pk %}" class="btn btn-sm btn-primary">
-                    הוסף מסמך חדש
-                </a>
-            </div>
-        </div>
+    <div class="col-md-4 text-end">
+        <a href="{% url 'treatment_app:family-update' family.pk %}" class="btn btn-warning">
+            <i class="fas fa-edit"></i> עריכת משפחה
+        </a>
+        <a href="{% url 'treatment_app:family-delete' family.pk %}" class="btn btn-danger">
+            <i class="fas fa-trash"></i> מחיקת משפחה
+        </a>
     </div>
 </div>
 
-<div class="card">
-    <div class="card-header">
-        <h4>ילדים</h4>
-    </div>
-    <div class="card-body">
-        <form method="post">
-            {% csrf_token %}
-            {{ formset.management_form }}
-            
-            <div class="row">
-                {% for form in formset %}
-                <div class="col-md-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            {{ form|crispy }}
-                            {% if not forloop.last %}
-                            <hr>
-                            {% endif %}
-                        </div>
+<div class="row">
+    <div class="col-md-8">
+        <!-- פרטי המשפחה -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="card-title">פרטי המשפחה</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>טלפון:</strong> {{ family.phone }}</p>
+                        <p><strong>אימייל:</strong> {{ family.email|default:"לא הוזן" }}</p>
+                        <p><strong>כתובת:</strong> {{ family.address }}</p>
+                        <p><strong>מטפל אחראי:</strong> {{ family.therapist.get_full_name|default:family.therapist.username }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>פרטי האב</h5>
+                        <p><strong>שם:</strong> {{ family.father_name|default:"לא הוזן" }}</p>
+                        <p><strong>טלפון:</strong> {{ family.father_phone|default:"לא הוזן" }}</p>
+                        <p><strong>אימייל:</strong> {{ family.father_email|default:"לא הוזן" }}</p>
+                        
+                        <h5 class="mt-3">פרטי האם</h5>
+                        <p><strong>שם:</strong> {{ family.mother_name|default:"לא הוזן" }}</p>
+                        <p><strong>טלפון:</strong> {{ family.mother_phone|default:"לא הוזן" }}</p>
+                        <p><strong>אימייל:</strong> {{ family.mother_email|default:"לא הוזן" }}</p>
                     </div>
                 </div>
-                {% endfor %}
+                {% if family.notes %}
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <h5>הערות</h5>
+                            <p>{{ family.notes|linebreaks }}</p>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
-            
-            <button type="submit" class="btn btn-primary">שמור שינויים</button>
-        </form>
+        </div>
+
+        <!-- רשימת הילדים -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 class="card-title mb-0">ילדים</h3>
+                <a href="{% url 'treatment_app:child-create' %}?family={{ family.pk }}" class="btn btn-success btn-sm">
+                    <i class="fas fa-plus"></i> הוספת ילד
+                </a>
+            </div>
+            <div class="card-body">
+                {% if children %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>שם</th>
+                                    <th>גיל</th>
+                                    <th>בית ספר</th>
+                                    <th>כיתה</th>
+                                    <th>פעולות</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for child in children %}
+                                    <tr>
+                                        <td>{{ child.name }}</td>
+                                        <td>{{ child.birth_date|timesince }}</td>
+                                        <td>{{ child.school }}</td>
+                                        <td>{{ child.grade }}</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a href="{% url 'treatment_app:child-detail' child.pk %}" class="btn btn-primary btn-sm">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="{% url 'treatment_app:child-update' child.pk %}" class="btn btn-warning btn-sm">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="{% url 'treatment_app:child-delete' child.pk %}" class="btn btn-danger btn-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p>אין ילדים במשפחה זו.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <!-- מסמכים -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 class="card-title mb-0">מסמכים</h3>
+                <a href="{% url 'treatment_app:document-create' %}?family={{ family.pk }}" class="btn btn-success btn-sm">
+                    <i class="fas fa-plus"></i> הוספת מסמך
+                </a>
+            </div>
+            <div class="card-body">
+                {% if documents %}
+                    <div class="list-group">
+                        {% for document in documents %}
+                            <div class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{{ document.name }}</h5>
+                                    <small>{{ document.created_at|date:"d/m/Y" }}</small>
+                                </div>
+                                <p class="mb-1">{{ document.get_document_type_display }}</p>
+                                <div class="btn-group" role="group">
+                                    <a href="{{ document.file.url }}" class="btn btn-primary btn-sm" target="_blank">
+                                        <i class="fas fa-download"></i> הורדה
+                                    </a>
+                                    <a href="{% url 'treatment_app:document-delete' document.pk %}" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>אין מסמכים למשפחה זו.</p>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
