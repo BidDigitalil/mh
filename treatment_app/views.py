@@ -6,7 +6,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from django.db.models import Q
 from django.utils import timezone
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 from .models import (
     Treatment, 
@@ -442,35 +442,67 @@ class FamilyDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return super().delete(request, *args, **kwargs)
 
 class ChildListView(LoginRequiredMixin, ListView):
+    """
+    List view for children with filtering and sorting
+    """
     model = Child
     template_name = 'treatment_app/child_list.html'
     context_object_name = 'children'
     ordering = ['family', 'name']
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Add age calculation to context
+        for child in context['children']:
+            child.age_text = self.calculate_age(child.birth_date)
+        
+        return context
+
+    @staticmethod
+    def calculate_age(birth_date):
+        """
+        Calculate age in Hebrew with grammatically correct display
+        """
+        if not birth_date:
+            return 'לא ידוע'
+
+        today = date.today()
+        years = today.year - birth_date.year
+        months = today.month - birth_date.month
+
+        # Adjust if birthday hasn't occurred this year
+        if today.day < birth_date.day:
+            months -= 1
+
+        if months < 0:
+            years -= 1
+            months += 12
+
+        # Hebrew grammar for age display
+        if years == 0:
+            return f'{months} {months == 1 and "חודש" or "חודשים"}'
+        elif years == 1:
+            return f'שנה{months > 0 and f", {months} {months == 1 and "חודש" or "חודשים"}" or ""}'
+        else:
+            # Corrected formatting for multiple years and months
+            return f'{years} שנים{months > 0 and f", {months} {months == 1 and "חודש" or "חודשים"}" or ""}'
+
     def get_queryset(self):
-        # Get the base queryset
-        queryset = super().get_queryset()
-        
-        # If not a superuser, filter children
+        """
+        Filter queryset based on user permissions
+        """
         user = self.request.user
-        if not user.is_superuser:
-            try:
-                # Get the current therapist profile
-                current_therapist = TherapistProfile.objects.get(user=user)
-                
-                # Filter children where:
-                # 1. Therapist is directly assigned to the child, OR
-                # 2. Therapist is assigned to the child's family
-                queryset = queryset.filter(
-                    Q(therapist=current_therapist) | 
-                    Q(family__therapist=current_therapist)
-                )
-            
-            except TherapistProfile.DoesNotExist:
-                # If not a therapist, return an empty queryset
-                queryset = queryset.none()
         
-        return queryset
+        # Superuser sees all children
+        if user.is_superuser:
+            return Child.objects.all().select_related('family', 'therapist__user')
+        
+        # Regular therapist sees only their children or unassigned children
+        return Child.objects.filter(
+            Q(therapist__user=user) |  # Children assigned to therapist
+            Q(therapist__isnull=True)  # Unassigned children
+        ).select_related('family', 'therapist__user')
 
 class ChildDetailView(LoginRequiredMixin, DetailView):
     model = Child

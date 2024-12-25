@@ -1,55 +1,101 @@
 {% extends "treatment_app/base.html" %}
-{% load crispy_forms_tags %}
+{% load tz %}
+
+{% block title %}ילדים - מרכז טיפולי{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="row mb-4">
-        <div class="col-md-8">
-            <h2>רשימת ילדים</h2>
+<div class="container-fluid px-4" dir="rtl">
+    <div class="row mb-4 align-items-center">
+        <div class="col">
+            <h2 class="mb-0">
+                <i class="fas fa-child me-2 text-primary"></i>רשימת ילדים
+            </h2>
         </div>
-        <div class="col-md-4 text-left">
-            <a href="{% url 'treatment_app:child-create' %}" class="btn btn-primary">
-                <i class="fas fa-plus"></i> הוספת ילד חדש
+        <div class="col-auto d-flex align-items-center">
+            <form class="me-3 flex-grow-1 position-relative" onsubmit="return false;">
+                <div class="position-relative">
+                    <input type="text" id="live-search" class="form-control form-control-sm rounded-pill ps-4 pe-4" 
+                           placeholder="חיפוש ילדים..." 
+                           aria-label="חיפוש ילדים">
+                    <i class="fas fa-search position-absolute text-muted" style="top: 50%; left: 12px; transform: translateY(-50%);"></i>
+                </div>
+            </form>
+            <a href="{% url 'treatment_app:child-create' %}" class="btn btn-success rounded-pill btn-sm me-2">
+                <i class="fas fa-plus ms-2"></i>הוספת ילד חדש
             </a>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
+    <div class="card shadow-sm rounded-4">
+        <div class="card-body p-0">
             <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
+                <table class="table table-striped table-hover mb-0" id="children-table" data-searchable="true">
+                    <thead class="table-light">
                         <tr>
-                            <th>שם פרטי</th>
-                            <th>שם משפחה</th>
+                            <th class="text-center">#</th>
+                            <th>שם מלא</th>
                             <th>משפחה</th>
-                            <th>תאריך לידה</th>
-                            <th>פעולות</th>
+                            <th>מגדר</th>
+                            <th>בית ספר</th>
+                            <th>כיתה</th>
+                            <th>מטפל</th>
+                            <th>גיל</th>
+                            <th class="text-center">פעולות</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for child in children %}
-                        <tr>
-                            <td>{{ child.first_name }}</td>
-                            <td>{{ child.last_name }}</td>
-                            <td><a href="{% url 'treatment_app:family-detail' child.family.id %}">{{ child.family.family_name }}</a></td>
-                            <td>{{ child.birth_date|date:"d/m/Y" }}</td>
-                            <td>
-                                <a href="{% url 'treatment_app:child-detail' child.id %}" class="btn btn-info btn-sm">צפייה</a>
-                                <a href="{% url 'treatment_app:child-update' child.id %}" class="btn btn-primary btn-sm">עריכה</a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td class="text-center">{{ forloop.counter }}</td>
+                                <td data-search-value="{{ child.name|lower }}">{{ child.name }}</td>
+                                <td data-search-value="{{ child.family.name|lower }}">
+                                    <a href="{% url 'treatment_app:family-detail' child.family.id %}">{{ child.family.name }}</a>
+                                </td>
+                                <td data-search-value="{{ child.get_gender_display|lower }}">
+                                    {% if child.gender == 'male' %}
+                                        <span class="gender-display gender-male">זכר</span>
+                                    {% elif child.gender == 'female' %}
+                                        <span class="gender-display gender-female">נקבה</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">לא מוגדר</span>
+                                    {% endif %}
+                                </td>
+                                <td data-search-value="{{ child.school|lower }}">{{ child.school|default:'-' }}</td>
+                                <td data-search-value="{{ child.grade|lower }}">{{ child.grade|default:'-' }}</td>
+                                <td data-search-value="{{ child.therapist.user.get_full_name|lower }}">
+                                    {% if child.therapist %}
+                                        {{ child.therapist.user.get_full_name|default:child.therapist.user.username }}
+                                    {% else %}
+                                        <span class="text-muted">לא שוייך</span>
+                                    {% endif %}
+                                </td>
+                                <td data-search-value="{{ child.birth_date|date:'d/m/Y' }}">
+                                    {{ child.age_text }}
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group gap-2" role="group">
+                                        <a href="{% url 'treatment_app:child-detail' child.id %}" class="btn btn-primary rounded-pill btn-sm" title="צפייה בפרטים">
+                                            <i class="fas fa-eye ms-2"></i>צפייה
+                                        </a>
+                                        <a href="{% url 'treatment_app:child-update' child.id %}" class="btn btn-warning rounded-pill btn-sm" title="עריכה">
+                                            <i class="fas fa-edit ms-2"></i>עריכה
+                                        </a>
+                                        <a href="{% url 'treatment_app:child-treatment-create' child.id %}" class="btn btn-success rounded-pill btn-sm" title="הוספת טיפול">
+                                            <i class="fas fa-plus-circle ms-2"></i>טיפול
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
                         {% empty %}
-                        <tr>
-                            <td colspan="5" class="text-center">אין ילדים במערכת</td>
-                        </tr>
+                            <tr>
+                                <td colspan="9" class="text-center text-muted py-4">אין ילדים במערכת</td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
     {% if is_paginated %}
     <div class="row">
         <div class="col-md-12">
@@ -78,4 +124,7 @@
     </div>
     {% endif %}
 </div>
+{% endblock %}
+
+{% block extra_js %}
 {% endblock %}

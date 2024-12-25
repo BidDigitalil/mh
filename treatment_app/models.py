@@ -167,18 +167,12 @@ class Child(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('עודכן ב'))
 
     def save(self, *args, **kwargs):
-        # If no therapist is set, use the family's therapist
-        if not self.therapist and self.family and self.family.therapist:
-            self.therapist = self.family.therapist
-        
+        # No restrictions on therapist selection
         super().save(*args, **kwargs)
 
     def clean(self):
-        # Validation to ensure therapist consistency
-        if self.family and self.family.therapist and self.therapist and self.therapist != self.family.therapist:
-            raise ValidationError({
-                'therapist': _('הטיפול של הילד צריך להיות זהה לטיפול של המשפחה')
-            })
+        # Remove therapist consistency validation
+        pass
 
     class Meta:
         verbose_name = _('ילד')

@@ -153,6 +153,32 @@ body {
     font-size: 1.5rem;
 }
 
+/* Custom badge colors for gender */
+.badge-male {
+    background-color: #3498db !important;  /* Soft blue for male */
+}
+
+.badge-female {
+    background-color: #e91e63 !important;  /* Soft pink for female */
+}
+
+.gender-display {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 500;
+    color: white;
+}
+
+.gender-male {
+    background-color: #007bff;
+}
+
+.gender-female {
+    background-color: #e83e8c;
+}
+
 /* Remove default search input clear button */
 input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;

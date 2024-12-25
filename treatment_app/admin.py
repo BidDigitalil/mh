@@ -82,7 +82,12 @@ class ChildAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         # Ensure therapist is set to family's therapist
         if obj.family and obj.family.therapist:
-            obj.therapist = obj.family.therapist
+            # Get or create TherapistProfile for the user
+            therapist_profile, created = TherapistProfile.objects.get_or_create(
+                user=obj.family.therapist,
+                defaults={'is_active': True}
+            )
+            obj.therapist = therapist_profile
         
         super().save_model(request, obj, form, change)
     
