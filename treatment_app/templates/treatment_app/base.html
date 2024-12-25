@@ -14,6 +14,7 @@
     
     <!-- Custom CSS -->
     <link href="{% static 'treatment_app/css/custom.css' %}" rel="stylesheet">
+    <link href="{% static 'treatment_app/css/dashboard.css' %}" rel="stylesheet">
     
     {% block extra_head %}{% endblock %}
 </head>
@@ -45,6 +46,18 @@
                             <a class="nav-link" href="{% url 'treatment_app:treatment-list' %}">
                                 <i class="fas fa-notes-medical"></i> טיפולים
                             </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="treatmentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-calendar-alt"></i> ניהול טיפולים
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="treatmentDropdown">
+                                <li><a class="dropdown-item" href="{% url 'treatment_app:treatment-list' %}">רשימת טיפולים</a></li>
+                                <li><a class="dropdown-item" href="{% url 'treatment_app:calendar_view' %}">לוח שנה</a></li>
+                                <li><a class="dropdown-item" href="{% url 'treatment_app:weekly_calendar' %}">תצוגת שבועית</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'treatment_app:treatment-create' %}">הוסף טיפול חדש</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'treatment_app:document-list' %}">

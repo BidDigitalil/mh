@@ -86,18 +86,63 @@ class ChildAdmin(admin.ModelAdmin):
 
 @admin.register(Treatment)
 class TreatmentAdmin(admin.ModelAdmin):
-    list_display = ('child', 'date', 'therapist')
-    list_filter = ('therapist', 'date', 'created_at')
-    search_fields = ('child__name', 'child__family__name', 'summary')
-    date_hierarchy = 'date'
-    fieldsets = (
-        (_('פרטי טיפול'), {
-            'fields': ('child', 'date', 'therapist')
-        }),
-        (_('סיכום'), {
-            'fields': ('summary', 'next_steps')
-        }),
-    )
+    """
+    Admin configuration for Treatment model.
+    
+    Provides enhanced management of treatment sessions with:
+    - Customized list display
+    - Filtering options
+    - Search capabilities
+    """
+    list_display = [
+        'get_client_name', 
+        'scheduled_date', 
+        'start_time', 
+        'end_time', 
+        'type', 
+        'status', 
+        'therapist'
+    ]
+    
+    list_filter = [
+        'type', 
+        'status', 
+        'scheduled_date', 
+        'therapist'
+    ]
+    
+    search_fields = [
+        'family__name', 
+        'child__name', 
+        'therapist__username', 
+        'therapist__first_name', 
+        'therapist__last_name'
+    ]
+    
+    date_hierarchy = 'scheduled_date'
+    
+    def get_client_name(self, obj):
+        """
+        Returns the name of the client (family or child)
+        """
+        return obj.child.name if obj.child else obj.family.name
+    get_client_name.short_description = _('שם לקוח')
+    
+    def get_queryset(self, request):
+        """
+        Optimize the queryset by selecting related objects
+        """
+        return super().get_queryset(request).select_related('family', 'child', 'therapist')
+    
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        """
+        Customize foreign key fields in the admin form
+        """
+        if db_field.name == 'family':
+            kwargs['queryset'] = Family.objects.order_by('name')
+        elif db_field.name == 'child':
+            kwargs['queryset'] = Child.objects.order_by('family__name', 'name')
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 @admin.register(Document)
 class DocumentAdmin(admin.ModelAdmin):

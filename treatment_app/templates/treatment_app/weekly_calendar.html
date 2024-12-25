@@ -1,0 +1,86 @@
+{% extends "treatment_app/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}לוח טיפולים שבועי{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col-12">
+            <h1 class="text-center">לוח טיפולים שבועי</h1>
+            <p class="text-center text-muted">
+                {{ start_of_week|date:"d/m/Y" }} - {{ end_of_week|date:"d/m/Y" }}
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>יום</th>
+                            <th>תאריך</th>
+                            <th>שעה</th>
+                            <th>לקוח</th>
+                            <th>סוג טיפול</th>
+                            <th>מטפל</th>
+                            <th>סטטוס</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for treatment in treatments %}
+                            <tr class="{% if treatment.is_past_due %}table-danger{% endif %}">
+                                <td>{{ treatment.scheduled_date|date:"l" }}</td>
+                                <td>{{ treatment.scheduled_date|date:"d/m/Y" }}</td>
+                                <td>{{ treatment.start_time|time:"H:i" }} - {{ treatment.end_time|time:"H:i" }}</td>
+                                <td>
+                                    {% if treatment.child %}
+                                        {{ treatment.child.name }}
+                                    {% elif treatment.family %}
+                                        {{ treatment.family.name }}
+                                    {% else %}
+                                        לא מזוהה
+                                    {% endif %}
+                                </td>
+                                <td>{{ treatment.get_type_display }}</td>
+                                <td>{{ treatment.therapist.get_full_name }}</td>
+                                <td>
+                                    <span class="badge 
+                                        {% if treatment.status == 'SCHEDULED' %}badge-primary
+                                        {% elif treatment.status == 'COMPLETED' %}badge-success
+                                        {% elif treatment.status == 'MISSED' %}badge-danger
+                                        {% else %}badge-warning{% endif %}">
+                                        {{ treatment.get_status_display }}
+                                    </span>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="7" class="text-center">
+                                    אין טיפולים מתוכננים בשבוע זה
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-12 text-center">
+            <a href="{% url 'treatment_app:treatment-list' %}" class="btn btn-secondary">כל הטיפולים</a>
+            <a href="{% url 'treatment_app:treatment-create' %}" class="btn btn-primary">הוסף טיפול חדש</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Optional: Add any interactive calendar features here
+</script>
+{% endblock %}

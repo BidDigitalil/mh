@@ -1,0 +1,1573 @@
+INFO 2024-12-25 22:06:13,217 autoreload 15980 15424 Watching for file changes with StatReloader
+INFO 2024-12-25 22:06:13,887 autoreload 18032 8624 Watching for file changes with StatReloader
+INFO 2024-12-25 22:06:14,284 autoreload 7340 10656 Watching for file changes with StatReloader
+INFO 2024-12-25 22:06:21,176 basehttp 15980 15288 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:06:22,477 basehttp 15980 15288 "GET /families/ HTTP/1.1" 200 8461
+INFO 2024-12-25 22:06:23,246 basehttp 15980 15288 "GET /children/ HTTP/1.1" 200 6441
+INFO 2024-12-25 22:06:24,001 basehttp 15980 15288 "GET /treatments/ HTTP/1.1" 200 18707
+INFO 2024-12-25 22:06:26,066 basehttp 15980 15288 "GET /treatments/ HTTP/1.1" 200 18707
+INFO 2024-12-25 22:06:27,862 basehttp 15980 15288 "GET /treatment/new/ HTTP/1.1" 200 10094
+INFO 2024-12-25 22:06:31,394 basehttp 15980 15288 "GET /documents/ HTTP/1.1" 200 6468
+INFO 2024-12-25 22:06:32,593 views 15980 15288 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:06:32,593 views 15980 15288 User is superuser: True
+INFO 2024-12-25 22:06:32,593 views 15980 15288 User ID: 1
+INFO 2024-12-25 22:06:32,593 views 15980 15288 Username: admin
+INFO 2024-12-25 22:06:32,593 views 15980 15288 Accessing dashboard as superuser
+ERROR 2024-12-25 22:06:32,600 views 15980 15288 Unexpected error in dashboard view: Cannot resolve keyword 'is_active' into field. Choices are: allergies, birth_date, created_at, documents, family, family_id, gender, grade, id, medical_info, medications, name, notes, school, school_counselor_name, school_counselor_phone, special_needs, teacher_name, teacher_phone, therapist, therapist_id, treatments, updated_at
+Traceback (most recent call last):
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 212, in dashboard
+    'active_children': children.filter(is_active=True).count(),
+                       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1768, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'is_active' into field. Choices are: allergies, birth_date, created_at, documents, family, family_id, gender, grade, id, medical_info, medications, name, notes, school, school_counselor_name, school_counselor_phone, special_needs, teacher_name, teacher_phone, therapist, therapist_id, treatments, updated_at
+INFO 2024-12-25 22:06:32,606 basehttp 15980 15288 "GET / HTTP/1.1" 302 0
+INFO 2024-12-25 22:06:32,619 basehttp 15980 15288 "GET /accounts/login/ HTTP/1.1" 200 8467
+INFO 2024-12-25 22:06:32,684 basehttp 15980 15288 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:07:01,613 basehttp 15980 1424 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:07:02,275 basehttp 15980 1424 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:07:35,930 basehttp 15980 1424 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2024-12-25 22:07:35,938 views 15980 1424 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:07:35,938 views 15980 1424 User is superuser: True
+INFO 2024-12-25 22:07:35,938 views 15980 1424 User ID: 1
+INFO 2024-12-25 22:07:35,939 views 15980 1424 Username: admin
+INFO 2024-12-25 22:07:35,939 views 15980 1424 Accessing dashboard as superuser
+ERROR 2024-12-25 22:07:35,943 views 15980 1424 Unexpected error in dashboard view: Cannot resolve keyword 'is_active' into field. Choices are: allergies, birth_date, created_at, documents, family, family_id, gender, grade, id, medical_info, medications, name, notes, school, school_counselor_name, school_counselor_phone, special_needs, teacher_name, teacher_phone, therapist, therapist_id, treatments, updated_at
+Traceback (most recent call last):
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 212, in dashboard
+    'active_children': children.filter(is_active=True).count(),
+                       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1768, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'is_active' into field. Choices are: allergies, birth_date, created_at, documents, family, family_id, gender, grade, id, medical_info, medications, name, notes, school, school_counselor_name, school_counselor_phone, special_needs, teacher_name, teacher_phone, therapist, therapist_id, treatments, updated_at
+INFO 2024-12-25 22:07:35,945 basehttp 15980 1424 "GET / HTTP/1.1" 302 0
+INFO 2024-12-25 22:07:35,955 basehttp 15980 1424 "GET /accounts/login/ HTTP/1.1" 200 8467
+INFO 2024-12-25 22:07:36,048 basehttp 15980 1424 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:07:49,535 basehttp 15980 1424 "GET /treatment/new/ HTTP/1.1" 200 10094
+INFO 2024-12-25 22:07:51,035 views 15980 1424 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:07:51,036 views 15980 1424 User is superuser: True
+INFO 2024-12-25 22:07:51,036 views 15980 1424 User ID: 1
+INFO 2024-12-25 22:07:51,036 views 15980 1424 Username: admin
+INFO 2024-12-25 22:07:51,036 views 15980 1424 Accessing dashboard as superuser
+ERROR 2024-12-25 22:07:51,042 views 15980 1424 Unexpected error in dashboard view: Cannot resolve keyword 'is_active' into field. Choices are: allergies, birth_date, created_at, documents, family, family_id, gender, grade, id, medical_info, medications, name, notes, school, school_counselor_name, school_counselor_phone, special_needs, teacher_name, teacher_phone, therapist, therapist_id, treatments, updated_at
+Traceback (most recent call last):
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 212, in dashboard
+    'active_children': children.filter(is_active=True).count(),
+                       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1768, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'is_active' into field. Choices are: allergies, birth_date, created_at, documents, family, family_id, gender, grade, id, medical_info, medications, name, notes, school, school_counselor_name, school_counselor_phone, special_needs, teacher_name, teacher_phone, therapist, therapist_id, treatments, updated_at
+INFO 2024-12-25 22:07:51,045 basehttp 15980 1424 "GET / HTTP/1.1" 302 0
+INFO 2024-12-25 22:07:51,061 basehttp 15980 1424 "GET /accounts/login/ HTTP/1.1" 200 8467
+INFO 2024-12-25 22:08:35,762 basehttp 15980 1424 "POST /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:08:35,837 basehttp 15980 1424 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:08:51,592 basehttp 15980 1424 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2024-12-25 22:08:51,601 views 15980 1424 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:08:51,601 views 15980 1424 User is superuser: True
+INFO 2024-12-25 22:08:51,601 views 15980 1424 User ID: 1
+INFO 2024-12-25 22:08:51,601 views 15980 1424 Username: admin
+INFO 2024-12-25 22:08:51,601 views 15980 1424 Accessing dashboard as superuser
+ERROR 2024-12-25 22:08:51,604 views 15980 1424 Unexpected error in dashboard view: Cannot resolve keyword 'is_active' into field. Choices are: allergies, birth_date, created_at, documents, family, family_id, gender, grade, id, medical_info, medications, name, notes, school, school_counselor_name, school_counselor_phone, special_needs, teacher_name, teacher_phone, therapist, therapist_id, treatments, updated_at
+Traceback (most recent call last):
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 212, in dashboard
+    'active_children': children.filter(is_active=True).count(),
+                       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1768, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'is_active' into field. Choices are: allergies, birth_date, created_at, documents, family, family_id, gender, grade, id, medical_info, medications, name, notes, school, school_counselor_name, school_counselor_phone, special_needs, teacher_name, teacher_phone, therapist, therapist_id, treatments, updated_at
+INFO 2024-12-25 22:08:51,607 basehttp 15980 1424 "GET / HTTP/1.1" 302 0
+INFO 2024-12-25 22:08:51,619 basehttp 15980 1424 "GET /accounts/login/ HTTP/1.1" 200 8467
+INFO 2024-12-25 22:09:18,720 autoreload 15676 8036 Watching for file changes with StatReloader
+INFO 2024-12-25 22:09:30,319 basehttp 15980 1424 "GET /therapists/ HTTP/1.1" 200 16002
+INFO 2024-12-25 22:09:30,397 basehttp 15980 1424 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:09:33,431 basehttp 15980 1424 "GET /treatments/ HTTP/1.1" 200 18707
+INFO 2024-12-25 22:09:34,217 basehttp 15980 1424 "GET /families/ HTTP/1.1" 200 8461
+INFO 2024-12-25 22:09:34,963 basehttp 15980 1424 "GET /families/ HTTP/1.1" 200 8461
+INFO 2024-12-25 22:09:35,593 basehttp 15980 1424 "GET /therapists/ HTTP/1.1" 200 16002
+INFO 2024-12-25 22:09:36,711 basehttp 15980 1424 "GET /logout/ HTTP/1.1" 302 0
+INFO 2024-12-25 22:09:36,724 basehttp 15980 1424 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:09:37,942 basehttp 15980 1424 "GET /therapists/ HTTP/1.1" 200 16002
+INFO 2024-12-25 22:09:38,256 basehttp 15980 1424 "GET /logout/ HTTP/1.1" 302 0
+INFO 2024-12-25 22:09:38,273 basehttp 15980 1424 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:09:45,383 basehttp 15980 1424 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2024-12-25 22:09:45,391 views 15980 1424 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:09:45,392 views 15980 1424 User is superuser: True
+INFO 2024-12-25 22:09:45,392 views 15980 1424 User ID: 1
+INFO 2024-12-25 22:09:45,392 views 15980 1424 Username: admin
+INFO 2024-12-25 22:09:45,392 views 15980 1424 Accessing dashboard as superuser
+ERROR 2024-12-25 22:09:45,397 views 15980 1424 Unexpected error in dashboard view: Cannot resolve keyword 'is_active' into field. Choices are: allergies, birth_date, created_at, documents, family, family_id, gender, grade, id, medical_info, medications, name, notes, school, school_counselor_name, school_counselor_phone, special_needs, teacher_name, teacher_phone, therapist, therapist_id, treatments, updated_at
+Traceback (most recent call last):
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 212, in dashboard
+    'active_children': children.filter(is_active=True).count(),
+                       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1768, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'is_active' into field. Choices are: allergies, birth_date, created_at, documents, family, family_id, gender, grade, id, medical_info, medications, name, notes, school, school_counselor_name, school_counselor_phone, special_needs, teacher_name, teacher_phone, therapist, therapist_id, treatments, updated_at
+INFO 2024-12-25 22:09:45,400 basehttp 15980 1424 "GET / HTTP/1.1" 302 0
+INFO 2024-12-25 22:09:45,412 basehttp 15980 1424 "GET /accounts/login/ HTTP/1.1" 200 8467
+INFO 2024-12-25 22:10:03,163 views 15980 1424 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:10:03,163 views 15980 1424 User is superuser: True
+INFO 2024-12-25 22:10:03,163 views 15980 1424 User ID: 1
+INFO 2024-12-25 22:10:03,163 views 15980 1424 Username: admin
+INFO 2024-12-25 22:10:03,163 views 15980 1424 Accessing dashboard as superuser
+ERROR 2024-12-25 22:10:03,167 views 15980 1424 Unexpected error in dashboard view: Cannot resolve keyword 'is_active' into field. Choices are: allergies, birth_date, created_at, documents, family, family_id, gender, grade, id, medical_info, medications, name, notes, school, school_counselor_name, school_counselor_phone, special_needs, teacher_name, teacher_phone, therapist, therapist_id, treatments, updated_at
+Traceback (most recent call last):
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 212, in dashboard
+    'active_children': children.filter(is_active=True).count(),
+                       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1768, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'is_active' into field. Choices are: allergies, birth_date, created_at, documents, family, family_id, gender, grade, id, medical_info, medications, name, notes, school, school_counselor_name, school_counselor_phone, special_needs, teacher_name, teacher_phone, therapist, therapist_id, treatments, updated_at
+INFO 2024-12-25 22:10:03,174 basehttp 15980 1424 "GET / HTTP/1.1" 302 0
+INFO 2024-12-25 22:10:03,186 basehttp 15980 1424 "GET /accounts/login/ HTTP/1.1" 200 8467
+INFO 2024-12-25 22:10:14,300 autoreload 15676 8036 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:10:14,949 autoreload 18032 8624 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:10:14,949 autoreload 7340 10656 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:10:14,978 autoreload 15980 15424 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:10:15,138 autoreload 16780 14356 Watching for file changes with StatReloader
+INFO 2024-12-25 22:10:16,060 autoreload 2784 11968 Watching for file changes with StatReloader
+INFO 2024-12-25 22:10:16,067 autoreload 16676 17556 Watching for file changes with StatReloader
+INFO 2024-12-25 22:10:16,151 autoreload 11496 5928 Watching for file changes with StatReloader
+INFO 2024-12-25 22:10:17,558 basehttp 16780 4380 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:10:19,155 views 16780 4380 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:10:19,156 views 16780 4380 User is superuser: True
+INFO 2024-12-25 22:10:19,156 views 16780 4380 User ID: 1
+INFO 2024-12-25 22:10:19,156 views 16780 4380 Username: admin
+INFO 2024-12-25 22:10:19,156 views 16780 4380 Accessing dashboard as superuser
+INFO 2024-12-25 22:10:19,185 basehttp 16780 4380 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:10:32,811 autoreload 8728 7156 Watching for file changes with StatReloader
+INFO 2024-12-25 22:10:58,513 basehttp 16780 4380 "GET /treatments/ HTTP/1.1" 200 18707
+INFO 2024-12-25 22:10:58,633 basehttp 16780 4380 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:11:01,670 basehttp 16780 4380 "GET /documents/ HTTP/1.1" 200 6468
+INFO 2024-12-25 22:11:03,716 basehttp 16780 4380 "GET /families/ HTTP/1.1" 200 8461
+INFO 2024-12-25 22:11:08,402 views 16780 4380 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:08,403 views 16780 4380 User is superuser: True
+INFO 2024-12-25 22:11:08,403 views 16780 4380 User ID: 1
+INFO 2024-12-25 22:11:08,403 views 16780 4380 Username: admin
+INFO 2024-12-25 22:11:08,403 views 16780 4380 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:08,429 basehttp 16780 4380 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:11,370 views 16780 4380 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:11,370 views 16780 4380 User is superuser: True
+INFO 2024-12-25 22:11:11,370 views 16780 4380 User ID: 1
+INFO 2024-12-25 22:11:11,370 views 16780 4380 Username: admin
+INFO 2024-12-25 22:11:11,370 views 16780 4380 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:11,385 basehttp 16780 4380 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:16,408 basehttp 16780 4380 "GET /children/ HTTP/1.1" 200 6441
+INFO 2024-12-25 22:11:22,809 views 16780 6128 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:22,810 views 16780 6128 User is superuser: True
+INFO 2024-12-25 22:11:22,810 views 16780 6128 User ID: 1
+INFO 2024-12-25 22:11:22,810 views 16780 6128 Username: admin
+INFO 2024-12-25 22:11:22,810 views 16780 6128 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:22,924 basehttp 16780 6128 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:25,140 views 16780 6128 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:25,140 views 16780 6128 User is superuser: True
+INFO 2024-12-25 22:11:25,140 views 16780 6128 User ID: 1
+INFO 2024-12-25 22:11:25,140 views 16780 6128 Username: admin
+INFO 2024-12-25 22:11:25,140 views 16780 6128 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:25,171 basehttp 16780 6128 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:25,927 views 16780 6128 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:25,927 views 16780 6128 User is superuser: True
+INFO 2024-12-25 22:11:25,927 views 16780 6128 User ID: 1
+INFO 2024-12-25 22:11:25,928 views 16780 6128 Username: admin
+INFO 2024-12-25 22:11:25,928 views 16780 6128 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:25,948 basehttp 16780 6128 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:26,689 views 16780 6128 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:26,689 views 16780 6128 User is superuser: True
+INFO 2024-12-25 22:11:26,689 views 16780 6128 User ID: 1
+INFO 2024-12-25 22:11:26,689 views 16780 6128 Username: admin
+INFO 2024-12-25 22:11:26,689 views 16780 6128 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:26,718 basehttp 16780 6128 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:27,936 views 16780 6128 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:27,937 views 16780 6128 User is superuser: True
+INFO 2024-12-25 22:11:27,937 views 16780 6128 User ID: 1
+INFO 2024-12-25 22:11:27,937 views 16780 6128 Username: admin
+INFO 2024-12-25 22:11:27,937 views 16780 6128 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:27,953 basehttp 16780 6128 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:28,852 views 16780 6128 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:28,852 views 16780 6128 User is superuser: True
+INFO 2024-12-25 22:11:28,852 views 16780 6128 User ID: 1
+INFO 2024-12-25 22:11:28,852 views 16780 6128 Username: admin
+INFO 2024-12-25 22:11:28,852 views 16780 6128 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:28,878 basehttp 16780 6128 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:29,599 views 16780 6128 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:29,600 views 16780 6128 User is superuser: True
+INFO 2024-12-25 22:11:29,600 views 16780 6128 User ID: 1
+INFO 2024-12-25 22:11:29,600 views 16780 6128 Username: admin
+INFO 2024-12-25 22:11:29,600 views 16780 6128 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:29,621 basehttp 16780 6128 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:30,397 views 16780 6128 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:30,397 views 16780 6128 User is superuser: True
+INFO 2024-12-25 22:11:30,398 views 16780 6128 User ID: 1
+INFO 2024-12-25 22:11:30,398 views 16780 6128 Username: admin
+INFO 2024-12-25 22:11:30,398 views 16780 6128 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:30,419 basehttp 16780 6128 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:30,988 views 16780 6128 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:30,988 views 16780 6128 User is superuser: True
+INFO 2024-12-25 22:11:30,988 views 16780 6128 User ID: 1
+INFO 2024-12-25 22:11:30,988 views 16780 6128 Username: admin
+INFO 2024-12-25 22:11:30,988 views 16780 6128 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:31,011 basehttp 16780 6128 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:31,634 views 16780 6128 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:31,634 views 16780 6128 User is superuser: True
+INFO 2024-12-25 22:11:31,634 views 16780 6128 User ID: 1
+INFO 2024-12-25 22:11:31,634 views 16780 6128 Username: admin
+INFO 2024-12-25 22:11:31,635 views 16780 6128 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:31,661 basehttp 16780 6128 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:32,265 views 16780 12788 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:32,265 views 16780 12788 User is superuser: True
+INFO 2024-12-25 22:11:32,266 views 16780 12788 User ID: 1
+INFO 2024-12-25 22:11:32,266 views 16780 12788 Username: admin
+INFO 2024-12-25 22:11:32,266 views 16780 12788 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:32,278 basehttp 16780 12788 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:37,395 views 16780 12788 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:37,395 views 16780 12788 User is superuser: True
+INFO 2024-12-25 22:11:37,395 views 16780 12788 User ID: 1
+INFO 2024-12-25 22:11:37,395 views 16780 12788 Username: admin
+INFO 2024-12-25 22:11:37,395 views 16780 12788 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:37,413 basehttp 16780 12788 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:38,542 views 16780 12788 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:38,543 views 16780 12788 User is superuser: True
+INFO 2024-12-25 22:11:38,543 views 16780 12788 User ID: 1
+INFO 2024-12-25 22:11:38,543 views 16780 12788 Username: admin
+INFO 2024-12-25 22:11:38,543 views 16780 12788 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:38,568 basehttp 16780 12788 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:42,087 views 16780 7540 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:42,088 views 16780 7540 User is superuser: True
+INFO 2024-12-25 22:11:42,088 views 16780 7540 User ID: 1
+INFO 2024-12-25 22:11:42,088 views 16780 7540 Username: admin
+INFO 2024-12-25 22:11:42,088 views 16780 7540 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:42,109 basehttp 16780 7540 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:42,909 views 16780 7540 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:42,909 views 16780 7540 User is superuser: True
+INFO 2024-12-25 22:11:42,909 views 16780 7540 User ID: 1
+INFO 2024-12-25 22:11:42,909 views 16780 7540 Username: admin
+INFO 2024-12-25 22:11:42,909 views 16780 7540 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:42,929 basehttp 16780 7540 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:47,012 views 16780 7540 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:47,012 views 16780 7540 User is superuser: True
+INFO 2024-12-25 22:11:47,013 views 16780 7540 User ID: 1
+INFO 2024-12-25 22:11:47,013 views 16780 7540 Username: admin
+INFO 2024-12-25 22:11:47,013 views 16780 7540 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:47,031 basehttp 16780 7540 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:47,720 views 16780 7540 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:47,720 views 16780 7540 User is superuser: True
+INFO 2024-12-25 22:11:47,720 views 16780 7540 User ID: 1
+INFO 2024-12-25 22:11:47,720 views 16780 7540 Username: admin
+INFO 2024-12-25 22:11:47,720 views 16780 7540 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:47,744 basehttp 16780 7540 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:48,306 views 16780 7540 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:48,306 views 16780 7540 User is superuser: True
+INFO 2024-12-25 22:11:48,307 views 16780 7540 User ID: 1
+INFO 2024-12-25 22:11:48,307 views 16780 7540 Username: admin
+INFO 2024-12-25 22:11:48,307 views 16780 7540 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:48,330 basehttp 16780 7540 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:49,024 views 16780 7540 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:49,025 views 16780 7540 User is superuser: True
+INFO 2024-12-25 22:11:49,025 views 16780 7540 User ID: 1
+INFO 2024-12-25 22:11:49,025 views 16780 7540 Username: admin
+INFO 2024-12-25 22:11:49,025 views 16780 7540 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:49,042 basehttp 16780 7540 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:49,451 views 16780 7540 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:49,451 views 16780 7540 User is superuser: True
+INFO 2024-12-25 22:11:49,451 views 16780 7540 User ID: 1
+INFO 2024-12-25 22:11:49,451 views 16780 7540 Username: admin
+INFO 2024-12-25 22:11:49,451 views 16780 7540 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:49,473 basehttp 16780 7540 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:49,867 views 16780 7540 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:49,867 views 16780 7540 User is superuser: True
+INFO 2024-12-25 22:11:49,867 views 16780 7540 User ID: 1
+INFO 2024-12-25 22:11:49,868 views 16780 7540 Username: admin
+INFO 2024-12-25 22:11:49,868 views 16780 7540 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:49,894 basehttp 16780 7540 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:50,131 views 16780 7540 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:50,131 views 16780 7540 User is superuser: True
+INFO 2024-12-25 22:11:50,131 views 16780 7540 User ID: 1
+INFO 2024-12-25 22:11:50,131 views 16780 7540 Username: admin
+INFO 2024-12-25 22:11:50,131 views 16780 7540 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:50,154 basehttp 16780 7540 "GET / HTTP/1.1" 200 15499
+INFO 2024-12-25 22:11:51,707 basehttp 16780 7540 "GET /families/ HTTP/1.1" 200 8461
+INFO 2024-12-25 22:11:55,728 views 16780 15232 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:55,728 views 16780 15232 User is superuser: True
+INFO 2024-12-25 22:11:55,728 views 16780 15232 User ID: 1
+INFO 2024-12-25 22:11:55,728 views 16780 15232 Username: admin
+INFO 2024-12-25 22:11:55,729 views 16780 15232 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:55,749 basehttp 16780 15232 "GET / HTTP/1.1" 200 19252
+INFO 2024-12-25 22:11:55,923 basehttp 16780 15232 "GET /static/treatment_app/js/dashboard.js HTTP/1.1" 200 1074
+INFO 2024-12-25 22:11:56,403 views 16780 15232 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:56,403 views 16780 15232 User is superuser: True
+INFO 2024-12-25 22:11:56,403 views 16780 15232 User ID: 1
+INFO 2024-12-25 22:11:56,403 views 16780 15232 Username: admin
+INFO 2024-12-25 22:11:56,403 views 16780 15232 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:56,428 basehttp 16780 15232 "GET / HTTP/1.1" 200 19252
+INFO 2024-12-25 22:11:59,673 views 16780 15232 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:11:59,674 views 16780 15232 User is superuser: True
+INFO 2024-12-25 22:11:59,674 views 16780 15232 User ID: 1
+INFO 2024-12-25 22:11:59,674 views 16780 15232 Username: admin
+INFO 2024-12-25 22:11:59,674 views 16780 15232 Accessing dashboard as superuser
+INFO 2024-12-25 22:11:59,705 basehttp 16780 15232 "GET / HTTP/1.1" 200 19252
+INFO 2024-12-25 22:11:59,789 basehttp 16780 15232 "GET /static/treatment_app/js/dashboard.js HTTP/1.1" 304 0
+INFO 2024-12-25 22:13:15,067 views 16780 17064 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:13:15,068 views 16780 17064 User is superuser: True
+INFO 2024-12-25 22:13:15,068 views 16780 17064 User ID: 1
+INFO 2024-12-25 22:13:15,068 views 16780 17064 Username: admin
+INFO 2024-12-25 22:13:15,068 views 16780 17064 Accessing dashboard as superuser
+INFO 2024-12-25 22:13:15,092 basehttp 16780 17064 "GET / HTTP/1.1" 200 19252
+INFO 2024-12-25 22:13:15,176 basehttp 16780 17064 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 200 2945
+INFO 2024-12-25 22:13:15,189 basehttp 16780 17064 "GET /static/treatment_app/js/dashboard.js HTTP/1.1" 304 0
+INFO 2024-12-25 22:13:38,029 views 16780 14816 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:13:38,029 views 16780 14816 User is superuser: True
+INFO 2024-12-25 22:13:38,029 views 16780 14816 User ID: 1
+INFO 2024-12-25 22:13:38,029 views 16780 14816 Username: admin
+INFO 2024-12-25 22:13:38,029 views 16780 14816 Accessing dashboard as superuser
+INFO 2024-12-25 22:13:38,050 basehttp 16780 14816 "GET / HTTP/1.1" 200 19252
+INFO 2024-12-25 22:13:38,123 basehttp 16780 11856 "GET /static/treatment_app/js/dashboard.js HTTP/1.1" 304 0
+INFO 2024-12-25 22:13:38,124 basehttp 16780 14816 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 200 2177
+INFO 2024-12-25 22:13:40,647 basehttp 16780 14816 "GET /families/ HTTP/1.1" 200 8461
+INFO 2024-12-25 22:13:40,707 basehttp 16780 14816 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:13:43,506 views 16780 14816 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:13:43,506 views 16780 14816 User is superuser: True
+INFO 2024-12-25 22:13:43,506 views 16780 14816 User ID: 1
+INFO 2024-12-25 22:13:43,506 views 16780 14816 Username: admin
+INFO 2024-12-25 22:13:43,507 views 16780 14816 Accessing dashboard as superuser
+INFO 2024-12-25 22:13:43,525 basehttp 16780 14816 "GET / HTTP/1.1" 200 19252
+INFO 2024-12-25 22:13:43,587 basehttp 16780 14816 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:13:52,366 views 16780 14816 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:13:52,366 views 16780 14816 User is superuser: True
+INFO 2024-12-25 22:13:52,366 views 16780 14816 User ID: 1
+INFO 2024-12-25 22:13:52,366 views 16780 14816 Username: admin
+INFO 2024-12-25 22:13:52,366 views 16780 14816 Accessing dashboard as superuser
+ERROR 2024-12-25 22:13:52,383 views 16780 14816 Unexpected error in dashboard view: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+Traceback (most recent call last):
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 217, in dashboard
+    return render(request, 'treatment_app/dashboard.html', context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+INFO 2024-12-25 22:13:52,429 basehttp 16780 14816 "GET / HTTP/1.1" 302 0
+INFO 2024-12-25 22:13:52,441 basehttp 16780 14816 "GET /accounts/login/ HTTP/1.1" 200 8467
+INFO 2024-12-25 22:13:52,488 basehttp 16780 14816 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:14:03,552 basehttp 16780 14816 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:14:03,613 basehttp 16780 14816 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:14:23,282 basehttp 16780 14016 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:14:23,337 basehttp 16780 14016 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:14:32,355 basehttp 16780 8056 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:14:32,411 basehttp 16780 8056 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:14:33,126 basehttp 16780 8056 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:14:35,241 views 16780 8056 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:14:35,241 views 16780 8056 User is superuser: True
+INFO 2024-12-25 22:14:35,242 views 16780 8056 User ID: 1
+INFO 2024-12-25 22:14:35,242 views 16780 8056 Username: admin
+INFO 2024-12-25 22:14:35,242 views 16780 8056 Accessing dashboard as superuser
+ERROR 2024-12-25 22:14:35,250 views 16780 8056 Unexpected error in dashboard view: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+Traceback (most recent call last):
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 217, in dashboard
+    return render(request, 'treatment_app/dashboard.html', context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+INFO 2024-12-25 22:14:35,256 basehttp 16780 8056 "GET / HTTP/1.1" 302 0
+INFO 2024-12-25 22:14:35,267 basehttp 16780 8056 "GET /accounts/login/ HTTP/1.1" 200 8467
+INFO 2024-12-25 22:14:36,174 views 16780 8056 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:14:36,175 views 16780 8056 User is superuser: True
+INFO 2024-12-25 22:14:36,175 views 16780 8056 User ID: 1
+INFO 2024-12-25 22:14:36,175 views 16780 8056 Username: admin
+INFO 2024-12-25 22:14:36,175 views 16780 8056 Accessing dashboard as superuser
+ERROR 2024-12-25 22:14:36,186 views 16780 8056 Unexpected error in dashboard view: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+Traceback (most recent call last):
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 217, in dashboard
+    return render(request, 'treatment_app/dashboard.html', context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+INFO 2024-12-25 22:14:36,191 basehttp 16780 8056 "GET / HTTP/1.1" 302 0
+INFO 2024-12-25 22:14:36,205 basehttp 16780 8056 "GET /accounts/login/ HTTP/1.1" 200 8467
+INFO 2024-12-25 22:14:40,445 autoreload 11496 5928 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:14:40,458 autoreload 8728 7156 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:14:40,505 autoreload 16780 14356 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:14:41,074 basehttp 16676 9448 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:14:41,088 autoreload 2784 11968 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:14:41,174 basehttp 16676 9448 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:14:41,752 autoreload 16676 17556 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:14:41,992 autoreload 15956 10140 Watching for file changes with StatReloader
+INFO 2024-12-25 22:14:41,996 autoreload 10544 17920 Watching for file changes with StatReloader
+INFO 2024-12-25 22:14:42,006 autoreload 9476 15120 Watching for file changes with StatReloader
+INFO 2024-12-25 22:14:42,748 autoreload 8672 17640 Watching for file changes with StatReloader
+INFO 2024-12-25 22:14:43,468 autoreload 7348 2204 Watching for file changes with StatReloader
+INFO 2024-12-25 22:14:45,238 basehttp 10544 11548 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:14:48,169 views 10544 11548 Dashboard access attempt
+INFO 2024-12-25 22:14:48,169 views 10544 11548 User: admin
+INFO 2024-12-25 22:14:48,169 views 10544 11548 User ID: 1
+INFO 2024-12-25 22:14:48,169 views 10544 11548 Username: admin
+INFO 2024-12-25 22:14:48,169 views 10544 11548 Is Superuser: True
+INFO 2024-12-25 22:14:48,169 views 10544 11548 Is Active: True
+INFO 2024-12-25 22:14:48,169 views 10544 11548 Accessing dashboard as superuser
+ERROR 2024-12-25 22:14:48,181 views 10544 11548 Unexpected error in dashboard view: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+Traceback (most recent call last):
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 242, in dashboard
+    return render(request, 'treatment_app/dashboard.html', context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+INFO 2024-12-25 22:14:48,189 basehttp 10544 11548 "GET / HTTP/1.1" 302 0
+INFO 2024-12-25 22:14:48,204 basehttp 10544 11548 "GET /accounts/login/ HTTP/1.1" 200 8467
+INFO 2024-12-25 22:14:52,257 basehttp 10544 16484 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:14:52,325 basehttp 10544 16484 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:14:52,889 basehttp 10544 16484 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:14:54,094 basehttp 10544 16484 "GET /treatments/ HTTP/1.1" 200 18707
+INFO 2024-12-25 22:14:56,678 basehttp 10544 16484 "GET /treatments/ HTTP/1.1" 200 18707
+INFO 2024-12-25 22:14:58,270 basehttp 10544 16484 "GET /treatments/calendar/view/ HTTP/1.1" 200 7336
+INFO 2024-12-25 22:14:59,878 basehttp 10544 16484 "GET /treatments/weekly/ HTTP/1.1" 200 8945
+INFO 2024-12-25 22:15:01,171 autoreload 8672 17640 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:15:01,529 autoreload 15956 10140 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:15:01,531 autoreload 10544 17920 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:15:01,607 autoreload 9476 15120 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:15:01,611 autoreload 7348 2204 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:15:02,722 autoreload 15224 15188 Watching for file changes with StatReloader
+INFO 2024-12-25 22:15:03,284 autoreload 3788 4336 Watching for file changes with StatReloader
+INFO 2024-12-25 22:15:03,325 autoreload 3152 17428 Watching for file changes with StatReloader
+INFO 2024-12-25 22:15:03,371 autoreload 15584 7416 Watching for file changes with StatReloader
+INFO 2024-12-25 22:15:03,393 autoreload 3224 4380 Watching for file changes with StatReloader
+INFO 2024-12-25 22:15:06,316 basehttp 15224 9244 "GET /treatment/new/ HTTP/1.1" 200 10094
+INFO 2024-12-25 22:15:12,979 views 15224 17168 Dashboard access attempt
+INFO 2024-12-25 22:15:12,979 views 15224 17168 User: admin
+INFO 2024-12-25 22:15:12,979 views 15224 17168 User ID: 1
+INFO 2024-12-25 22:15:12,980 views 15224 17168 Username: admin
+INFO 2024-12-25 22:15:12,980 views 15224 17168 Is Superuser: True
+INFO 2024-12-25 22:15:12,980 views 15224 17168 Is Active: True
+INFO 2024-12-25 22:15:12,980 views 15224 17168 Accessing dashboard as superuser
+ERROR 2024-12-25 22:15:12,993 views 15224 17168 Unexpected error in dashboard view: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+Traceback (most recent call last):
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 242, in dashboard
+    return render(request, 'treatment_app/dashboard.html', context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+INFO 2024-12-25 22:15:13,004 basehttp 15224 17168 "GET / HTTP/1.1" 302 0
+INFO 2024-12-25 22:15:13,018 basehttp 15224 17168 "GET /accounts/login/ HTTP/1.1" 200 8467
+INFO 2024-12-25 22:15:13,085 basehttp 15224 17168 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:15:37,213 basehttp 15224 9984 "GET /therapists/ HTTP/1.1" 200 16002
+INFO 2024-12-25 22:15:37,274 basehttp 15224 9984 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:15:42,868 views 15224 16512 Dashboard access attempt
+INFO 2024-12-25 22:15:42,868 views 15224 16512 User: admin
+INFO 2024-12-25 22:15:42,869 views 15224 16512 User ID: 1
+INFO 2024-12-25 22:15:42,869 views 15224 16512 Username: admin
+INFO 2024-12-25 22:15:42,869 views 15224 16512 Is Superuser: True
+INFO 2024-12-25 22:15:42,869 views 15224 16512 Is Active: True
+INFO 2024-12-25 22:15:42,869 views 15224 16512 Accessing dashboard as superuser
+ERROR 2024-12-25 22:15:42,878 views 15224 16512 Unexpected error in dashboard view: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+Traceback (most recent call last):
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 242, in dashboard
+    return render(request, 'treatment_app/dashboard.html', context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+INFO 2024-12-25 22:15:42,883 basehttp 15224 16512 "GET / HTTP/1.1" 302 0
+INFO 2024-12-25 22:15:42,897 basehttp 15224 16512 "GET /accounts/login/ HTTP/1.1" 200 8467
+INFO 2024-12-25 22:15:50,346 views 15224 16512 Dashboard access attempt
+INFO 2024-12-25 22:15:50,347 views 15224 16512 User: admin
+INFO 2024-12-25 22:15:50,347 views 15224 16512 User ID: 1
+INFO 2024-12-25 22:15:50,347 views 15224 16512 Username: admin
+INFO 2024-12-25 22:15:50,347 views 15224 16512 Is Superuser: True
+INFO 2024-12-25 22:15:50,347 views 15224 16512 Is Active: True
+INFO 2024-12-25 22:15:50,347 views 15224 16512 Accessing dashboard as superuser
+ERROR 2024-12-25 22:15:50,355 views 15224 16512 Unexpected error in dashboard view: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+Traceback (most recent call last):
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 242, in dashboard
+    return render(request, 'treatment_app/dashboard.html', context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+INFO 2024-12-25 22:15:50,363 basehttp 15224 16512 "GET / HTTP/1.1" 302 0
+INFO 2024-12-25 22:15:50,377 basehttp 15224 16512 "GET /accounts/login/ HTTP/1.1" 200 8467
+INFO 2024-12-25 22:15:50,440 basehttp 15224 16512 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:15:51,311 views 15224 16512 Dashboard access attempt
+INFO 2024-12-25 22:15:51,311 views 15224 16512 User: admin
+INFO 2024-12-25 22:15:51,311 views 15224 16512 User ID: 1
+INFO 2024-12-25 22:15:51,311 views 15224 16512 Username: admin
+INFO 2024-12-25 22:15:51,311 views 15224 16512 Is Superuser: True
+INFO 2024-12-25 22:15:51,311 views 15224 16512 Is Active: True
+INFO 2024-12-25 22:15:51,312 views 15224 16512 Accessing dashboard as superuser
+ERROR 2024-12-25 22:15:51,318 views 15224 16512 Unexpected error in dashboard view: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+Traceback (most recent call last):
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 242, in dashboard
+    return render(request, 'treatment_app/dashboard.html', context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+INFO 2024-12-25 22:15:51,323 basehttp 15224 16512 "GET / HTTP/1.1" 302 0
+INFO 2024-12-25 22:15:51,335 basehttp 15224 16512 "GET /accounts/login/ HTTP/1.1" 200 8467
+INFO 2024-12-25 22:16:00,152 basehttp 15224 2468 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:16:00,951 basehttp 15224 2468 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:16:01,489 autoreload 3152 17428 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:16:01,518 autoreload 15584 7416 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:16:01,568 autoreload 3224 4380 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:16:01,642 basehttp 15224 2468 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:16:01,879 autoreload 15224 15188 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:16:01,947 autoreload 3788 4336 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:16:03,811 autoreload 2008 15196 Watching for file changes with StatReloader
+INFO 2024-12-25 22:16:03,887 autoreload 15832 7360 Watching for file changes with StatReloader
+INFO 2024-12-25 22:16:03,973 autoreload 14992 18320 Watching for file changes with StatReloader
+INFO 2024-12-25 22:16:04,089 autoreload 4012 6440 Watching for file changes with StatReloader
+INFO 2024-12-25 22:16:04,115 autoreload 15488 904 Watching for file changes with StatReloader
+INFO 2024-12-25 22:16:06,866 basehttp 2008 17516 "GET /treatments/ HTTP/1.1" 200 18707
+INFO 2024-12-25 22:16:07,035 basehttp 2008 17516 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:16:08,551 views 2008 17516 Dashboard access attempt
+INFO 2024-12-25 22:16:08,551 views 2008 17516 User: admin
+INFO 2024-12-25 22:16:08,551 views 2008 17516 User ID: 1
+INFO 2024-12-25 22:16:08,551 views 2008 17516 Username: admin
+INFO 2024-12-25 22:16:08,552 views 2008 17516 Is Superuser: True
+INFO 2024-12-25 22:16:08,552 views 2008 17516 Is Active: True
+INFO 2024-12-25 22:16:08,552 views 2008 17516 Is Authenticated: True
+INFO 2024-12-25 22:16:08,552 views 2008 17516 Accessing dashboard as superuser
+ERROR 2024-12-25 22:16:08,559 views 2008 17516 Unexpected error in dashboard view: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+Traceback (most recent call last):
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 249, in dashboard
+    return render(request, 'treatment_app/dashboard.html', context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+INFO 2024-12-25 22:16:08,572 basehttp 2008 17516 "GET / HTTP/1.1" 302 0
+INFO 2024-12-25 22:16:08,589 basehttp 2008 17516 "GET /accounts/login/ HTTP/1.1" 200 8589
+INFO 2024-12-25 22:16:25,816 basehttp 2008 900 "GET /children/ HTTP/1.1" 200 6441
+INFO 2024-12-25 22:16:25,885 basehttp 2008 900 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:16:27,581 views 2008 900 Dashboard access attempt
+INFO 2024-12-25 22:16:27,582 views 2008 900 User: admin
+INFO 2024-12-25 22:16:27,582 views 2008 900 User ID: 1
+INFO 2024-12-25 22:16:27,582 views 2008 900 Username: admin
+INFO 2024-12-25 22:16:27,582 views 2008 900 Is Superuser: True
+INFO 2024-12-25 22:16:27,582 views 2008 900 Is Active: True
+INFO 2024-12-25 22:16:27,582 views 2008 900 Is Authenticated: True
+INFO 2024-12-25 22:16:27,582 views 2008 900 Accessing dashboard as superuser
+ERROR 2024-12-25 22:16:27,590 views 2008 900 Unexpected error in dashboard view: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+Traceback (most recent call last):
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 249, in dashboard
+    return render(request, 'treatment_app/dashboard.html', context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'treatment-new' not found. 'treatment-new' is not a valid view function or pattern name.
+INFO 2024-12-25 22:16:27,593 basehttp 2008 900 "GET / HTTP/1.1" 302 0
+INFO 2024-12-25 22:16:27,609 basehttp 2008 900 "GET /accounts/login/ HTTP/1.1" 200 8589
+INFO 2024-12-25 22:16:40,433 basehttp 2008 3236 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:16:41,128 basehttp 2008 3236 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:16:41,766 basehttp 2008 3236 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:16:42,428 basehttp 2008 8064 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:16:43,080 basehttp 2008 8064 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:16:43,171 basehttp 2008 8064 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:16:44,123 basehttp 2008 8064 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:16:44,694 basehttp 2008 8064 "GET /accounts/login/ HTTP/1.1" 200 7987
+INFO 2024-12-25 22:16:45,827 basehttp 2008 8064 "GET /families/ HTTP/1.1" 200 8461
+INFO 2024-12-25 22:16:46,984 basehttp 2008 8064 "GET /children/ HTTP/1.1" 200 6441
+INFO 2024-12-25 22:16:47,694 basehttp 2008 8064 "GET /treatments/ HTTP/1.1" 200 18707
+INFO 2024-12-25 22:16:48,731 basehttp 2008 8064 "GET /families/ HTTP/1.1" 200 8461
+INFO 2024-12-25 22:16:52,840 views 2008 6028 Dashboard access attempt
+INFO 2024-12-25 22:16:52,840 views 2008 6028 User: admin
+INFO 2024-12-25 22:16:52,840 views 2008 6028 User ID: 1
+INFO 2024-12-25 22:16:52,840 views 2008 6028 Username: admin
+INFO 2024-12-25 22:16:52,840 views 2008 6028 Is Superuser: True
+INFO 2024-12-25 22:16:52,840 views 2008 6028 Is Active: True
+INFO 2024-12-25 22:16:52,840 views 2008 6028 Is Authenticated: True
+INFO 2024-12-25 22:16:52,841 views 2008 6028 Accessing dashboard as superuser
+INFO 2024-12-25 22:16:52,856 basehttp 2008 6028 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:16:52,923 basehttp 2008 6028 "GET /static/treatment_app/js/dashboard.js HTTP/1.1" 304 0
+INFO 2024-12-25 22:17:33,101 basehttp 2008 16884 "GET /treatment/new/ HTTP/1.1" 200 10094
+INFO 2024-12-25 22:17:36,852 basehttp 2008 16884 "GET /treatments/ HTTP/1.1" 200 18707
+INFO 2024-12-25 22:17:36,931 basehttp 2008 16884 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:17:39,784 basehttp 2008 16884 "GET /family/new/ HTTP/1.1" 200 19464
+INFO 2024-12-25 22:17:48,037 views 2008 7340 Dashboard access attempt
+INFO 2024-12-25 22:17:48,037 views 2008 7340 User: admin
+INFO 2024-12-25 22:17:48,037 views 2008 7340 User ID: 1
+INFO 2024-12-25 22:17:48,038 views 2008 7340 Username: admin
+INFO 2024-12-25 22:17:48,038 views 2008 7340 Is Superuser: True
+INFO 2024-12-25 22:17:48,038 views 2008 7340 Is Active: True
+INFO 2024-12-25 22:17:48,038 views 2008 7340 Is Authenticated: True
+INFO 2024-12-25 22:17:48,038 views 2008 7340 Accessing dashboard as superuser
+INFO 2024-12-25 22:17:48,046 basehttp 2008 7340 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:17:48,121 basehttp 2008 7340 "GET /static/treatment_app/js/dashboard.js HTTP/1.1" 304 0
+INFO 2024-12-25 22:17:55,186 basehttp 2008 9240 "GET /family/new/ HTTP/1.1" 200 19464
+INFO 2024-12-25 22:17:56,774 views 2008 9240 Dashboard access attempt
+INFO 2024-12-25 22:17:56,774 views 2008 9240 User: admin
+INFO 2024-12-25 22:17:56,774 views 2008 9240 User ID: 1
+INFO 2024-12-25 22:17:56,775 views 2008 9240 Username: admin
+INFO 2024-12-25 22:17:56,775 views 2008 9240 Is Superuser: True
+INFO 2024-12-25 22:17:56,775 views 2008 9240 Is Active: True
+INFO 2024-12-25 22:17:56,775 views 2008 9240 Is Authenticated: True
+INFO 2024-12-25 22:17:56,776 views 2008 9240 Accessing dashboard as superuser
+INFO 2024-12-25 22:17:56,787 basehttp 2008 9240 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:03,826 views 2008 16360 Dashboard access attempt
+INFO 2024-12-25 22:18:03,827 views 2008 16360 User: admin
+INFO 2024-12-25 22:18:03,827 views 2008 16360 User ID: 1
+INFO 2024-12-25 22:18:03,827 views 2008 16360 Username: admin
+INFO 2024-12-25 22:18:03,827 views 2008 16360 Is Superuser: True
+INFO 2024-12-25 22:18:03,827 views 2008 16360 Is Active: True
+INFO 2024-12-25 22:18:03,827 views 2008 16360 Is Authenticated: True
+INFO 2024-12-25 22:18:03,827 views 2008 16360 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:03,835 basehttp 2008 16360 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:04,003 basehttp 2008 16360 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 200 5123
+INFO 2024-12-25 22:18:12,941 views 2008 17296 Dashboard access attempt
+INFO 2024-12-25 22:18:12,942 views 2008 17296 User: admin
+INFO 2024-12-25 22:18:12,942 views 2008 17296 User ID: 1
+INFO 2024-12-25 22:18:12,942 views 2008 17296 Username: admin
+INFO 2024-12-25 22:18:12,942 views 2008 17296 Is Superuser: True
+INFO 2024-12-25 22:18:12,942 views 2008 17296 Is Active: True
+INFO 2024-12-25 22:18:12,942 views 2008 17296 Is Authenticated: True
+INFO 2024-12-25 22:18:12,942 views 2008 17296 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:12,952 basehttp 2008 17296 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:13,026 basehttp 2008 17296 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:18:13,705 views 2008 17296 Dashboard access attempt
+INFO 2024-12-25 22:18:13,705 views 2008 17296 User: admin
+INFO 2024-12-25 22:18:13,705 views 2008 17296 User ID: 1
+INFO 2024-12-25 22:18:13,705 views 2008 17296 Username: admin
+INFO 2024-12-25 22:18:13,705 views 2008 17296 Is Superuser: True
+INFO 2024-12-25 22:18:13,705 views 2008 17296 Is Active: True
+INFO 2024-12-25 22:18:13,705 views 2008 17296 Is Authenticated: True
+INFO 2024-12-25 22:18:13,706 views 2008 17296 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:13,713 basehttp 2008 17296 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:14,466 views 2008 17296 Dashboard access attempt
+INFO 2024-12-25 22:18:14,466 views 2008 17296 User: admin
+INFO 2024-12-25 22:18:14,467 views 2008 17296 User ID: 1
+INFO 2024-12-25 22:18:14,467 views 2008 17296 Username: admin
+INFO 2024-12-25 22:18:14,467 views 2008 17296 Is Superuser: True
+INFO 2024-12-25 22:18:14,467 views 2008 17296 Is Active: True
+INFO 2024-12-25 22:18:14,467 views 2008 17296 Is Authenticated: True
+INFO 2024-12-25 22:18:14,468 views 2008 17296 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:14,480 basehttp 2008 17296 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:15,072 views 2008 17296 Dashboard access attempt
+INFO 2024-12-25 22:18:15,072 views 2008 17296 User: admin
+INFO 2024-12-25 22:18:15,072 views 2008 17296 User ID: 1
+INFO 2024-12-25 22:18:15,072 views 2008 17296 Username: admin
+INFO 2024-12-25 22:18:15,072 views 2008 17296 Is Superuser: True
+INFO 2024-12-25 22:18:15,073 views 2008 17296 Is Active: True
+INFO 2024-12-25 22:18:15,073 views 2008 17296 Is Authenticated: True
+INFO 2024-12-25 22:18:15,073 views 2008 17296 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:15,081 basehttp 2008 17296 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:15,318 views 2008 17296 Dashboard access attempt
+INFO 2024-12-25 22:18:15,318 views 2008 17296 User: admin
+INFO 2024-12-25 22:18:15,318 views 2008 17296 User ID: 1
+INFO 2024-12-25 22:18:15,318 views 2008 17296 Username: admin
+INFO 2024-12-25 22:18:15,318 views 2008 17296 Is Superuser: True
+INFO 2024-12-25 22:18:15,319 views 2008 17296 Is Active: True
+INFO 2024-12-25 22:18:15,319 views 2008 17296 Is Authenticated: True
+INFO 2024-12-25 22:18:15,319 views 2008 17296 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:15,331 basehttp 2008 17296 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:15,771 views 2008 17296 Dashboard access attempt
+INFO 2024-12-25 22:18:15,772 views 2008 17296 User: admin
+INFO 2024-12-25 22:18:15,772 views 2008 17296 User ID: 1
+INFO 2024-12-25 22:18:15,772 views 2008 17296 Username: admin
+INFO 2024-12-25 22:18:15,772 views 2008 17296 Is Superuser: True
+INFO 2024-12-25 22:18:15,772 views 2008 17296 Is Active: True
+INFO 2024-12-25 22:18:15,772 views 2008 17296 Is Authenticated: True
+INFO 2024-12-25 22:18:15,772 views 2008 17296 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:15,779 basehttp 2008 17296 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:15,827 basehttp 2008 17296 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:18:16,437 views 2008 17296 Dashboard access attempt
+INFO 2024-12-25 22:18:16,437 views 2008 17296 User: admin
+INFO 2024-12-25 22:18:16,437 views 2008 17296 User ID: 1
+INFO 2024-12-25 22:18:16,437 views 2008 17296 Username: admin
+INFO 2024-12-25 22:18:16,437 views 2008 17296 Is Superuser: True
+INFO 2024-12-25 22:18:16,437 views 2008 17296 Is Active: True
+INFO 2024-12-25 22:18:16,438 views 2008 17296 Is Authenticated: True
+INFO 2024-12-25 22:18:16,438 views 2008 17296 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:16,451 basehttp 2008 17296 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:16,646 views 2008 17296 Dashboard access attempt
+INFO 2024-12-25 22:18:16,647 views 2008 17296 User: admin
+INFO 2024-12-25 22:18:16,647 views 2008 17296 User ID: 1
+INFO 2024-12-25 22:18:16,647 views 2008 17296 Username: admin
+INFO 2024-12-25 22:18:16,647 views 2008 17296 Is Superuser: True
+INFO 2024-12-25 22:18:16,647 views 2008 17296 Is Active: True
+INFO 2024-12-25 22:18:16,647 views 2008 17296 Is Authenticated: True
+INFO 2024-12-25 22:18:16,647 views 2008 17296 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:16,659 basehttp 2008 17296 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:18,821 views 2008 17296 Dashboard access attempt
+INFO 2024-12-25 22:18:18,822 views 2008 17296 User: admin
+INFO 2024-12-25 22:18:18,822 views 2008 17296 User ID: 1
+INFO 2024-12-25 22:18:18,822 views 2008 17296 Username: admin
+INFO 2024-12-25 22:18:18,822 views 2008 17296 Is Superuser: True
+INFO 2024-12-25 22:18:18,822 views 2008 17296 Is Active: True
+INFO 2024-12-25 22:18:18,822 views 2008 17296 Is Authenticated: True
+INFO 2024-12-25 22:18:18,823 views 2008 17296 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:18,836 basehttp 2008 17296 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:18,896 basehttp 2008 17296 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:18:19,577 views 2008 17296 Dashboard access attempt
+INFO 2024-12-25 22:18:19,577 views 2008 17296 User: admin
+INFO 2024-12-25 22:18:19,578 views 2008 17296 User ID: 1
+INFO 2024-12-25 22:18:19,578 views 2008 17296 Username: admin
+INFO 2024-12-25 22:18:19,578 views 2008 17296 Is Superuser: True
+INFO 2024-12-25 22:18:19,578 views 2008 17296 Is Active: True
+INFO 2024-12-25 22:18:19,578 views 2008 17296 Is Authenticated: True
+INFO 2024-12-25 22:18:19,578 views 2008 17296 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:19,589 basehttp 2008 17296 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:26,231 views 2008 2784 Dashboard access attempt
+INFO 2024-12-25 22:18:26,231 views 2008 2784 User: admin
+INFO 2024-12-25 22:18:26,231 views 2008 2784 User ID: 1
+INFO 2024-12-25 22:18:26,231 views 2008 2784 Username: admin
+INFO 2024-12-25 22:18:26,231 views 2008 2784 Is Superuser: True
+INFO 2024-12-25 22:18:26,231 views 2008 2784 Is Active: True
+INFO 2024-12-25 22:18:26,231 views 2008 2784 Is Authenticated: True
+INFO 2024-12-25 22:18:26,232 views 2008 2784 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:26,241 basehttp 2008 2784 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:26,319 basehttp 2008 2784 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:18:26,945 views 2008 2784 Dashboard access attempt
+INFO 2024-12-25 22:18:26,945 views 2008 2784 User: admin
+INFO 2024-12-25 22:18:26,946 views 2008 2784 User ID: 1
+INFO 2024-12-25 22:18:26,946 views 2008 2784 Username: admin
+INFO 2024-12-25 22:18:26,946 views 2008 2784 Is Superuser: True
+INFO 2024-12-25 22:18:26,946 views 2008 2784 Is Active: True
+INFO 2024-12-25 22:18:26,946 views 2008 2784 Is Authenticated: True
+INFO 2024-12-25 22:18:26,946 views 2008 2784 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:26,956 basehttp 2008 2784 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:27,605 views 2008 2784 Dashboard access attempt
+INFO 2024-12-25 22:18:27,605 views 2008 2784 User: admin
+INFO 2024-12-25 22:18:27,605 views 2008 2784 User ID: 1
+INFO 2024-12-25 22:18:27,605 views 2008 2784 Username: admin
+INFO 2024-12-25 22:18:27,605 views 2008 2784 Is Superuser: True
+INFO 2024-12-25 22:18:27,606 views 2008 2784 Is Active: True
+INFO 2024-12-25 22:18:27,606 views 2008 2784 Is Authenticated: True
+INFO 2024-12-25 22:18:27,606 views 2008 2784 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:27,623 basehttp 2008 2784 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:27,719 basehttp 2008 2784 "GET /static/treatment_app/js/dashboard.js HTTP/1.1" 304 0
+INFO 2024-12-25 22:18:28,245 views 2008 2784 Dashboard access attempt
+INFO 2024-12-25 22:18:28,246 views 2008 2784 User: admin
+INFO 2024-12-25 22:18:28,246 views 2008 2784 User ID: 1
+INFO 2024-12-25 22:18:28,246 views 2008 2784 Username: admin
+INFO 2024-12-25 22:18:28,246 views 2008 2784 Is Superuser: True
+INFO 2024-12-25 22:18:28,246 views 2008 2784 Is Active: True
+INFO 2024-12-25 22:18:28,246 views 2008 2784 Is Authenticated: True
+INFO 2024-12-25 22:18:28,246 views 2008 2784 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:28,263 basehttp 2008 2784 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:28,961 views 2008 2784 Dashboard access attempt
+INFO 2024-12-25 22:18:28,961 views 2008 2784 User: admin
+INFO 2024-12-25 22:18:28,962 views 2008 2784 User ID: 1
+INFO 2024-12-25 22:18:28,962 views 2008 2784 Username: admin
+INFO 2024-12-25 22:18:28,962 views 2008 2784 Is Superuser: True
+INFO 2024-12-25 22:18:28,962 views 2008 2784 Is Active: True
+INFO 2024-12-25 22:18:28,962 views 2008 2784 Is Authenticated: True
+INFO 2024-12-25 22:18:28,962 views 2008 2784 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:28,979 basehttp 2008 2784 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:29,761 views 2008 2784 Dashboard access attempt
+INFO 2024-12-25 22:18:29,761 views 2008 2784 User: admin
+INFO 2024-12-25 22:18:29,761 views 2008 2784 User ID: 1
+INFO 2024-12-25 22:18:29,761 views 2008 2784 Username: admin
+INFO 2024-12-25 22:18:29,762 views 2008 2784 Is Superuser: True
+INFO 2024-12-25 22:18:29,762 views 2008 2784 Is Active: True
+INFO 2024-12-25 22:18:29,762 views 2008 2784 Is Authenticated: True
+INFO 2024-12-25 22:18:29,762 views 2008 2784 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:29,771 basehttp 2008 2784 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:30,498 views 2008 2784 Dashboard access attempt
+INFO 2024-12-25 22:18:30,498 views 2008 2784 User: admin
+INFO 2024-12-25 22:18:30,498 views 2008 2784 User ID: 1
+INFO 2024-12-25 22:18:30,498 views 2008 2784 Username: admin
+INFO 2024-12-25 22:18:30,498 views 2008 2784 Is Superuser: True
+INFO 2024-12-25 22:18:30,498 views 2008 2784 Is Active: True
+INFO 2024-12-25 22:18:30,498 views 2008 2784 Is Authenticated: True
+INFO 2024-12-25 22:18:30,498 views 2008 2784 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:30,512 basehttp 2008 2784 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:30,566 basehttp 2008 2784 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:18:31,059 views 2008 2784 Dashboard access attempt
+INFO 2024-12-25 22:18:31,059 views 2008 2784 User: admin
+INFO 2024-12-25 22:18:31,059 views 2008 2784 User ID: 1
+INFO 2024-12-25 22:18:31,059 views 2008 2784 Username: admin
+INFO 2024-12-25 22:18:31,059 views 2008 2784 Is Superuser: True
+INFO 2024-12-25 22:18:31,060 views 2008 2784 Is Active: True
+INFO 2024-12-25 22:18:31,060 views 2008 2784 Is Authenticated: True
+INFO 2024-12-25 22:18:31,060 views 2008 2784 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:31,075 basehttp 2008 2784 "GET / HTTP/1.1" 200 9571
+INFO 2024-12-25 22:18:31,538 views 2008 2784 Dashboard access attempt
+INFO 2024-12-25 22:18:31,538 views 2008 2784 User: admin
+INFO 2024-12-25 22:18:31,538 views 2008 2784 User ID: 1
+INFO 2024-12-25 22:18:31,538 views 2008 2784 Username: admin
+INFO 2024-12-25 22:18:31,539 views 2008 2784 Is Superuser: True
+INFO 2024-12-25 22:18:31,539 views 2008 2784 Is Active: True
+INFO 2024-12-25 22:18:31,540 views 2008 2784 Is Authenticated: True
+INFO 2024-12-25 22:18:31,540 views 2008 2784 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:31,565 basehttp 2008 2784 "GET / HTTP/1.1" 200 17750
+INFO 2024-12-25 22:18:32,678 views 2008 8728 Dashboard access attempt
+INFO 2024-12-25 22:18:32,678 views 2008 8728 User: admin
+INFO 2024-12-25 22:18:32,679 views 2008 8728 User ID: 1
+INFO 2024-12-25 22:18:32,679 views 2008 8728 Username: admin
+INFO 2024-12-25 22:18:32,679 views 2008 8728 Is Superuser: True
+INFO 2024-12-25 22:18:32,679 views 2008 8728 Is Active: True
+INFO 2024-12-25 22:18:32,679 views 2008 8728 Is Authenticated: True
+INFO 2024-12-25 22:18:32,679 views 2008 8728 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:32,704 basehttp 2008 8728 "GET / HTTP/1.1" 200 17750
+INFO 2024-12-25 22:18:33,625 views 2008 8728 Dashboard access attempt
+INFO 2024-12-25 22:18:33,625 views 2008 8728 User: admin
+INFO 2024-12-25 22:18:33,626 views 2008 8728 User ID: 1
+INFO 2024-12-25 22:18:33,626 views 2008 8728 Username: admin
+INFO 2024-12-25 22:18:33,626 views 2008 8728 Is Superuser: True
+INFO 2024-12-25 22:18:33,626 views 2008 8728 Is Active: True
+INFO 2024-12-25 22:18:33,626 views 2008 8728 Is Authenticated: True
+INFO 2024-12-25 22:18:33,626 views 2008 8728 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:33,646 basehttp 2008 8728 "GET / HTTP/1.1" 200 17750
+INFO 2024-12-25 22:18:45,091 basehttp 2008 15120 "GET /family/new/ HTTP/1.1" 200 19464
+INFO 2024-12-25 22:18:45,164 basehttp 2008 15120 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:18:47,447 views 2008 15120 Dashboard access attempt
+INFO 2024-12-25 22:18:47,448 views 2008 15120 User: admin
+INFO 2024-12-25 22:18:47,448 views 2008 15120 User ID: 1
+INFO 2024-12-25 22:18:47,449 views 2008 15120 Username: admin
+INFO 2024-12-25 22:18:47,449 views 2008 15120 Is Superuser: True
+INFO 2024-12-25 22:18:47,450 views 2008 15120 Is Active: True
+INFO 2024-12-25 22:18:47,450 views 2008 15120 Is Authenticated: True
+INFO 2024-12-25 22:18:47,450 views 2008 15120 Accessing dashboard as superuser
+INFO 2024-12-25 22:18:47,471 basehttp 2008 15120 "GET / HTTP/1.1" 200 17750
+INFO 2024-12-25 22:18:56,472 autoreload 4012 6440 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:18:56,602 autoreload 15488 904 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:18:56,698 autoreload 2008 15196 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:18:56,890 autoreload 15832 7360 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:18:56,988 autoreload 14992 18320 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-25 22:18:57,963 autoreload 16852 2976 Watching for file changes with StatReloader
+INFO 2024-12-25 22:18:58,142 autoreload 15604 7148 Watching for file changes with StatReloader
+INFO 2024-12-25 22:18:58,257 autoreload 4660 9960 Watching for file changes with StatReloader
+INFO 2024-12-25 22:18:58,451 autoreload 17768 6452 Watching for file changes with StatReloader
+INFO 2024-12-25 22:18:58,533 autoreload 15984 18368 Watching for file changes with StatReloader
+INFO 2024-12-25 22:19:01,935 views 16852 16320 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:19:01,936 views 16852 16320 User is superuser: True
+INFO 2024-12-25 22:19:01,936 views 16852 16320 User ID: 1
+INFO 2024-12-25 22:19:01,936 views 16852 16320 Username: admin
+INFO 2024-12-25 22:19:02,016 basehttp 16852 16320 "GET / HTTP/1.1" 200 19077
+INFO 2024-12-25 22:19:02,120 basehttp 16852 16320 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:20:21,325 basehttp 16852 17760 "GET /families/ HTTP/1.1" 200 8461
+INFO 2024-12-25 22:20:21,426 basehttp 16852 17760 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:20:25,918 views 16852 6636 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:20:25,918 views 16852 6636 User is superuser: True
+INFO 2024-12-25 22:20:25,918 views 16852 6636 User ID: 1
+INFO 2024-12-25 22:20:25,918 views 16852 6636 Username: admin
+INFO 2024-12-25 22:20:25,939 basehttp 16852 6636 "GET / HTTP/1.1" 200 19077
+INFO 2024-12-25 22:20:26,879 views 16852 6636 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:20:26,879 views 16852 6636 User is superuser: True
+INFO 2024-12-25 22:20:26,879 views 16852 6636 User ID: 1
+INFO 2024-12-25 22:20:26,880 views 16852 6636 Username: admin
+INFO 2024-12-25 22:20:26,895 basehttp 16852 6636 "GET / HTTP/1.1" 200 19077
+INFO 2024-12-25 22:20:29,414 views 16852 6636 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:20:29,414 views 16852 6636 User is superuser: True
+INFO 2024-12-25 22:20:29,415 views 16852 6636 User ID: 1
+INFO 2024-12-25 22:20:29,415 views 16852 6636 Username: admin
+INFO 2024-12-25 22:20:29,433 basehttp 16852 6636 "GET / HTTP/1.1" 200 19077
+INFO 2024-12-25 22:20:30,115 views 16852 6636 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:20:30,115 views 16852 6636 User is superuser: True
+INFO 2024-12-25 22:20:30,116 views 16852 6636 User ID: 1
+INFO 2024-12-25 22:20:30,116 views 16852 6636 Username: admin
+INFO 2024-12-25 22:20:30,142 basehttp 16852 6636 "GET / HTTP/1.1" 200 19077
+INFO 2024-12-25 22:20:30,753 views 16852 6636 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:20:30,753 views 16852 6636 User is superuser: True
+INFO 2024-12-25 22:20:30,753 views 16852 6636 User ID: 1
+INFO 2024-12-25 22:20:30,753 views 16852 6636 Username: admin
+INFO 2024-12-25 22:20:30,778 basehttp 16852 6636 "GET / HTTP/1.1" 200 19077
+INFO 2024-12-25 22:20:35,737 views 16852 18280 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:20:35,737 views 16852 18280 User is superuser: True
+INFO 2024-12-25 22:20:35,737 views 16852 18280 User ID: 1
+INFO 2024-12-25 22:20:35,737 views 16852 18280 Username: admin
+INFO 2024-12-25 22:20:35,759 basehttp 16852 18280 "GET / HTTP/1.1" 200 19077
+INFO 2024-12-25 22:20:36,534 views 16852 18280 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:20:36,534 views 16852 18280 User is superuser: True
+INFO 2024-12-25 22:20:36,534 views 16852 18280 User ID: 1
+INFO 2024-12-25 22:20:36,534 views 16852 18280 Username: admin
+INFO 2024-12-25 22:20:36,557 basehttp 16852 18280 "GET / HTTP/1.1" 200 19077
+INFO 2024-12-25 22:20:36,725 basehttp 16852 18280 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 200 6464
+INFO 2024-12-25 22:20:37,234 views 16852 18280 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:20:37,234 views 16852 18280 User is superuser: True
+INFO 2024-12-25 22:20:37,234 views 16852 18280 User ID: 1
+INFO 2024-12-25 22:20:37,234 views 16852 18280 Username: admin
+INFO 2024-12-25 22:20:37,247 basehttp 16852 18280 "GET / HTTP/1.1" 200 19077
+INFO 2024-12-25 22:20:37,306 basehttp 16852 18280 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:20:37,559 views 16852 18280 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:20:37,560 views 16852 18280 User is superuser: True
+INFO 2024-12-25 22:20:37,560 views 16852 18280 User ID: 1
+INFO 2024-12-25 22:20:37,560 views 16852 18280 Username: admin
+INFO 2024-12-25 22:20:37,579 basehttp 16852 18280 "GET / HTTP/1.1" 200 19077
+INFO 2024-12-25 22:20:37,841 views 16852 18280 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:20:37,841 views 16852 18280 User is superuser: True
+INFO 2024-12-25 22:20:37,842 views 16852 18280 User ID: 1
+INFO 2024-12-25 22:20:37,842 views 16852 18280 Username: admin
+INFO 2024-12-25 22:20:37,866 basehttp 16852 18280 "GET / HTTP/1.1" 200 19077
+INFO 2024-12-25 22:20:52,287 views 16852 7356 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:20:52,287 views 16852 7356 User is superuser: True
+INFO 2024-12-25 22:20:52,287 views 16852 7356 User ID: 1
+INFO 2024-12-25 22:20:52,287 views 16852 7356 Username: admin
+INFO 2024-12-25 22:20:52,298 basehttp 16852 7356 "GET / HTTP/1.1" 200 8771
+INFO 2024-12-25 22:20:52,352 basehttp 16852 7356 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:21:49,849 views 16852 9704 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:21:49,850 views 16852 9704 User is superuser: True
+INFO 2024-12-25 22:21:49,850 views 16852 9704 User ID: 1
+INFO 2024-12-25 22:21:49,850 views 16852 9704 Username: admin
+INFO 2024-12-25 22:21:49,868 basehttp 16852 9704 "GET / HTTP/1.1" 200 8771
+INFO 2024-12-25 22:21:49,960 basehttp 16852 9704 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:21:50,646 views 16852 9704 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:21:50,647 views 16852 9704 User is superuser: True
+INFO 2024-12-25 22:21:50,647 views 16852 9704 User ID: 1
+INFO 2024-12-25 22:21:50,647 views 16852 9704 Username: admin
+INFO 2024-12-25 22:21:50,655 basehttp 16852 9704 "GET / HTTP/1.1" 200 8771
+INFO 2024-12-25 22:21:51,234 views 16852 9704 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:21:51,235 views 16852 9704 User is superuser: True
+INFO 2024-12-25 22:21:51,235 views 16852 9704 User ID: 1
+INFO 2024-12-25 22:21:51,235 views 16852 9704 Username: admin
+INFO 2024-12-25 22:21:51,249 basehttp 16852 9704 "GET / HTTP/1.1" 200 8771
+INFO 2024-12-25 22:21:52,164 basehttp 16852 9704 "GET /child/new/ HTTP/1.1" 200 11428
+INFO 2024-12-25 22:21:59,073 basehttp 16852 14424 "GET /family/new/ HTTP/1.1" 200 19464
+INFO 2024-12-25 22:21:59,144 basehttp 16852 14424 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:22:02,717 basehttp 16852 5924 "GET /treatment/new/ HTTP/1.1" 200 10094
+INFO 2024-12-25 22:22:07,775 views 16852 5924 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:22:07,775 views 16852 5924 User is superuser: True
+INFO 2024-12-25 22:22:07,775 views 16852 5924 User ID: 1
+INFO 2024-12-25 22:22:07,775 views 16852 5924 Username: admin
+INFO 2024-12-25 22:22:07,786 basehttp 16852 5924 "GET / HTTP/1.1" 200 8771
+INFO 2024-12-25 22:22:08,520 views 16852 5924 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:22:08,521 views 16852 5924 User is superuser: True
+INFO 2024-12-25 22:22:08,521 views 16852 5924 User ID: 1
+INFO 2024-12-25 22:22:08,521 views 16852 5924 Username: admin
+INFO 2024-12-25 22:22:08,531 basehttp 16852 5924 "GET / HTTP/1.1" 200 8771
+INFO 2024-12-25 22:22:08,594 basehttp 16852 5924 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 200 7068
+INFO 2024-12-25 22:22:09,472 views 16852 5924 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:22:09,472 views 16852 5924 User is superuser: True
+INFO 2024-12-25 22:22:09,472 views 16852 5924 User ID: 1
+INFO 2024-12-25 22:22:09,472 views 16852 5924 Username: admin
+INFO 2024-12-25 22:22:09,481 basehttp 16852 5924 "GET / HTTP/1.1" 200 8771
+INFO 2024-12-25 22:22:09,535 basehttp 16852 5924 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:22:12,243 views 16852 5924 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:22:12,243 views 16852 5924 User is superuser: True
+INFO 2024-12-25 22:22:12,243 views 16852 5924 User ID: 1
+INFO 2024-12-25 22:22:12,243 views 16852 5924 Username: admin
+INFO 2024-12-25 22:22:12,255 basehttp 16852 5924 "GET / HTTP/1.1" 200 8771
+INFO 2024-12-25 22:22:12,312 basehttp 16852 5924 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:22:18,713 views 16852 3764 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:22:18,713 views 16852 3764 User is superuser: True
+INFO 2024-12-25 22:22:18,713 views 16852 3764 User ID: 1
+INFO 2024-12-25 22:22:18,713 views 16852 3764 Username: admin
+INFO 2024-12-25 22:22:18,729 basehttp 16852 3764 "GET / HTTP/1.1" 200 8586
+INFO 2024-12-25 22:22:18,787 basehttp 16852 3764 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:22:27,674 basehttp 16852 13416 "GET /families/ HTTP/1.1" 200 8461
+INFO 2024-12-25 22:22:27,736 basehttp 16852 13416 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-25 22:22:28,786 views 16852 13416 Dashboard access attempt by user: admin
+INFO 2024-12-25 22:22:28,786 views 16852 13416 User is superuser: True
+INFO 2024-12-25 22:22:28,786 views 16852 13416 User ID: 1
+INFO 2024-12-25 22:22:28,786 views 16852 13416 Username: admin
+INFO 2024-12-25 22:22:28,800 basehttp 16852 13416 "GET / HTTP/1.1" 200 8586

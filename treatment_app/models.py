@@ -1,11 +1,44 @@
+"""
+Django models for the Treatment Center Management System.
+
+This module defines the core data models for managing families, children, 
+treatments, therapist profiles, and documents in a treatment center.
+
+Key Models:
+- Family: Represents a family unit with contact and parental information
+- Child: Stores details about individual children in a family
+- Treatment: Tracks treatment sessions and their details
+- TherapistProfile: Extends the default User model for therapists
+- Document: Manages various types of documents related to families and children
+
+The models use Django's built-in translation and validation features to 
+provide a robust and localized data management system.
+"""
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
+from django.core.exceptions import ValidationError
+from django.utils import timezone
+from django.core.validators import MinValueValidator, MaxValueValidator
+from datetime import datetime, time, timedelta
 
 class Family(models.Model):
+    """
+    Represents a family unit in the treatment center management system.
+    
+    Stores comprehensive information about a family, including:
+    - Basic contact details
+    - Parental information
+    - Associated therapist
+    - Consent and confidentiality documents
+    
+    Supports different family structures (both parents, single parent)
+    and maintains a record of important family-related documents.
+    """
     PARENTS_TYPE_CHOICES = [
         ('both', _('שני הורים')),
         ('father', _('אב בלבד')),
@@ -80,6 +113,18 @@ class Family(models.Model):
         return reverse('treatment_app:family-detail', kwargs={'pk': self.pk})
 
 class Child(models.Model):
+    """
+    Represents a child within a family in the treatment center.
+    
+    Captures detailed information about a child, including:
+    - Basic personal details (name, birth date, gender)
+    - School and educational information
+    - Medical and health-related details
+    - Associated therapist and family
+    
+    Provides a comprehensive profile for tracking a child's 
+    treatment and personal information.
+    """
     family = models.ForeignKey(
         Family,
         on_delete=models.CASCADE,
@@ -133,55 +178,133 @@ class Child(models.Model):
         return reverse('treatment_app:child-detail', kwargs={'pk': self.pk})
 
 class Treatment(models.Model):
-    TREATMENT_TYPE_CHOICES = [
-        ('individual', _('טיפול פרטני')),
-        ('family', _('טיפול משפחתי')),
-        ('parent', _('הדרכת הורים')),
-    ]
+    """
+    Represents a treatment session for a child or family.
+    
+    Tracks treatment details including scheduling, status, and summary.
+    Supports both individual child treatments and family-level interventions.
+    """
+    class TreatmentType(models.TextChoices):
+        INDIVIDUAL = 'INDIVIDUAL', _('טיפול פרטני')
+        GROUP = 'GROUP', _('טיפול קבוצתי')
+        FAMILY = 'FAMILY', _('טיפול משפחתי')
+        CONSULTATION = 'CONSULTATION', _('התייעצות')
 
-    type = models.CharField(max_length=20, choices=TREATMENT_TYPE_CHOICES, verbose_name=_('סוג טיפול'), default='individual')
-    family = models.ForeignKey(Family, on_delete=models.CASCADE, related_name='family_treatments', null=True, blank=True)
-    child = models.ForeignKey(Child, on_delete=models.CASCADE, related_name='treatments', null=True, blank=True)
-    date = models.DateTimeField(verbose_name=_('תאריך'))
-    therapist = models.ForeignKey(
-        User,
-        on_delete=models.SET_NULL,
-        null=True,
-        verbose_name=_('מטפל'),
-        related_name='treatments'
-    )
-    summary = models.TextField(verbose_name=_('סיכום'))
-    next_steps = models.TextField(verbose_name=_('צעדים הבאים'), blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    class TreatmentStatus(models.TextChoices):
+        SCHEDULED = 'SCHEDULED', _('מתוכנן')
+        COMPLETED = 'COMPLETED', _('הושלם')
+        MISSED = 'MISSED', _('לא התקיים')
+        PENDING_SUMMARY = 'PENDING_SUMMARY', _('ממתין לסיכום')
 
-    def clean(self):
-        if not self.family and not self.child:
-            raise ValidationError(_('חובה לבחור משפחה או ילד'))
-        if self.type == 'individual' and not self.child:
-            raise ValidationError(_('בטיפול פרטני חובה לבחור ילד'))
-        if self.type == 'family' and not self.family:
-            raise ValidationError(_('בטיפול משפחתי חובה לבחור משפחה'))
-        if self.child and self.family and self.child.family != self.family:
-            raise ValidationError(_('הילד אינו שייך למשפחה זו'))
-        if self.child:
-            self.family = self.child.family
+    # Relationships
+    family = models.ForeignKey('Family', on_delete=models.CASCADE, related_name='treatments', null=True, blank=True, verbose_name=_('משפחה'))
+    child = models.ForeignKey('Child', on_delete=models.CASCADE, related_name='treatments', null=True, blank=True, verbose_name=_('ילד'))
+    therapist = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='treatments', verbose_name=_('מטפל'))
 
-    def save(self, *args, **kwargs):
-        self.clean()
-        super().save(*args, **kwargs)
+    # Treatment Details
+    type = models.CharField(max_length=20, choices=TreatmentType.choices, default=TreatmentType.INDIVIDUAL, verbose_name=_('סוג טיפול'))
+    status = models.CharField(max_length=20, choices=TreatmentStatus.choices, default=TreatmentStatus.SCHEDULED, verbose_name=_('סטטוס'))
+
+    # Scheduling
+    scheduled_date = models.DateField(null=True, blank=True, verbose_name=_('תאריך מתוכנן'))
+    start_time = models.TimeField(null=True, blank=True, default=time(8, 0), verbose_name=_('שעת התחלה'))
+    end_time = models.TimeField(null=True, blank=True, default=time(9, 0), verbose_name=_('שעת סיום'))
+
+    # Treatment Summary
+    summary = models.TextField(null=True, blank=True, verbose_name=_('סיכום טיפול'))
+    next_steps = models.TextField(null=True, blank=True, verbose_name=_('המשך טיפול'))
+
+    # Metadata
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('נוצר ב'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('עודכן ב'))
 
     class Meta:
         verbose_name = _('טיפול')
         verbose_name_plural = _('טיפולים')
-        ordering = ['-date']
+        ordering = ['-scheduled_date', 'start_time']
+        constraints = [
+            models.CheckConstraint(
+                check=models.Q(family__isnull=False) | models.Q(child__isnull=False),
+                name='require_family_or_child'
+            )
+        ]
 
     def __str__(self):
-        if self.child:
-            return f"{self.child.name} - {self.date.strftime('%d/%m/%Y')}"
-        return f"{self.family.name} - {self.date.strftime('%d/%m/%Y')}"
+        """
+        String representation of the treatment.
+        Prioritizes child name, then family name.
+        """
+        client_name = self.child.name if self.child else self.family.name if self.family else _('לקוח לא מזוהה')
+        return f"{client_name} - {self.get_type_display()} ({self.scheduled_date})"
+
+    def get_absolute_url(self):
+        """
+        Returns the URL for viewing this treatment's details.
+        """
+        return reverse('treatment_app:treatment-detail', kwargs={'pk': self.pk})
+
+    def save(self, *args, **kwargs):
+        """
+        Override save method to automatically update treatment status.
+        """
+        # Auto-update status based on summary
+        if self.summary and self.status == self.TreatmentStatus.SCHEDULED:
+            self.status = self.TreatmentStatus.COMPLETED
+        
+        # Ensure end time is after start time
+        if self.start_time and self.end_time and self.start_time >= self.end_time:
+            self.end_time = datetime.combine(datetime.today(), self.start_time) + timedelta(hours=1)
+        
+        super().save(*args, **kwargs)
+
+    def is_past_due(self):
+        """
+        Check if the treatment is past due.
+        """
+        return (self.scheduled_date and self.scheduled_date < timezone.now().date() and 
+                self.status == self.TreatmentStatus.SCHEDULED)
+
+    def needs_summary(self):
+        """
+        Check if the treatment requires a summary.
+        Returns True if:
+        1. Treatment is past due
+        2. No summary has been written
+        """
+        from django.utils import timezone
+        
+        # Check if treatment is past due
+        if not self.scheduled_date:
+            return False
+        
+        is_past_due = self.scheduled_date < timezone.now().date()
+        
+        # Check if summary is missing
+        summary_missing = not self.summary
+        
+        return is_past_due and summary_missing
+
+    def get_status_display_with_summary_warning(self):
+        """
+        Returns the status with an additional warning if summary is needed.
+        """
+        status = self.get_status_display()
+        if self.needs_summary():
+            status += " (נדרש סיכום!)"
+        return status
 
 class TherapistProfile(models.Model):
+    """
+    Extended profile for therapists in the treatment center.
+    
+    Augments Django's built-in User model with:
+    - Contact information
+    - Professional specialization
+    - Additional notes
+    - Active status
+    
+    Provides a more comprehensive view of therapist details.
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('משתמש'))
     phone = models.CharField(max_length=20, verbose_name=_('טלפון'), blank=True)
     specialization = models.CharField(max_length=100, verbose_name=_('התמחות'), blank=True)
@@ -196,6 +319,23 @@ class TherapistProfile(models.Model):
         return f"{self.user.get_full_name() or self.user.username}"
 
 class Document(models.Model):
+    """
+    Manages documents associated with families or children.
+    
+    Supports various document types:
+    - Medical
+    - Educational
+    - Psychological
+    - Financial
+    - Other
+    
+    Allows document upload and tracking with:
+    - Flexible association (family or child)
+    - Document metadata
+    - Validation rules
+    
+    Helps in maintaining a comprehensive document repository.
+    """
     DOCUMENT_TYPES = [
         ('medical', _('מסמך רפואי')),
         ('educational', _('מסמך חינוכי')),

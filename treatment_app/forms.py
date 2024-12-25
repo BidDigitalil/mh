@@ -1,11 +1,36 @@
 from django import forms
+from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
+from django.core.exceptions import ValidationError
+from datetime import datetime
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Row, Column, Submit, Div, HTML
+
 from .models import Family, Child, Treatment, Document, TherapistProfile
-from django.contrib.auth.models import User
-from django.utils import timezone
-from django.db.models import Q
+
+def validate_weekday(value):
+    """
+    Validate that the treatment is scheduled on a weekday (Sunday to Thursday)
+    """
+    if value.weekday() > 4:  # Friday or Saturday
+        raise ValidationError(_('טיפולים מתוכננים רק בימים ראשון עד חמישי'))
+
+def validate_treatment_start_time(value):
+    """
+    Validate treatment start time (8:00 AM)
+    """
+    min_time = datetime.strptime('08:00', '%H:%M').time()
+    if value < min_time:
+        raise ValidationError(_('שעת התחלה מוקדמת מדי. טיפולים מתחילים מ-08:00'))
+
+def validate_treatment_end_time(value):
+    """
+    Validate treatment end time (8:00 PM)
+    """
+    max_time = datetime.strptime('20:00', '%H:%M').time()
+    if value > max_time:
+        raise ValidationError(_('שעת סיום מאוחרת מדי. טיפולים מסתיימים עד 20:00'))
 
 class FamilyForm(forms.ModelForm):
     class Meta:
@@ -81,28 +106,24 @@ class FamilyForm(forms.ModelForm):
                 _('טפסים'),
                 Row(
                     Column(
-                        HTML("""
-                            {% if form.instance.consent_form %}
-                                <div class="mb-2">
-                                    <a href="{{ form.instance.consent_form.url }}" class="btn btn-sm btn-success" target="_blank">
-                                        <i class="fas fa-file-download"></i> הורד טופס הסכמה קיים
-                                    </a>
-                                </div>
-                            {% endif %}
-                        """),
+                        HTML("""{% if form.instance.consent_form %}
+                            <div class="mb-2">
+                                <a href="{{ form.instance.consent_form.url }}" class="btn btn-sm btn-success" target="_blank">
+                                    <i class="fas fa-file-download"></i> הורד טופס הסכמה קיים
+                                </a>
+                            </div>
+                        {% endif %}"""),
                         'consent_form',
                         css_class='form-group col-md-6 mb-0'
                     ),
                     Column(
-                        HTML("""
-                            {% if form.instance.confidentiality_waiver %}
-                                <div class="mb-2">
-                                    <a href="{{ form.instance.confidentiality_waiver.url }}" class="btn btn-sm btn-success" target="_blank">
-                                        <i class="fas fa-file-download"></i> הורד טופס ויתור סודיות קיים
-                                    </a>
-                                </div>
-                            {% endif %}
-                        """),
+                        HTML("""{% if form.instance.confidentiality_waiver %}
+                            <div class="mb-2">
+                                <a href="{{ form.instance.confidentiality_waiver.url }}" class="btn btn-sm btn-success" target="_blank">
+                                    <i class="fas fa-file-download"></i> הורד טופס ויתור סודיות קיים
+                                </a>
+                            </div>
+                        {% endif %}"""),
                         'confidentiality_waiver',
                         css_class='form-group col-md-6 mb-0'
                     ),
@@ -207,61 +228,110 @@ class ChildForm(forms.ModelForm):
         return cleaned_data
 
 class TreatmentForm(forms.ModelForm):
+    """
+    Form for creating and editing treatment sessions.
+    
+    Supports scheduling constraints:
+    - Days: Sunday to Thursday
+    - Hours: 8:00 AM to 8:00 PM
+    - Validation for treatment details
+    """
+    scheduled_date = forms.DateField(
+        label=_('תאריך מתוכנן'),
+        widget=forms.DateInput(attrs={'type': 'date'}),
+        validators=[validate_weekday]
+    )
+    
+    start_time = forms.TimeField(
+        label=_('שעת התחלה'),
+        widget=forms.TimeInput(attrs={'type': 'time'}),
+        validators=[validate_treatment_start_time]
+    )
+    
+    end_time = forms.TimeField(
+        label=_('שעת סיום'),
+        widget=forms.TimeInput(attrs={'type': 'time'}),
+        validators=[validate_treatment_end_time]
+    )
+
     class Meta:
         model = Treatment
-        fields = ['type', 'family', 'child', 'date', 'summary', 'next_steps']
+        fields = [
+            'type', 'family', 'child', 'therapist', 
+            'scheduled_date', 'start_time', 'end_time', 
+            'status', 'summary', 'next_steps'
+        ]
         widgets = {
-            'date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
-            'summary': forms.Textarea(attrs={'rows': 4}),
-            'next_steps': forms.Textarea(attrs={'rows': 3}),
+            'type': forms.Select(attrs={'class': 'form-control'}),
+            'family': forms.Select(attrs={'class': 'form-control'}),
+            'child': forms.Select(attrs={'class': 'form-control'}),
+            'therapist': forms.Select(attrs={'class': 'form-control'}),
+            'status': forms.Select(attrs={'class': 'form-control'}),
+            'summary': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'next_steps': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
 
-    def __init__(self, *args, family=None, child=None, **kwargs):
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
+
+        # Add crispy form helper
         self.helper = FormHelper()
         self.helper.form_method = 'post'
-        self.helper.form_class = 'form-horizontal'
-
-        # Handle initial values and field visibility
-        if family:
-            self.fields['family'].initial = family
-            self.fields['family'].widget = forms.HiddenInput()
-            self.fields['child'].queryset = Child.objects.filter(family=family)
-        elif child:
-            self.fields['child'].initial = child
-            self.fields['child'].widget = forms.HiddenInput()
-            self.fields['family'].initial = child.family
-            self.fields['family'].widget = forms.HiddenInput()
-            self.fields['type'].initial = 'individual'
-
-        # Customize form layout
         self.helper.layout = Layout(
             Fieldset(
                 _('פרטי טיפול'),
                 Row(
                     Column('type', css_class='form-group col-md-6 mb-0'),
-                    Column('date', css_class='form-group col-md-6 mb-0'),
-                    css_class='form-row'
-                ),
-                Div(
-                    Row(
-                        Column('family', css_class='form-group col-md-6 mb-0'),
-                        Column('child', css_class='form-group col-md-6 mb-0'),
-                        css_class='form-row'
-                    ),
-                    css_id='family-child-fields'
-                ),
-                Row(
-                    Column('summary', css_class='form-group col-md-12 mb-0'),
+                    Column('status', css_class='form-group col-md-6 mb-0'),
                     css_class='form-row'
                 ),
                 Row(
-                    Column('next_steps', css_class='form-group col-md-12 mb-0'),
+                    Column('family', css_class='form-group col-md-6 mb-0'),
+                    Column('child', css_class='form-group col-md-6 mb-0'),
                     css_class='form-row'
-                )
+                ),
+                Row(
+                    Column('therapist', css_class='form-group col-md-12 mb-0'),
+                    css_class='form-row'
+                ),
+            ),
+            Fieldset(
+                _('מועד הטיפול'),
+                Row(
+                    Column('scheduled_date', css_class='form-group col-md-4 mb-0'),
+                    Column('start_time', css_class='form-group col-md-4 mb-0'),
+                    Column('end_time', css_class='form-group col-md-4 mb-0'),
+                    css_class='form-row'
+                ),
+            ),
+            Fieldset(
+                _('סיכום והמשך'),
+                'summary',
+                'next_steps',
             ),
             Submit('submit', _('שמור'), css_class='btn btn-primary')
         )
+
+        # Limit therapist choices if not a superuser
+        if user and not user.is_superuser:
+            try:
+                therapist_profile = TherapistProfile.objects.get(user=user)
+                self.fields['therapist'].queryset = TherapistProfile.objects.filter(pk=therapist_profile.pk)
+                self.fields['therapist'].initial = therapist_profile
+            except TherapistProfile.DoesNotExist:
+                pass
+
+    def clean(self):
+        cleaned_data = super().clean()
+        start_time = cleaned_data.get('start_time')
+        end_time = cleaned_data.get('end_time')
+
+        # Validate that end time is after start time
+        if start_time and end_time and start_time >= end_time:
+            raise ValidationError(_('שעת סיום חייבת להיות לאחר שעת ההתחלה'))
+
+        return cleaned_data
 
 class DocumentForm(forms.ModelForm):
     class Meta:
@@ -352,12 +422,10 @@ class TherapistForm(forms.ModelForm):
             Fieldset(
                 _('סיסמה'),
                 'password',
-                HTML("""
-                    <div class="alert alert-info">
-                        <i class="fas fa-info-circle"></i>
-                        השאר ריק אם אינך רוצה לשנות את הסיסמה
-                    </div>
-                """)
+                HTML("""<div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    השאר ריק אם אינך רוצה לשנות את הסיסמה
+                </div>""")
             ),
             Submit('submit', _('שמור'), css_class='btn btn-primary')
         )
