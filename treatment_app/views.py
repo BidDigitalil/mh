@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.db.models import Q
 from django.utils import timezone
 from datetime import datetime, timedelta, date
+from django.utils.translation import gettext_lazy as _
 
 from .models import (
     Treatment, 
@@ -72,7 +73,6 @@ class TreatmentDetailView(LoginRequiredMixin, DetailView):
         """
         context = super().get_context_data(**kwargs)
         context['documents'] = Document.objects.filter(
-            Q(treatment=self.object) | 
             Q(child=self.object.child) | 
             Q(family=self.object.family)
         )

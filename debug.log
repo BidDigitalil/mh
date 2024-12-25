@@ -17209,3 +17209,696 @@ INFO 2024-12-26 00:46:39,090 basehttp 14896 7296 "GET /treatments/ HTTP/1.1" 200
 INFO 2024-12-26 00:46:43,407 basehttp 14896 7296 "GET /treatments/ HTTP/1.1" 200 23092
 INFO 2024-12-26 00:46:52,059 basehttp 14896 7296 "GET /treatments/ HTTP/1.1" 200 23092
 INFO 2024-12-26 00:47:03,040 basehttp 14896 16780 "GET /child/1/treatment/create/ HTTP/1.1" 200 10347
+INFO 2024-12-26 00:48:10,766 basehttp 14896 12000 "GET /treatments/ HTTP/1.1" 200 23092
+INFO 2024-12-26 00:48:10,921 basehttp 14896 12000 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-26 00:48:14,132 basehttp 14896 12000 "GET /treatments/ HTTP/1.1" 200 23092
+INFO 2024-12-26 00:48:15,277 basehttp 14896 12000 "GET /treatments/ HTTP/1.1" 200 23092
+INFO 2024-12-26 00:48:19,791 basehttp 14896 12000 "GET /documents/ HTTP/1.1" 200 10853
+INFO 2024-12-26 00:48:21,143 basehttp 14896 12000 "GET /treatments/ HTTP/1.1" 200 23092
+INFO 2024-12-26 00:48:26,405 basehttp 14896 12000 "GET /treatments/ HTTP/1.1" 200 23092
+INFO 2024-12-26 00:48:27,308 basehttp 14896 12000 "GET /children/ HTTP/1.1" 200 18245
+INFO 2024-12-26 00:49:24,285 basehttp 14896 9052 "GET /treatments/ HTTP/1.1" 200 23092
+INFO 2024-12-26 00:49:55,131 basehttp 14896 16856 "GET /treatments/ HTTP/1.1" 200 23092
+INFO 2024-12-26 00:50:20,373 basehttp 14896 14664 "GET /treatments/ HTTP/1.1" 200 24444
+INFO 2024-12-26 00:51:23,704 basehttp 14896 7380 "GET /treatments/ HTTP/1.1" 200 24444
+INFO 2024-12-26 00:51:28,795 basehttp 14896 7380 "GET /treatments/ HTTP/1.1" 200 24444
+INFO 2024-12-26 00:51:28,863 basehttp 14896 7380 "GET /static/treatment_app/css/custom.css HTTP/1.1" 304 0
+ERROR 2024-12-26 00:51:37,369 log 14896 7380 Internal Server Error: /treatment/5/
+Traceback (most recent call last):
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\detail.py", line 109, in get
+    context = self.get_context_data(object=self.object)
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 74, in get_context_data
+    context['documents'] = Document.objects.filter(
+                           ~~~~~~~~~~~~~~~~~~~~~~~^
+        Q(treatment=self.object) |
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        Q(child=self.object.child) |
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        Q(family=self.object.family)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1468, in build_filter
+    return self._add_q(
+           ~~~~~~~~~~~^
+        filter_expr,
+        ^^^^^^^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1768, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'treatment' into field. Choices are: child, child_id, created_at, document_type, family, family_id, file, id, name, notes, updated_at
+ERROR 2024-12-26 00:51:37,387 basehttp 14896 7380 "GET /treatment/5/ HTTP/1.1" 500 148737
+INFO 2024-12-26 00:51:40,357 basehttp 14896 4612 "GET /treatment/5/update/ HTTP/1.1" 200 10393
+INFO 2024-12-26 00:51:46,067 basehttp 14896 4612 "GET /treatments/ HTTP/1.1" 200 25201
+INFO 2024-12-26 00:53:06,012 basehttp 14896 18220 "GET /treatments/ HTTP/1.1" 200 25201
+INFO 2024-12-26 00:53:08,647 basehttp 14896 18220 "GET /treatments/ HTTP/1.1" 200 25201
+INFO 2024-12-26 00:53:09,777 basehttp 14896 1504 "GET /children/ HTTP/1.1" 200 18245
+INFO 2024-12-26 00:53:11,048 basehttp 14896 1504 "GET /treatments/ HTTP/1.1" 200 25201
+INFO 2024-12-26 00:53:12,547 basehttp 14896 1504 "GET /children/ HTTP/1.1" 200 18245
+INFO 2024-12-26 00:53:14,534 basehttp 14896 1504 "GET /families/ HTTP/1.1" 200 20715
+INFO 2024-12-26 00:53:16,778 basehttp 14896 1504 "GET /treatments/ HTTP/1.1" 200 25201
+INFO 2024-12-26 00:53:26,975 basehttp 14896 17860 "GET /treatments/ HTTP/1.1" 200 25201
+INFO 2024-12-26 00:53:27,814 basehttp 14896 17860 "GET /treatments/ HTTP/1.1" 200 25201
+INFO 2024-12-26 00:53:28,540 basehttp 14896 17860 "GET /treatments/ HTTP/1.1" 200 25201
+INFO 2024-12-26 00:53:33,089 basehttp 14896 5564 "GET /treatments/ HTTP/1.1" 200 25201
+INFO 2024-12-26 00:53:34,106 basehttp 14896 5564 "GET /treatments/ HTTP/1.1" 200 25201
+INFO 2024-12-26 00:53:41,363 basehttp 14896 3220 "GET /treatments/ HTTP/1.1" 200 28140
+INFO 2024-12-26 00:53:57,852 basehttp 14896 3220 "GET /treatments/ HTTP/1.1" 200 28140
+INFO 2024-12-26 00:54:00,357 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 10853
+INFO 2024-12-26 00:54:21,733 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 10853
+INFO 2024-12-26 00:54:23,393 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 10853
+INFO 2024-12-26 00:54:24,212 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 10853
+INFO 2024-12-26 00:54:24,971 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 10853
+INFO 2024-12-26 00:54:25,638 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 10853
+INFO 2024-12-26 00:54:29,158 basehttp 14896 3220 "GET /treatments/ HTTP/1.1" 200 28140
+INFO 2024-12-26 00:54:34,880 basehttp 14896 3220 "GET /children/ HTTP/1.1" 200 18245
+INFO 2024-12-26 00:54:37,036 basehttp 14896 3220 "GET /families/ HTTP/1.1" 200 20715
+INFO 2024-12-26 00:54:39,041 basehttp 14896 3220 "GET /treatments/ HTTP/1.1" 200 28140
+INFO 2024-12-26 00:54:47,205 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 10853
+INFO 2024-12-26 00:54:49,168 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 10853
+INFO 2024-12-26 00:54:49,835 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 10853
+INFO 2024-12-26 00:54:55,853 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 13534
+INFO 2024-12-26 00:55:08,304 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 13534
+INFO 2024-12-26 00:55:18,541 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 13534
+INFO 2024-12-26 00:55:19,269 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 13534
+INFO 2024-12-26 00:55:50,803 basehttp 14896 3220 "GET /document/1/ HTTP/1.1" 200 11547
+INFO 2024-12-26 00:56:14,654 basehttp 14896 3220 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 00:56:25,853 basehttp 14896 3220 "GET /document/1/edit/ HTTP/1.1" 200 13357
+INFO 2024-12-26 00:56:29,135 basehttp 14896 3220 "POST /document/1/edit/ HTTP/1.1" 302 0
+INFO 2024-12-26 00:56:29,182 basehttp 14896 3220 "GET /family/1/ HTTP/1.1" 200 26902
+INFO 2024-12-26 00:56:33,864 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 13534
+INFO 2024-12-26 00:57:10,983 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 13534
+INFO 2024-12-26 00:57:11,107 basehttp 14896 3220 "GET /static/treatment_app/css/custom.css HTTP/1.1" 304 0
+INFO 2024-12-26 00:57:18,382 basehttp 14896 3220 "GET /document/1/ HTTP/1.1" 200 11547
+INFO 2024-12-26 00:57:18,456 basehttp 14896 3220 "GET /static/treatment_app/css/forms.css HTTP/1.1" 304 0
+INFO 2024-12-26 00:57:20,887 basehttp 14896 3220 "GET /document/1/edit/ HTTP/1.1" 200 13357
+INFO 2024-12-26 00:57:32,575 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 13588
+INFO 2024-12-26 00:57:36,998 basehttp 14896 3220 "GET /document/1/ HTTP/1.1" 200 11547
+INFO 2024-12-26 00:57:38,631 basehttp 14896 3220 "GET /document/1/edit/ HTTP/1.1" 200 13357
+INFO 2024-12-26 00:57:46,295 basehttp 14896 3220 "GET /child/1/ HTTP/1.1" 200 18026
+INFO 2024-12-26 00:58:13,958 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 13588
+INFO 2024-12-26 00:58:14,787 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 13588
+INFO 2024-12-26 00:58:15,526 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 13588
+INFO 2024-12-26 00:58:16,163 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 13588
+INFO 2024-12-26 00:58:16,379 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 13588
+INFO 2024-12-26 00:58:25,373 basehttp 14896 3220 "GET /documents/ HTTP/1.1" 200 13588
+INFO 2024-12-26 00:58:26,645 basehttp 14896 3220 "GET /document/1/ HTTP/1.1" 200 11547
+INFO 2024-12-26 00:58:33,470 basehttp 14896 16636 "GET /documents/ HTTP/1.1" 200 13792
+INFO 2024-12-26 00:58:40,069 basehttp 14896 16636 "GET /documents/ HTTP/1.1" 200 13588
+INFO 2024-12-26 00:58:40,797 basehttp 14896 16636 "GET /documents/ HTTP/1.1" 200 13588
+INFO 2024-12-26 00:58:41,647 basehttp 14896 16636 "GET /documents/ HTTP/1.1" 200 13588
+INFO 2024-12-26 00:58:42,362 basehttp 14896 16636 "GET /documents/ HTTP/1.1" 200 13588
+INFO 2024-12-26 00:58:46,668 basehttp 14896 16636 "GET /documents/ HTTP/1.1" 200 13608
+INFO 2024-12-26 00:58:52,829 basehttp 14896 16636 "GET /document/1/ HTTP/1.1" 200 11547
+INFO 2024-12-26 00:59:34,825 basehttp 14896 16892 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 00:59:38,476 basehttp 14896 16892 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 00:59:39,326 basehttp 14896 16892 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 00:59:40,032 basehttp 14896 16892 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 00:59:41,422 basehttp 14896 16892 "GET /treatments/ HTTP/1.1" 200 28140
+INFO 2024-12-26 00:59:45,076 basehttp 14896 16892 "GET /treatments/ HTTP/1.1" 200 28140
+INFO 2024-12-26 00:59:46,044 basehttp 14896 16892 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 00:59:49,221 basehttp 14896 16892 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 00:59:49,965 basehttp 14896 16892 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 00:59:53,571 basehttp 14896 16892 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 00:59:54,330 basehttp 14896 16892 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 00:59:54,792 basehttp 14896 15616 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 00:59:55,048 basehttp 14896 15616 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 00:59:55,698 basehttp 14896 15616 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 00:59:56,401 basehttp 14896 15616 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 00:59:57,000 basehttp 14896 15616 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 00:59:57,673 basehttp 14896 15616 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 00:59:57,972 basehttp 14896 15616 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 00:59:58,190 basehttp 14896 15616 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 01:00:00,550 basehttp 14896 15616 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 01:00:01,502 basehttp 14896 15616 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 01:00:02,234 basehttp 14896 15616 "GET /therapists/ HTTP/1.1" 200 20387
+INFO 2024-12-26 01:00:03,052 basehttp 14896 15616 "GET /therapists/ HTTP/1.1" 200 19966
+INFO 2024-12-26 01:00:06,139 basehttp 14896 17116 "GET /therapists/ HTTP/1.1" 200 19966
+INFO 2024-12-26 01:00:06,872 basehttp 14896 17116 "GET /therapists/ HTTP/1.1" 200 19966
+INFO 2024-12-26 01:00:07,496 basehttp 14896 17116 "GET /therapists/ HTTP/1.1" 200 19966
+ERROR 2024-12-26 01:00:44,870 log 14896 1552 Internal Server Error: /therapist/add/
+Traceback (most recent call last):
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\mixins.py", line 135, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\edit.py", line 178, in get
+    return super().get(request, *args, **kwargs)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\edit.py", line 142, in get
+    return self.render_to_response(self.get_context_data())
+                                   ~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 732, in get_context_data
+    context['title'] = _('הוספת מטפל חדש')
+                       ^
+NameError: name '_' is not defined
+ERROR 2024-12-26 01:00:44,886 basehttp 14896 1552 "GET /therapist/add/ HTTP/1.1" 500 96905
+INFO 2024-12-26 01:01:13,069 basehttp 14896 1552 "GET /therapists/ HTTP/1.1" 200 19966
+INFO 2024-12-26 01:01:14,251 basehttp 14896 1552 "GET /therapists/ HTTP/1.1" 200 19966
+INFO 2024-12-26 01:01:33,426 basehttp 14896 12600 "GET /therapists/ HTTP/1.1" 200 18394
+ERROR 2024-12-26 01:01:49,649 log 14896 5832 Internal Server Error: /therapist/1/edit/
+Traceback (most recent call last):
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\mixins.py", line 135, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\edit.py", line 202, in get
+    return super().get(request, *args, **kwargs)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\edit.py", line 142, in get
+    return self.render_to_response(self.get_context_data())
+                                   ~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 746, in get_context_data
+    context['title'] = _(f'עריכת מטפל - {self.object}')
+                       ^
+NameError: name '_' is not defined
+ERROR 2024-12-26 01:01:49,652 basehttp 14896 5832 "GET /therapist/1/edit/ HTTP/1.1" 500 97326
+ERROR 2024-12-26 01:01:55,583 log 14896 1760 Internal Server Error: /therapist/2/edit/
+Traceback (most recent call last):
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\mixins.py", line 135, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\edit.py", line 202, in get
+    return super().get(request, *args, **kwargs)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\edit.py", line 142, in get
+    return self.render_to_response(self.get_context_data())
+                                   ~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 746, in get_context_data
+    context['title'] = _(f'עריכת מטפל - {self.object}')
+                       ^
+NameError: name '_' is not defined
+ERROR 2024-12-26 01:01:55,589 basehttp 14896 1760 "GET /therapist/2/edit/ HTTP/1.1" 500 97350
+INFO 2024-12-26 01:02:03,186 basehttp 14896 1760 "GET /therapists/ HTTP/1.1" 200 18817
+INFO 2024-12-26 01:02:03,994 basehttp 14896 1760 "GET /therapists/ HTTP/1.1" 200 18817
+INFO 2024-12-26 01:02:04,544 basehttp 14896 1760 "GET /therapists/ HTTP/1.1" 200 18817
+INFO 2024-12-26 01:02:11,382 basehttp 14896 1760 "GET /therapists/ HTTP/1.1" 200 18537
+ERROR 2024-12-26 01:02:12,925 log 14896 1760 Internal Server Error: /therapist/1/edit/
+Traceback (most recent call last):
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\mixins.py", line 135, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\edit.py", line 202, in get
+    return super().get(request, *args, **kwargs)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\edit.py", line 142, in get
+    return self.render_to_response(self.get_context_data())
+                                   ~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 746, in get_context_data
+    context['title'] = _(f'עריכת מטפל - {self.object}')
+                       ^
+NameError: name '_' is not defined
+ERROR 2024-12-26 01:02:12,933 basehttp 14896 1760 "GET /therapist/1/edit/ HTTP/1.1" 500 97326
+ERROR 2024-12-26 01:02:22,569 log 14896 12152 Internal Server Error: /therapist/1/edit/
+Traceback (most recent call last):
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\mixins.py", line 135, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\edit.py", line 202, in get
+    return super().get(request, *args, **kwargs)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\edit.py", line 142, in get
+    return self.render_to_response(self.get_context_data())
+                                   ~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 746, in get_context_data
+    context['title'] = _(f'עריכת מטפל - {self.object}')
+                       ^
+NameError: name '_' is not defined
+ERROR 2024-12-26 01:02:22,574 basehttp 14896 12152 "GET /therapist/1/edit/ HTTP/1.1" 500 97463
+INFO 2024-12-26 01:02:29,511 basehttp 14896 15904 "GET /therapists/ HTTP/1.1" 200 18537
+INFO 2024-12-26 01:03:11,784 autoreload 17944 9600 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-26 01:03:11,805 autoreload 16224 5788 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-26 01:03:11,911 autoreload 9608 15680 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-26 01:03:12,060 autoreload 32 6700 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-26 01:03:12,826 autoreload 14896 1568 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-26 01:04:22,045 autoreload 2588 17684 Watching for file changes with StatReloader
+INFO 2024-12-26 01:04:27,591 basehttp 2588 15604 "GET /documents/ HTTP/1.1" 200 13608
+INFO 2024-12-26 01:04:27,679 basehttp 2588 15604 "GET /static/treatment_app/css/custom.css HTTP/1.1" 304 0
+INFO 2024-12-26 01:04:27,680 basehttp 2588 3856 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2024-12-26 01:04:30,039 basehttp 2588 3856 "GET /therapists/ HTTP/1.1" 200 18537
+INFO 2024-12-26 01:04:33,031 basehttp 2588 3856 "GET /documents/ HTTP/1.1" 200 13608
+INFO 2024-12-26 01:04:35,923 basehttp 2588 3856 "GET /families/ HTTP/1.1" 200 20715
+INFO 2024-12-26 01:04:42,298 basehttp 2588 3856 "GET /family/1/ HTTP/1.1" 200 26460
+INFO 2024-12-26 01:04:45,578 basehttp 2588 3856 "GET /children/ HTTP/1.1" 200 18245
+INFO 2024-12-26 01:04:46,326 basehttp 2588 3856 "GET /child/1/ HTTP/1.1" 200 18026
+INFO 2024-12-26 01:04:49,450 basehttp 2588 3856 "GET /treatments/ HTTP/1.1" 200 28140
+ERROR 2024-12-26 01:04:50,339 log 2588 3856 Internal Server Error: /treatment/5/
+Traceback (most recent call last):
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\detail.py", line 109, in get
+    context = self.get_context_data(object=self.object)
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 75, in get_context_data
+    context['documents'] = Document.objects.filter(
+                           ~~~~~~~~~~~~~~~~~~~~~~~^
+        Q(treatment=self.object) |
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        Q(child=self.object.child) |
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        Q(family=self.object.family)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1468, in build_filter
+    return self._add_q(
+           ~~~~~~~~~~~^
+        filter_expr,
+        ^^^^^^^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1768, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'treatment' into field. Choices are: child, child_id, created_at, document_type, family, family_id, file, id, name, notes, updated_at
+ERROR 2024-12-26 01:04:50,349 basehttp 2588 3856 "GET /treatment/5/ HTTP/1.1" 500 148737
+ERROR 2024-12-26 01:05:25,237 log 2588 3360 Internal Server Error: /treatment/5/
+Traceback (most recent call last):
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\detail.py", line 109, in get
+    context = self.get_context_data(object=self.object)
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 75, in get_context_data
+    context['documents'] = Document.objects.filter(
+                           ~~~~~~~~~~~~~~~~~~~~~~~^
+        Q(treatment=self.object) |
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        Q(child=self.object.child) |
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        Q(family=self.object.family)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1468, in build_filter
+    return self._add_q(
+           ~~~~~~~~~~~^
+        filter_expr,
+        ^^^^^^^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1768, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'treatment' into field. Choices are: child, child_id, created_at, document_type, family, family_id, file, id, name, notes, updated_at
+ERROR 2024-12-26 01:05:25,248 basehttp 2588 3360 "GET /treatment/5/ HTTP/1.1" 500 148874
+INFO 2024-12-26 01:05:31,586 basehttp 2588 3360 "GET /treatments/ HTTP/1.1" 200 28140
+ERROR 2024-12-26 01:05:33,346 log 2588 3360 Internal Server Error: /treatment/5/
+Traceback (most recent call last):
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\detail.py", line 109, in get
+    context = self.get_context_data(object=self.object)
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 75, in get_context_data
+    context['documents'] = Document.objects.filter(
+                           ~~~~~~~~~~~~~~~~~~~~~~~^
+        Q(treatment=self.object) |
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        Q(child=self.object.child) |
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        Q(family=self.object.family)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1468, in build_filter
+    return self._add_q(
+           ~~~~~~~~~~~^
+        filter_expr,
+        ^^^^^^^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1768, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'treatment' into field. Choices are: child, child_id, created_at, document_type, family, family_id, file, id, name, notes, updated_at
+ERROR 2024-12-26 01:05:33,350 basehttp 2588 3360 "GET /treatment/5/ HTTP/1.1" 500 148737
+INFO 2024-12-26 01:05:47,882 basehttp 2588 15452 "GET /treatments/ HTTP/1.1" 200 28140
+ERROR 2024-12-26 01:05:48,864 log 2588 15452 Internal Server Error: /treatment/5/
+Traceback (most recent call last):
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\views\generic\detail.py", line 109, in get
+    context = self.get_context_data(object=self.object)
+  File "c:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py", line 75, in get_context_data
+    context['documents'] = Document.objects.filter(
+                           ~~~~~~~~~~~~~~~~~~~~~~~^
+        Q(treatment=self.object) |
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        Q(child=self.object.child) |
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        Q(family=self.object.family)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1468, in build_filter
+    return self._add_q(
+           ~~~~~~~~~~~^
+        filter_expr,
+        ^^^^^^^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Baruch\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\query.py", line 1768, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'treatment' into field. Choices are: child, child_id, created_at, document_type, family, family_id, file, id, name, notes, updated_at
+ERROR 2024-12-26 01:05:48,872 basehttp 2588 15452 "GET /treatment/5/ HTTP/1.1" 500 148737
+INFO 2024-12-26 01:05:51,221 autoreload 2588 17684 C:\Users\Baruch\CascadeProjects\treatment_center\treatment_app\views.py changed, reloading.
+INFO 2024-12-26 01:07:17,082 autoreload 6428 8112 Watching for file changes with StatReloader
+INFO 2024-12-26 01:07:18,976 basehttp 6428 144 "GET /children/ HTTP/1.1" 200 18245
+INFO 2024-12-26 01:07:22,012 basehttp 6428 144 "GET /treatments/ HTTP/1.1" 200 28140
+INFO 2024-12-26 01:07:23,143 basehttp 6428 144 "GET /treatment/5/ HTTP/1.1" 200 6629
