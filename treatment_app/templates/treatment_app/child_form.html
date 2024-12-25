@@ -51,14 +51,47 @@
                                 {{ form.grade }}
                             </div>
                         </div>
-                        {% if family %}
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label>מטפל למשפחה</label>
-                                {{ form.therapist }}
+                                <label>משפחה</label>
+                                {{ form.family }}
+                                {% if form.family.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.family.errors }}
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
-                        {% endif %}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3 therapist-field">
+                                <label>
+                                    <i class="fas fa-user-md me-2"></i>מטפל
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-stethoscope"></i></span>
+                                    {{ form.therapist }}
+                                </div>
+                                {% if form.therapist.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.therapist.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label>מטפל</label>
+                                {{ form.therapist }}
+                                {% if form.therapist.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.therapist.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
 
                     <h5 class="mt-4 mb-3">פרטי בית ספר</h5>

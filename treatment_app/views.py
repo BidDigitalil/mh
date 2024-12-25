@@ -278,36 +278,46 @@ class FamilyListView(LoginRequiredMixin, ListView):
     model = Family
     template_name = 'treatment_app/family_list.html'
     context_object_name = 'families'
+    paginate_by = 10
 
     def get_queryset(self):
-        # Get the base queryset
         queryset = super().get_queryset()
         
-        # If not a superuser, filter families
+        # If not a superuser, filter families by therapist
         user = self.request.user
         if not user.is_superuser:
             try:
-                # Get the current therapist profile
-                current_therapist = TherapistProfile.objects.get(user=user)
-                
-                # Filter families where:
-                # 1. Therapist is directly assigned to the family by User
-                # 2. Therapist is assigned to a child in the family
+                therapist_profile = TherapistProfile.objects.get(user=user)
                 queryset = queryset.filter(
-                    Q(therapist=user) | 
-                    Q(children__therapist=current_therapist)
+                    Q(therapist=therapist_profile) | 
+                    Q(children__therapist=therapist_profile)
                 ).distinct()
-            
             except TherapistProfile.DoesNotExist:
-                # If not a therapist, return an empty queryset
+                # If no therapist profile, return no families
                 queryset = queryset.none()
         
-        return queryset
+        # Search functionality
+        search_query = self.request.GET.get('q', '').strip()
+        if search_query:
+            queryset = queryset.filter(
+                Q(name__icontains=search_query) |  # Family name
+                Q(phone__icontains=search_query) |  # Phone number
+                Q(address__icontains=search_query) |  # Address
+                Q(therapist__user__first_name__icontains=search_query) |  # Therapist first name
+                Q(therapist__user__last_name__icontains=search_query) |  # Therapist last name
+                Q(children__name__icontains=search_query)  # Child name
+            ).distinct()
+        
+        return queryset.order_by('name')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Add a flag to indicate if user can create families
         context['can_create_family'] = self.request.user.is_superuser
+        
+        # Add search query to context for preserving search input
+        context['search_query'] = self.request.GET.get('q', '')
+        
         return context
 
 class FamilyDetailView(LoginRequiredMixin, DetailView):
@@ -356,7 +366,7 @@ class FamilyDetailView(LoginRequiredMixin, DetailView):
         context['treatments'] = Treatment.objects.filter(
             Q(family=family) | 
             Q(child__family=family)
-        ).order_by('-date')
+        ).order_by('-scheduled_date')
         
         return context
 
@@ -517,43 +527,18 @@ class ChildCreateView(LoginRequiredMixin, CreateView):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
         
-        # If a family_id is passed in the URL, add it to initial
+        # If a family is passed in the URL, pre-populate the family field
         if 'family' in self.kwargs:
-            kwargs['initial'] = {'family': self.kwargs['family']}
+            family = get_object_or_404(Family, pk=self.kwargs['family'])
+            kwargs['family'] = family
         
         return kwargs
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        
-        # If a family is specified in the URL, check permissions
+    def form_valid(self, form):
+        # If a family is specified in the URL, use that family
         if 'family' in self.kwargs:
             family = get_object_or_404(Family, pk=self.kwargs['family'])
-            
-            # Check if user is a superuser or the family's therapist
-            user = self.request.user
-            if not user.is_superuser:
-                try:
-                    therapist = TherapistProfile.objects.get(user=user)
-                    if family.therapist != therapist:
-                        raise PermissionDenied("אין לך הרשאה להוסיף ילד למשפחה זו")
-                except TherapistProfile.DoesNotExist:
-                    raise PermissionDenied("אין לך הרשאה להוסיף ילד למשפחה זו")
-        
-        return context
-
-    def get_success_url(self):
-        # If a family was specified, return to that family's detail page
-        if 'family' in self.kwargs:
-            return reverse_lazy('treatment_app:family-detail', kwargs={'pk': self.kwargs['family']})
-        
-        # Otherwise, go to the child list
-        return reverse_lazy('treatment_app:child-list')
-
-    def form_valid(self, form):
-        # If a family is specified in the URL, set it
-        if 'family' in self.kwargs:
-            form.instance.family_id = self.kwargs['family']
+            form.instance.family = family
         
         # If no therapist is set, try to set the current user's therapist profile
         if not form.instance.therapist and not self.request.user.is_superuser:
@@ -568,13 +553,21 @@ class ChildCreateView(LoginRequiredMixin, CreateView):
         if not user.is_superuser:
             try:
                 therapist = TherapistProfile.objects.get(user=user)
-                if form.instance.family and form.instance.family.therapist != therapist:
+                if form.instance.family and form.instance.family.therapist and form.instance.family.therapist != therapist:
                     raise PermissionDenied("אין לך הרשאה להוסיף ילד למשפחה זו")
             except TherapistProfile.DoesNotExist:
                 raise PermissionDenied("אין לך הרשאה להוסיף ילד")
         
         messages.success(self.request, 'הילד נוסף בהצלחה')
         return super().form_valid(form)
+
+    def get_success_url(self):
+        # If a family was specified, return to that family's detail page
+        if 'family' in self.kwargs:
+            return reverse_lazy('treatment_app:family-detail', kwargs={'pk': self.kwargs['family']})
+        
+        # Otherwise, go to the child list
+        return reverse_lazy('treatment_app:child-list')
 
 class ChildUpdateView(LoginRequiredMixin, UpdateView):
     model = Child

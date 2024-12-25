@@ -17,6 +17,9 @@
     <link href="{% static 'treatment_app/css/dashboard.css' %}" rel="stylesheet">
     
     {% block extra_head %}{% endblock %}
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'treatment_app/css/forms.css' %}">
+    {% endblock %}
 </head>
 <body>
     <div class="wrapper">
@@ -114,5 +117,104 @@
     <script src="{% static 'treatment_app/js/main.js' %}"></script>
     
     {% block extra_scripts %}{% endblock %}
+    
+    <!-- Generic Search Functionality -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Find all tables with searchable rows
+        const searchableTable = document.querySelector('table[data-searchable="true"]');
+        const searchInput = document.getElementById('live-search');
+        
+        if (searchInput && searchableTable) {
+            // Find the search icon
+            const searchIcon = searchInput.closest('.position-relative').querySelector('.fa-search');
+            
+            // Toggle icon visibility and functionality
+            searchInput.addEventListener('input', function() {
+                const hasValue = this.value.trim() !== '';
+                
+                if (hasValue) {
+                    // Replace search icon with clear icon
+                    searchIcon.classList.remove('fa-search');
+                    searchIcon.classList.remove('text-muted');
+                    searchIcon.classList.add('fa-times');
+                    searchIcon.classList.add('text-muted');
+                    searchIcon.style.cssText = `
+                        position: absolute; 
+                        top: 50%; 
+                        left: 12px; 
+                        transform: translateY(-50%);
+                        cursor: pointer;
+                    `;
+                } else {
+                    // Restore search icon
+                    searchIcon.classList.remove('fa-times');
+                    searchIcon.classList.add('fa-search');
+                    searchIcon.classList.add('text-muted');
+                    searchIcon.style.cssText = `
+                        position: absolute; 
+                        top: 50%; 
+                        left: 12px; 
+                        transform: translateY(-50%);
+                        cursor: default;
+                    `;
+                }
+            });
+            
+            // Add click event to icon
+            searchIcon.addEventListener('click', function() {
+                // Only clear if it's currently a clear icon
+                if (this.classList.contains('fa-times')) {
+                    searchInput.value = '';
+                    
+                    // Restore search icon
+                    this.classList.remove('fa-times');
+                    this.classList.add('fa-search');
+                    this.classList.add('text-muted');
+                    this.style.cssText = `
+                        position: absolute; 
+                        top: 50%; 
+                        left: 12px; 
+                        transform: translateY(-50%);
+                        cursor: default;
+                    `;
+                    
+                    // Trigger input event to refresh search
+                    const event = new Event('input');
+                    searchInput.dispatchEvent(event);
+                }
+            });
+            
+            // Main search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                const rows = searchableTable.querySelectorAll('tbody tr');
+                
+                let visibleCounter = 1;
+                rows.forEach(function(row) {
+                    // Get all searchable attributes
+                    const searchAttributes = row.querySelectorAll('[data-search-value]');
+                    
+                    // Check if any attribute matches the search term
+                    const isMatch = searchTerm === '' || 
+                        Array.from(searchAttributes).some(attr => 
+                            attr.getAttribute('data-search-value').toLowerCase().includes(searchTerm)
+                        );
+                    
+                    // Show or hide row
+                    row.style.display = isMatch ? '' : 'none';
+                    
+                    // Update row number if visible
+                    if (isMatch) {
+                        const firstCell = row.querySelector('td:first-child');
+                        if (firstCell) {
+                            firstCell.textContent = visibleCounter++;
+                        }
+                    }
+                });
+            });
+        }
+    });
+    </script>
 </body>
 </html>

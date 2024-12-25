@@ -3,52 +3,79 @@
 {% block title %}משפחות - מרכז טיפולי{% endblock %}
 
 {% block content %}
-<div class="row mb-4">
-    <div class="col-md-8">
-        <h2>משפחות</h2>
+<div class="container-fluid px-4" dir="rtl">
+    <div class="row mb-4 align-items-center">
+        <div class="col">
+            <h2 class="mb-0">
+                <i class="fas fa-users me-2 text-primary"></i>רשימת משפחות
+            </h2>
+        </div>
+        <div class="col-auto d-flex align-items-center">
+            <form class="me-3 flex-grow-1 position-relative" onsubmit="return false;">
+                <div class="position-relative">
+                    <input type="text" id="live-search" class="form-control form-control-sm rounded-pill ps-4 pe-4" 
+                           placeholder="חיפוש משפחות..." 
+                           aria-label="חיפוש משפחות">
+                    <i class="fas fa-search position-absolute text-muted" style="top: 50%; left: 12px; transform: translateY(-50%);"></i>
+                </div>
+            </form>
+            {% if can_create_family %}
+            <a href="{% url 'treatment_app:family-create' %}" class="btn btn-success rounded-pill btn-sm me-2">
+                <i class="fas fa-plus ms-2"></i>הוספת משפחה חדשה
+            </a>
+            {% endif %}
+        </div>
     </div>
-    {% if can_create_family %}
-    <div class="col-md-4 text-end">
-        <a href="{% url 'treatment_app:family-create' %}" class="btn btn-success">
-            <i class="fas fa-plus"></i> הוספת משפחה
-        </a>
-    </div>
-    {% endif %}
-</div>
 
-<div class="row">
-    <div class="col-md-12">
-        {% if families %}
+    <div class="card shadow-sm rounded-4">
+        <div class="card-body p-0">
             <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
+                <table class="table table-striped table-hover mb-0" id="families-table" data-searchable="true">
+                    <thead class="table-light">
                         <tr>
-                            <th>שם המשפחה</th>
+                            <th class="text-center">#</th>
+                            <th>שם משפחה</th>
                             <th>טלפון</th>
                             <th>כתובת</th>
                             <th>מטפל</th>
                             <th>תאריך הצטרפות</th>
-                            <th>פעולות</th>
+                            <th class="text-center">מספר ילדים</th>
+                            <th class="text-center">פעולות</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for family in families %}
                             <tr>
-                                <td>{{ family.name }}</td>
-                                <td>{{ family.phone }}</td>
-                                <td>{{ family.address }}</td>
-                                <td>{{ family.therapist.get_full_name|default:family.therapist.username }}</td>
-                                <td>{{ family.created_at|date:"d/m/Y" }}</td>
-                                <td>
-                                    <div class="btn-group" role="group">
-                                        <a href="{% url 'treatment_app:family-detail' family.pk %}" class="btn btn-primary btn-sm" title="צפייה בפרטים">
-                                            <i class="fas fa-eye"></i>
+                                <td class="text-center">{{ forloop.counter }}</td>
+                                <td data-search-value="{{ family.name|lower }}">{{ family.name }}</td>
+                                <td data-search-value="{{ family.phone|lower }}">{{ family.phone }}</td>
+                                <td data-search-value="{{ family.address|lower }}">{{ family.address }}</td>
+                                <td data-search-value="{% if family.therapist %}{{ family.therapist.get_full_name|default:family.therapist.username|lower }}{% else %}לא שוייך מטפל{% endif %}">
+                                    {% if family.therapist %}
+                                        {{ family.therapist.get_full_name|default:family.therapist.username }}
+                                    {% else %}
+                                        <span class="text-muted">לא שוייך מטפל</span>
+                                    {% endif %}
+                                </td>
+                                <td data-search-value="{{ family.created_at|date:'d/m/Y' }}">{{ family.created_at|date:"d/m/Y" }}</td>
+                                <td class="text-center" data-search-value="{{ family.children.count }}">
+                                    <span class="badge bg-primary rounded-pill">
+                                        {{ family.children.count }}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group gap-2" role="group">
+                                        <a href="{% url 'treatment_app:family-detail' family.pk %}" class="btn btn-primary rounded-pill btn-sm" title="צפייה בפרטים">
+                                            <i class="fas fa-eye ms-2"></i>צפייה
                                         </a>
-                                        <a href="{% url 'treatment_app:family-update' family.pk %}" class="btn btn-warning btn-sm" title="עריכה">
-                                            <i class="fas fa-edit"></i>
+                                        <a href="{% url 'treatment_app:family-update' family.pk %}" class="btn btn-warning rounded-pill btn-sm" title="עריכה">
+                                            <i class="fas fa-edit ms-2"></i>עריכה
                                         </a>
-                                        <a href="{% url 'treatment_app:family-delete' family.pk %}" class="btn btn-danger btn-sm" title="מחיקה">
-                                            <i class="fas fa-trash"></i>
+                                        <a href="{% url 'treatment_app:child-create' %}?family={{ family.pk }}" class="btn btn-success rounded-pill btn-sm" title="הוספת ילד">
+                                            <i class="fas fa-plus ms-2"></i>ילד
+                                        </a>
+                                        <a href="{% url 'treatment_app:family-delete' family.pk %}" class="btn btn-danger rounded-pill btn-sm" title="מחיקה">
+                                            <i class="fas fa-trash ms-2"></i>מחיקה
                                         </a>
                                     </div>
                                 </td>
@@ -57,12 +84,9 @@
                     </tbody>
                 </table>
             </div>
-        {% else %}
-            <div class="alert alert-info">
-                אין משפחות במערכת.
-                <a href="{% url 'treatment_app:family-create' %}" class="alert-link">הוספת משפחה חדשה</a>
-            </div>
-        {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}
+
+{% block extra_js %}{% endblock %}

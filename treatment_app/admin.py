@@ -69,18 +69,34 @@ class FamilyAdmin(admin.ModelAdmin):
 
 @admin.register(Child)
 class ChildAdmin(admin.ModelAdmin):
-    list_display = ('name', 'family', 'birth_date', 'gender')
-    list_filter = ('family', 'gender')
-    search_fields = ('name',)
+    list_display = ('name', 'family', 'therapist', 'birth_date', 'gender')
+    list_filter = ('family', 'therapist', 'gender')
+    search_fields = ('name', 'family__name')
+    
+    def get_readonly_fields(self, request, obj=None):
+        # Make therapist read-only if it's inherited from family
+        if obj and obj.family and obj.family.therapist:
+            return self.readonly_fields + ('therapist',)
+        return self.readonly_fields
+
+    def save_model(self, request, obj, form, change):
+        # Ensure therapist is set to family's therapist
+        if obj.family and obj.family.therapist:
+            obj.therapist = obj.family.therapist
+        
+        super().save_model(request, obj, form, change)
+    
     fieldsets = (
         (_('פרטים אישיים'), {
-            'fields': ('family', 'name', 'birth_date', 'gender')
+            'fields': ('family', 'name', 'birth_date', 'gender', 'therapist')
         }),
         (_('פרטי בית ספר'), {
-            'fields': ('school', 'grade')
+            'fields': ('school', 'grade', 'teacher_name', 'teacher_phone', 
+                       'school_counselor_name', 'school_counselor_phone')
         }),
-        (_('מידע נוסף'), {
-            'fields': ('medical_info', 'notes')
+        (_('מידע רפואי'), {
+            'fields': ('allergies', 'medications', 'special_needs', 
+                       'medical_info', 'notes')
         }),
     )
 

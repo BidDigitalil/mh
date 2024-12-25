@@ -151,7 +151,40 @@ class ChildForm(forms.ModelForm):
     therapist = forms.ModelChoiceField(
         queryset=TherapistProfile.objects.filter(is_active=True), 
         required=False, 
-        label=_('מטפל')
+        label=_('מטפל'),
+        widget=forms.Select(attrs={
+            'class': 'form-control',
+            'data-live-search': 'true',
+            'data-style': 'btn-primary',
+            'data-width': '100%'
+        })
+    )
+
+    family = forms.ModelChoiceField(
+        queryset=Family.objects.all(), 
+        required=True,  
+        label=_('משפחה'),
+        widget=forms.Select(attrs={
+            'class': 'form-control',
+            'data-live-search': 'true',
+            'data-style': 'btn-primary',
+            'data-width': '100%',
+            'placeholder': 'בחר משפחה'
+        }),
+        error_messages={
+            'required': _('חובה לבחור משפחה. לא ניתן להוסיף ילד ללא משפחה.'),
+            'invalid_choice': _('המשפחה שנבחרה אינה תקפה. אנא בחר משפחה מהרשימה.')
+        }
+    )
+
+    birth_date = forms.DateField(
+        label=_('תאריך לידה'),
+        widget=forms.DateInput(attrs={
+            'class': 'form-control',
+            'type': 'date',
+            'placeholder': 'dd/mm/yyyy'
+        }),
+        input_formats=['%d/%m/%Y', '%Y-%m-%d']
     )
 
     class Meta:
@@ -165,7 +198,6 @@ class ChildForm(forms.ModelForm):
         ]
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'birth_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'gender': forms.Select(attrs={'class': 'form-control'}),
             'school': forms.TextInput(attrs={'class': 'form-control'}),
             'grade': forms.TextInput(attrs={'class': 'form-control'}),
@@ -178,52 +210,53 @@ class ChildForm(forms.ModelForm):
             'special_needs': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'medical_info': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'notes': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-            'family': forms.Select(attrs={'class': 'form-control'}),
         }
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
+        family_from_url = kwargs.pop('family', None)  
         super().__init__(*args, **kwargs)
 
-        # If a specific family is passed in initial, set it as the default
-        if 'initial' in kwargs and 'family' in kwargs['initial']:
-            self.fields['family'].initial = kwargs['initial']['family']
-            self.fields['family'].widget.attrs['readonly'] = True
-
-        # If not a superuser, modify choices
         if user and not user.is_superuser:
             try:
                 therapist_profile = TherapistProfile.objects.get(user=user)
                 
-                # Limit family choices to those where therapist is assigned
-                # But allow no family selection
-                self.fields['family'].queryset = Family.objects.filter(
-                    Q(therapist=user) | 
-                    Q(children__therapist=therapist_profile)
-                ).distinct().union(Family.objects.none())
+                # If family is passed from URL, set it as the only option
+                if family_from_url:
+                    self.fields['family'].queryset = Family.objects.filter(pk=family_from_url.pk)
+                    self.fields['family'].initial = family_from_url
+                    self.fields['family'].widget = forms.HiddenInput()
+                else:
+                    # Filter families for this therapist
+                    self.fields['family'].queryset = Family.objects.filter(
+                        Q(therapist=therapist_profile) | 
+                        Q(children__therapist=therapist_profile)
+                    ).distinct()
                 
-                # Set initial therapist to current therapist
-                self.fields['therapist'].initial = therapist_profile
+                # Filter therapists for this user
+                self.fields['therapist'].queryset = TherapistProfile.objects.filter(
+                    Q(pk=therapist_profile.pk) | 
+                    Q(is_active=True)
+                )
                 
             except TherapistProfile.DoesNotExist:
                 # Restrict all choices if no therapist profile
                 self.fields['family'].queryset = Family.objects.none()
                 self.fields['therapist'].queryset = TherapistProfile.objects.none()
+        
+        # If family_from_url is provided, make it the default and only option
+        if family_from_url:
+            self.fields['family'].queryset = Family.objects.filter(pk=family_from_url.pk)
+            self.fields['family'].initial = family_from_url
 
     def clean(self):
         cleaned_data = super().clean()
         
-        # Allow therapist assignment without family
-        family = cleaned_data.get('family')
-        therapist = cleaned_data.get('therapist')
-        
-        if therapist and not family:
-            pass
-        
-        # If family is selected, optional therapist validation
-        if family and therapist:
-            # Optional: Add additional validation if needed
-            pass
+        # Ensure a family is selected
+        if not cleaned_data.get('family'):
+            raise forms.ValidationError({
+                'family': _('חובה לבחור משפחה. לא ניתן להוסיף ילד ללא משפחה.')
+            })
         
         return cleaned_data
 
@@ -238,7 +271,12 @@ class TreatmentForm(forms.ModelForm):
     """
     scheduled_date = forms.DateField(
         label=_('תאריך מתוכנן'),
-        widget=forms.DateInput(attrs={'type': 'date'}),
+        widget=forms.DateInput(attrs={
+            'class': 'form-control',
+            'type': 'date',
+            'placeholder': 'dd/mm/yyyy'
+        }),
+        input_formats=['%d/%m/%Y', '%Y-%m-%d', '%d.%m.%Y'],  # Added Hebrew date format
         validators=[validate_weekday]
     )
     
