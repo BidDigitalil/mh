@@ -1,5 +1,11 @@
 {% extends "treatment_app/base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'treatment_app/css/custom.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+{% endblock %}
 
 {% block title %}
     {% if form.instance.pk %}
@@ -10,154 +16,200 @@
 {% endblock %}
 
 {% block content %}
-<div class="row mb-4">
-    <div class="col-md-12">
-        <h2>
-            {% if form.instance.pk %}
-                עריכת משפחה - {{ form.instance.name }}
-            {% else %}
-                הוספת משפחה חדשה
-            {% endif %}
-        </h2>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-body">
-                <form method="post" enctype="multipart/form-data" novalidate>
-                    {% csrf_token %}
-                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            {{ form.name|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            {{ form.phone|as_crispy_field }}
-                        </div>
-                        <div class="col-md-6">
-                            {{ form.email|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            {{ form.address|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            {{ form.therapist|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <h4 class="mt-4">פרטי האב</h4>
-                    <div class="row">
-                        <div class="col-md-4">
-                            {{ form.father_name|as_crispy_field }}
-                        </div>
-                        <div class="col-md-4">
-                            {{ form.father_phone|as_crispy_field }}
-                        </div>
-                        <div class="col-md-4">
-                            {{ form.father_email|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <h4 class="mt-4">פרטי האם</h4>
-                    <div class="row">
-                        <div class="col-md-4">
-                            {{ form.mother_name|as_crispy_field }}
-                        </div>
-                        <div class="col-md-4">
-                            {{ form.mother_phone|as_crispy_field }}
-                        </div>
-                        <div class="col-md-4">
-                            {{ form.mother_email|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <h4 class="mt-4">טפסים נדרשים</h4>
-                    <div class="alert alert-info">
-                        <i class="fas fa-info-circle"></i>
-                        יש להעלות את הטפסים הנדרשים בפורמט PDF או Word
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">טופס הסכמה</label>
-                                {% if form.instance.consent_form %}
-                                    <div class="mb-2">
-                                        <a href="{{ form.instance.consent_form.url }}" class="btn btn-sm btn-success" target="_blank">
-                                            <i class="fas fa-file-download"></i> הורד טופס קיים
-                                        </a>
-                                    </div>
-                                {% endif %}
-                                {{ form.consent_form|as_crispy_field }}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">טופס ויתור סודיות</label>
-                                {% if form.instance.confidentiality_waiver %}
-                                    <div class="mb-2">
-                                        <a href="{{ form.instance.confidentiality_waiver.url }}" class="btn btn-sm btn-success" target="_blank">
-                                            <i class="fas fa-file-download"></i> הורד טופס קיים
-                                        </a>
-                                    </div>
-                                {% endif %}
-                                {{ form.confidentiality_waiver|as_crispy_field }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-4">
-                        <div class="col-md-12">
-                            {{ form.notes|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row mt-4">
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">
-                                {% if form.instance.pk %}
-                                    שמירת שינויים
-                                {% else %}
-                                    הוספת משפחה
-                                {% endif %}
-                            </button>
-                            <a href="{% url 'treatment_app:family-list' %}" class="btn btn-secondary">ביטול</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h2>
+                <i class="fas fa-users"></i>
+                {% if form.instance.pk %}
+                    עריכת משפחה - {{ form.instance.name }}
+                {% else %}
+                    הוספת משפחה חדשה
+                {% endif %}
+            </h2>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">עזרה</h5>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card form-container">
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.name|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form.phone|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.email|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.address|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.therapist|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.family_status|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row form-row" data-section="parent-details" style="display: none;">
+                            <div class="col-md-4">
+                                {{ form.primary_parent_name|as_crispy_field }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.primary_parent_phone|as_crispy_field }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.primary_parent_email|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row form-row" data-section="parent-consent" style="display: none;">
+                            <div class="col-md-12">
+                                <h4 class="mt-4">טופס הסכמה</h4>
+                                {{ form.primary_parent_consent_form|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <h4 class="mt-4">טפסים נדרשים</h4>
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i>
+                            יש להעלות את הטפסים הנדרשים בפורמט PDF או Word
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">טופס הסכמה</label>
+                                    {% if form.instance.consent_form %}
+                                        <div class="mb-2">
+                                            <a href="{{ form.instance.consent_form.url }}" class="btn btn-sm btn-success" target="_blank">
+                                                <i class="fas fa-file-download"></i> הורד טופס קיים
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                    {{ form.consent_form|as_crispy_field }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">טופס ויתור סודיות</label>
+                                    {% if form.instance.confidentiality_waiver %}
+                                        <div class="mb-2">
+                                            <a href="{{ form.instance.confidentiality_waiver.url }}" class="btn btn-sm btn-success" target="_blank">
+                                                <i class="fas fa-file-download"></i> הורד טופס קיים
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                    {{ form.confidentiality_waiver|as_crispy_field }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                {{ form.notes|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">
+                                    {% if form.instance.pk %}
+                                        שמירת שינויים
+                                    {% else %}
+                                        הוספת משפחה
+                                    {% endif %}
+                                </button>
+                                <a href="{% url 'treatment_app:family-list' %}" class="btn btn-secondary">ביטול</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="card-body">
-                <p>מלא את הפרטים הבאים:</p>
-                <ul>
-                    <li>שם המשפחה - שדה חובה</li>
-                    <li>פרטי קשר - טלפון ואימייל</li>
-                    <li>כתובת המשפחה</li>
-                    <li>בחירת מטפל אחראי</li>
-                    <li>פרטי ההורים - שם, טלפון ואימייל</li>
-                    <li>טפסים נדרשים - הסכמה וויתור סודיות</li>
-                    <li>הערות נוספות במידת הצורך</li>
-                </ul>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-info-circle"></i> עזרה
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="help-section">
+                        <div class="help-item">
+                            <i class="fas fa-check-circle text-primary"></i>
+                            <span>מלא את פרטי המשפחה בקפידה</span>
+                        </div>
+                        <div class="help-item">
+                            <i class="fas fa-phone text-primary"></i>
+                            <span>וודא פרטי קשר מדויקים</span>
+                        </div>
+                        <div class="help-item">
+                            <i class="fas fa-file-upload text-primary"></i>
+                            <span>העלה טפסים נדרשים</span>
+                        </div>
+                        <div class="help-item">
+                            <i class="fas fa-user-friends text-primary"></i>
+                            <span>בחר סטטוס משפחתי מדויק</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const familyStatusSelect = document.getElementById('id_family_status');
+    const parentDetailsForms = document.querySelector('[data-section="parent-details"]');
+    const parentConsentForms = document.querySelector('[data-section="parent-consent"]');
+
+    function toggleParentDetailsForms() {
+        if (familyStatusSelect.value === 'divorced' || familyStatusSelect.value === 'single_parent') {
+            parentDetailsForms.style.display = 'block';
+        } else {
+            parentDetailsForms.style.display = 'none';
+        }
+    }
+
+    function toggleParentConsentForms() {
+        if (familyStatusSelect.value === 'divorced' || familyStatusSelect.value === 'single_parent') {
+            parentConsentForms.style.display = 'block';
+        } else {
+            parentConsentForms.style.display = 'none';
+        }
+    }
+
+    familyStatusSelect.addEventListener('change', function() {
+        toggleParentDetailsForms();
+        toggleParentConsentForms();
+    });
+    toggleParentDetailsForms(); // Initial state
+    toggleParentConsentForms(); // Initial state
+});
+</script>
 {% endblock %}

@@ -7,7 +7,7 @@ from datetime import datetime
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Row, Column, Submit, Div, HTML
 
-from .models import Family, Child, Treatment, Document, TherapistProfile
+from .models import Family, Child, Treatment, Document, TherapistProfile, SocialWorker
 
 def validate_weekday(value):
     """
@@ -33,119 +33,229 @@ def validate_treatment_end_time(value):
         raise ValidationError(_('שעת סיום מאוחרת מדי. טיפולים מסתיימים עד 20:00'))
 
 class FamilyForm(forms.ModelForm):
-    class Meta:
-        model = Family
-        fields = ['name', 'phone', 'email', 'address', 'therapist',
-                 'father_name', 'father_phone', 'father_email',
-                 'mother_name', 'mother_phone', 'mother_email',
-                 'consent_form', 'confidentiality_waiver', 'notes']
-        widgets = {
-            'consent_form': forms.FileInput(attrs={
-                'class': 'form-control',
-                'accept': '.pdf,.doc,.docx'
-            }),
-            'confidentiality_waiver': forms.FileInput(attrs={
-                'class': 'form-control',
-                'accept': '.pdf,.doc,.docx'
-            }),
-        }
+    FAMILY_STATUS_CHOICES = [
+        ('intact', 'משפחה שלמה'),
+        ('divorced', 'גרושים'),
+        ('single_parent', 'הורה יחידני'),
+        ('widowed', 'אלמן/אלמנה'),
+        ('other', 'אחר')
+    ]
+
+    family_status = forms.ChoiceField(
+        label='סטטוס משפחתי',
+        choices=FAMILY_STATUS_CHOICES,
+        widget=forms.Select(attrs={'class': 'form-control', 'id': 'id_family_status'}),
+        required=True
+    )
+
+    # Dynamic parent fields
+    primary_parent_name = forms.CharField(
+        label='שם ההורה',
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+
+    primary_parent_phone = forms.CharField(
+        label='טלפון ההורה',
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+
+    primary_parent_email = forms.CharField(
+        label='דוא"ל ההורה',
+        required=False,
+        widget=forms.EmailInput(attrs={'class': 'form-control'})
+    )
+
+    # Conditional consent forms
+    primary_parent_consent_form = forms.FileField(
+        label='טופס הסכמה להורה',
+        required=False,
+        widget=forms.FileInput(attrs={'class': 'form-control-file'})
+    )
 
     def __init__(self, *args, **kwargs):
-        # Get the user from kwargs if passed
         user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         
-        self.helper = FormHelper()
-        self.helper.form_method = 'post'
-        self.helper.form_enctype = 'multipart/form-data'  # חשוב להעלאת קבצים
+        # Remove original parent fields
+        fields_to_remove = [
+            'father_name', 'father_phone', 'father_email', 
+            'mother_name', 'mother_phone', 'mother_email',
+            'father_consent_form', 'mother_consent_form'
+        ]
+        for field in fields_to_remove:
+            if field in self.fields:
+                del self.fields[field]
+
+        # Ensure consent_form and confidentiality_waiver are present
+        if 'consent_form' not in self.fields:
+            self.fields['consent_form'] = forms.FileField(
+                label='טופס הסכמה',
+                required=False,
+                widget=forms.FileInput(attrs={'class': 'form-control-file'})
+            )
+        
+        if 'confidentiality_waiver' not in self.fields:
+            self.fields['confidentiality_waiver'] = forms.FileField(
+                label='טופס ויתור סודיות',
+                required=False,
+                widget=forms.FileInput(attrs={'class': 'form-control-file'})
+            )
+
+        # Add icons and custom classes to fields
+        icon_map = {
+            'name': 'fa-users',
+            'address': 'fa-map-marker-alt',
+            'phone': 'fa-phone',
+            'email': 'fa-envelope',
+            'primary_parent_name': 'fa-male',
+            'primary_parent_phone': 'fa-phone',
+            'primary_parent_email': 'fa-envelope',
+            'social_worker': 'fa-user-tie',
+            'notes': 'fa-sticky-note',
+            'therapist': 'fa-user-md',
+        }
+        
+        for field_name, icon in icon_map.items():
+            if field_name in self.fields:
+                self.fields[field_name].widget.attrs.update({
+                    'class': 'form-control with-icon',
+                })
+                # Create a custom widget that adds an icon container
+                self.fields[field_name].widget = IconInputWidget(
+                    self.fields[field_name].widget, 
+                    icon=icon
+                )
+        
+        # Specific styling for file upload fields
+        file_fields = ['consent_form', 'confidentiality_waiver', 'primary_parent_consent_form']
+        for field_name in file_fields:
+            if field_name in self.fields:
+                self.fields[field_name].widget.attrs.update({
+                    'class': 'form-control-file btn btn-upload',
+                })
         
         # If user is not a superuser, make therapist field read-only or hidden
         if user and not user.is_superuser:
             # If editing an existing family, show current therapist but make it non-editable
             if self.instance and self.instance.pk:
                 self.fields['therapist'].disabled = True
-                self.fields['therapist'].help_text = 'ניתן לשנות מטפל רק על ידי מנהל מערכת'
             else:
-                # For new families, hide the therapist field for non-superusers
-                self.fields['therapist'].widget = forms.HiddenInput()
+                # For new family, set therapist to current user
+                try:
+                    therapist_profile = TherapistProfile.objects.get(user=user)
+                    self.fields['therapist'].initial = therapist_profile
+                    self.fields['therapist'].disabled = True
+                except TherapistProfile.DoesNotExist:
+                    # If no therapist profile, hide or handle accordingly
+                    pass
+
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.form_enctype = 'multipart/form-data'
         
         self.helper.layout = Layout(
-            Fieldset(
-                _('פרטי משפחה'),
+            Div(
                 Row(
-                    Column('name', css_class='form-group col-md-6 mb-0'),
-                    Column('therapist', css_class='form-group col-md-6 mb-0'),
+                    Column('name', css_class='col-md-4'),
+                    Column('phone', css_class='col-md-4'),
+                    Column('email', css_class='col-md-4'),
                     css_class='form-row'
                 ),
                 Row(
-                    Column('phone', css_class='form-group col-md-6 mb-0'),
-                    Column('email', css_class='form-group col-md-6 mb-0'),
+                    Column('address', css_class='col-md-12'),
                     css_class='form-row'
                 ),
-                'address',
+                Row(
+                    Column('therapist', css_class='col-md-6'),
+                    Column('family_status', css_class='col-md-6'),
+                    css_class='form-row'
+                ),
+                css_class='card-body'
             ),
             Fieldset(
-                _('פרטי האב'),
+                _('פרטי הורה'),
                 Row(
-                    Column('father_name', css_class='form-group col-md-4 mb-0'),
-                    Column('father_phone', css_class='form-group col-md-4 mb-0'),
-                    Column('father_email', css_class='form-group col-md-4 mb-0'),
-                    css_class='form-row'
-                ),
-            ),
-            Fieldset(
-                _('פרטי האם'),
-                Row(
-                    Column('mother_name', css_class='form-group col-md-4 mb-0'),
-                    Column('mother_phone', css_class='form-group col-md-4 mb-0'),
-                    Column('mother_email', css_class='form-group col-md-4 mb-0'),
-                    css_class='form-row'
+                    Column('primary_parent_name', css_class='col-md-4'),
+                    Column('primary_parent_phone', css_class='col-md-4'),
+                    Column('primary_parent_email', css_class='col-md-4'),
                 ),
             ),
             Fieldset(
-                _('טפסים'),
+                _('פרטי עובד סוציאלי'),
                 Row(
-                    Column(
-                        HTML("""{% if form.instance.consent_form %}
-                            <div class="mb-2">
-                                <a href="{{ form.instance.consent_form.url }}" class="btn btn-sm btn-success" target="_blank">
-                                    <i class="fas fa-file-download"></i> הורד טופס הסכמה קיים
-                                </a>
-                            </div>
-                        {% endif %}"""),
-                        'consent_form',
-                        css_class='form-group col-md-6 mb-0'
-                    ),
-                    Column(
-                        HTML("""{% if form.instance.confidentiality_waiver %}
-                            <div class="mb-2">
-                                <a href="{{ form.instance.confidentiality_waiver.url }}" class="btn btn-sm btn-success" target="_blank">
-                                    <i class="fas fa-file-download"></i> הורד טופס ויתור סודיות קיים
-                                </a>
-                            </div>
-                        {% endif %}"""),
-                        'confidentiality_waiver',
-                        css_class='form-group col-md-6 mb-0'
-                    ),
-                    css_class='form-row'
+                    Column('social_worker', css_class='col-md-12'),
+                ),
+            ),
+            Fieldset(
+                _('מסמכים'),
+                Row(
+                    Column('consent_form', css_class='col-md-6'),
+                    Column('confidentiality_waiver', css_class='col-md-6'),
+                ),
+                Row(
+                    Column('primary_parent_consent_form', css_class='col-md-6'),
                 ),
             ),
             'notes',
-            Submit('submit', _('שמור'), css_class='btn btn-primary')
+            Submit('submit', _('שמור'), css_class='btn btn-action')
         )
 
     def clean(self):
         cleaned_data = super().clean()
-        consent_form = cleaned_data.get('consent_form')
-        confidentiality_waiver = cleaned_data.get('confidentiality_waiver')
-
-        # Set dates when files are uploaded
-        if consent_form:
-            cleaned_data['consent_form_date'] = timezone.now().date()
-        if confidentiality_waiver:
-            cleaned_data['confidentiality_waiver_date'] = timezone.now().date()
-
+        
+        # Validate consent forms for divorced families
+        family_status = cleaned_data.get('family_status')
+        if family_status in ['divorced', 'single_parent', 'widowed']:
+            if not cleaned_data.get('primary_parent_name'):
+                self.add_error('primary_parent_name', _('שם ההורה נדרש'))
+            
+            if not cleaned_data.get('primary_parent_phone'):
+                self.add_error('primary_parent_phone', _('טלפון ההורה נדרש'))
+            
+            if family_status == 'divorced':
+                if not cleaned_data.get('primary_parent_consent_form'):
+                    self.add_error('primary_parent_consent_form', _('טופס הסכמה נדרש עבור משפחות גרושות'))
+        
         return cleaned_data
+
+    class Meta:
+        model = Family
+        fields = [
+            'name', 'address', 'phone', 'email', 
+            'family_status', 
+            'primary_parent_name', 'primary_parent_phone', 'primary_parent_email',
+            'primary_parent_consent_form',
+            'notes', 'therapist'
+        ]
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'address': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'notes': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+        }
+
+class IconInputWidget(forms.Widget):
+    def __init__(self, widget, icon=None):
+        self.widget = widget
+        self.icon = icon
+        super().__init__(widget.attrs)
+
+    def render(self, name, value, attrs=None, renderer=None):
+        # Render the original widget
+        widget_render = self.widget.render(name, value, attrs, renderer)
+        
+        # If icon is provided, wrap the widget with an icon container
+        if self.icon:
+            icon_html = f'<div class="icon-container"><i class="fas {self.icon}"></i></div>'
+            return f'<div class="form-group">{widget_render}{icon_html}</div>'
+        
+        return widget_render
+
+    def build_attrs(self, *args, **kwargs):
+        return self.widget.build_attrs(*args, **kwargs)
 
 class ChildForm(forms.ModelForm):
     therapist = forms.ModelChoiceField(
@@ -277,7 +387,19 @@ class TreatmentForm(forms.ModelForm):
             'placeholder': 'dd/mm/yyyy'
         }),
         input_formats=['%d/%m/%Y', '%Y-%m-%d', '%d.%m.%Y'],  # Added Hebrew date format
+        required=False,
         validators=[validate_weekday]
+    )
+    
+    actual_date = forms.DateField(
+        label=_('תאריך בפועל'),
+        widget=forms.DateInput(attrs={
+            'class': 'form-control',
+            'type': 'date',
+            'placeholder': 'dd/mm/yyyy'
+        }),
+        input_formats=['%d/%m/%Y', '%Y-%m-%d', '%d.%m.%Y'],  # Added Hebrew date format
+        required=False
     )
     
     start_time = forms.TimeField(
@@ -296,7 +418,7 @@ class TreatmentForm(forms.ModelForm):
         model = Treatment
         fields = [
             'type', 'family', 'child', 'therapist', 
-            'scheduled_date', 'start_time', 'end_time', 
+            'scheduled_date', 'actual_date', 'start_time', 'end_time', 
             'status', 'summary', 'next_steps'
         ]
         widgets = {
@@ -338,8 +460,12 @@ class TreatmentForm(forms.ModelForm):
                 _('מועד הטיפול'),
                 Row(
                     Column('scheduled_date', css_class='form-group col-md-4 mb-0'),
+                    Column('actual_date', css_class='form-group col-md-4 mb-0'),
                     Column('start_time', css_class='form-group col-md-4 mb-0'),
-                    Column('end_time', css_class='form-group col-md-4 mb-0'),
+                    css_class='form-row'
+                ),
+                Row(
+                    Column('end_time', css_class='form-group col-md-12 mb-0'),
                     css_class='form-row'
                 ),
             ),
@@ -362,10 +488,21 @@ class TreatmentForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        start_time = cleaned_data.get('start_time')
-        end_time = cleaned_data.get('end_time')
+        scheduled_date = cleaned_data.get('scheduled_date')
+        actual_date = cleaned_data.get('actual_date')
+        status = cleaned_data.get('status')
+
+        # If no scheduled date, use actual date
+        if not scheduled_date and actual_date:
+            cleaned_data['scheduled_date'] = actual_date
+
+        # If actual date is provided, set status to COMPLETED
+        if actual_date:
+            cleaned_data['status'] = 'COMPLETED'
 
         # Validate that end time is after start time
+        start_time = cleaned_data.get('start_time')
+        end_time = cleaned_data.get('end_time')
         if start_time and end_time and start_time >= end_time:
             raise ValidationError(_('שעת סיום חייבת להיות לאחר שעת ההתחלה'))
 

@@ -60,13 +60,26 @@
                                     <span class="text-muted">-</span>
                                     {% endif %}
                                 </td>
-                                <td data-search-value="{{ treatment.date|date:'d/m/Y H:i' }}">{{ treatment.date|date:"d/m/Y H:i" }}</td>
+                                <td data-search-value="{{ treatment.actual_date|default_if_none:treatment.scheduled_date|default:'' }}">
+                                    {% if treatment.actual_date and treatment.scheduled_date and treatment.actual_date != treatment.scheduled_date %}
+                                        <span class="text-muted small">מתוכנן: {{ treatment.scheduled_date|date:"d/m/Y" }}</span>
+                                        <br>
+                                        <strong>בוצע: {{ treatment.actual_date|date:"d/m/Y" }}</strong>
+                                    {% else %}
+                                        {{ treatment.actual_date|default:treatment.scheduled_date|date:"d/m/Y" }}
+                                    {% endif %}
+                                </td>
                                 <td data-search-value="{{ treatment.summary|lower }}">{{ treatment.summary|truncatewords:10 }}</td>
                                 <td class="text-center">
                                     <div class="btn-group gap-2" role="group">
                                         <a href="{% url 'treatment_app:treatment-detail' treatment.pk %}" class="btn btn-primary rounded-pill btn-sm" title="צפייה בפרטים">
                                             <i class="fas fa-eye ms-2"></i>צפייה
                                         </a>
+                                        {% if treatment.needs_summary %}
+                                        <a href="{% url 'treatment_app:treatment-update' treatment.pk %}" class="btn btn-danger rounded-pill btn-sm pulse-animation" title="הוספת סיכום">
+                                            <i class="fas fa-exclamation-triangle ms-2"></i>הוסף סיכום
+                                        </a>
+                                        {% endif %}
                                         <a href="{% url 'treatment_app:treatment-update' treatment.pk %}" class="btn btn-warning rounded-pill btn-sm" title="עריכה">
                                             <i class="fas fa-edit ms-2"></i>עריכה
                                         </a>

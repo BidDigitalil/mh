@@ -26,6 +26,22 @@ from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
 from datetime import datetime, time, timedelta
 
+class SocialWorker(models.Model):
+    """
+    מודל לעובד סוציאלי
+    """
+    name = models.CharField(max_length=100, verbose_name=_('שם'))
+    phone = models.CharField(max_length=20, verbose_name=_('טלפון'))
+    email = models.EmailField(verbose_name=_('דוא"ל'))
+    organization = models.CharField(max_length=100, verbose_name=_('ארגון'), blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.name} ({self.organization or 'ללא ארגון'})"
+
+    class Meta:
+        verbose_name = _('עובד סוציאלי')
+        verbose_name_plural = _('עובדים סוציאליים')
+
 class Family(models.Model):
     """
     Represents a family unit in the treatment center management system.
@@ -45,11 +61,32 @@ class Family(models.Model):
         ('mother', _('אם בלבד')),
     ]
 
+    FAMILY_STATUS_CHOICES = [
+        ('intact', _('משפחה שלמה')),
+        ('divorced', _('גרושים')),
+        ('single_parent', _('הורה יחידני')),
+        ('widowed', _('אלמן/אלמנה')),
+        ('other', _('אחר'))
+    ]
+
+    PRIMARY_CONTACT_CHOICES = [
+        ('father', _('אב המשפחה')),
+        ('mother', _('אם המשפחה')),
+        ('other', _('אחר'))
+    ]
+
     name = models.CharField(max_length=100, verbose_name=_('שם משפחה'))
     address = models.CharField(max_length=200, verbose_name=_('כתובת'))
     phone = models.CharField(max_length=20, verbose_name=_('טלפון'))
     email = models.EmailField(verbose_name=_('דוא"ל'), blank=True, null=True)
     parents_type = models.CharField(max_length=10, choices=PARENTS_TYPE_CHOICES, verbose_name=_('סוג הורות'), default='both')
+    family_status = models.CharField(
+        max_length=20, 
+        choices=FAMILY_STATUS_CHOICES, 
+        verbose_name=_('סטטוס משפחתי'), 
+        blank=True, 
+        null=True
+    )
     
     # פרטי האב
     father_name = models.CharField(max_length=100, verbose_name=_('שם האב'), blank=True, null=True)
@@ -81,11 +118,105 @@ class Family(models.Model):
     )
     consent_form_date = models.DateField(verbose_name=_('תאריך טופס הסכמה'), blank=True, null=True)
     confidentiality_waiver_date = models.DateField(verbose_name=_('תאריך ויתור סודיות'), blank=True, null=True)
-
+    
+    # Additional consent fields for divorced families
+    father_consent_form = models.FileField(
+        upload_to='consent_forms/father/', 
+        null=True, 
+        blank=True, 
+        verbose_name='טופס הסכמה אב'
+    )
+    
+    mother_consent_form = models.FileField(
+        upload_to='consent_forms/mother/', 
+        null=True, 
+        blank=True, 
+        verbose_name='טופס הסכמה אם'
+    )
+    
+    father_consent_form_date = models.DateField(
+        verbose_name=_('תאריך טופס הסכמה אב'), 
+        blank=True, 
+        null=True
+    )
+    mother_consent_form_date = models.DateField(
+        verbose_name=_('תאריך טופס הסכמה אם'), 
+        blank=True, 
+        null=True
+    )
+    
     # פרטים נוספים
+    social_worker = models.ForeignKey(
+        SocialWorker, 
+        on_delete=models.SET_NULL, 
+        verbose_name=_('עובד סוציאלי'), 
+        blank=True, 
+        null=True
+    )
+    social_worker_name = models.CharField(
+        max_length=100, 
+        verbose_name=_('שם העו״ס'), 
+        blank=True, 
+        null=True
+    )
+    social_worker_phone = models.CharField(
+        max_length=20, 
+        verbose_name=_('טלפון העו״ס'), 
+        blank=True, 
+        null=True
+    )
+    social_worker_email = models.EmailField(
+        verbose_name=_('דוא״ל העו״ס'), 
+        blank=True, 
+        null=True
+    )
     notes = models.TextField(verbose_name=_('הערות'), blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('נוצר ב'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('עודכן ב'))
+    
+    primary_contact_type = models.CharField(
+        max_length=10, 
+        choices=PRIMARY_CONTACT_CHOICES, 
+        verbose_name=_('סוג איש קשר עיקרי'), 
+        blank=True, 
+        null=True
+    )
+
+    def is_divorced(self):
+        """
+        בדיקה האם המשפחה גרושה
+        """
+        return self.family_status == 'divorced'
+
+    def consent_forms_complete(self):
+        """
+        בדיקה האם טפסי ההסכמה מלאים עבור משפחות גרושות
+        """
+        if self.is_divorced():
+            return bool(self.father_consent_form and self.mother_consent_form)
+        return True
+
+    @property
+    def primary_contact_phone(self):
+        """
+        Dynamic primary contact phone based on primary_contact_type
+        """
+        if self.primary_contact_type == 'father':
+            return self.father_phone
+        elif self.primary_contact_type == 'mother':
+            return self.mother_phone
+        return None
+
+    @property
+    def primary_contact_name(self):
+        """
+        Dynamic primary contact name based on primary_contact_type
+        """
+        if self.primary_contact_type == 'father':
+            return self.father_name
+        elif self.primary_contact_type == 'mother':
+            return self.mother_name
+        return None
 
     def clean(self):
         if self.parents_type == 'father':
@@ -100,6 +231,14 @@ class Family(models.Model):
     def save(self, *args, **kwargs):
         self.clean()
         super().save(*args, **kwargs)
+
+    def get_consent_forms_required(self):
+        """
+        קובע אילו טפסי הסכמה נדרשים בהתאם לסטטוס המשפחתי
+        """
+        if self.family_status == 'divorced':
+            return ['father_consent_form', 'mother_consent_form']
+        return []
 
     class Meta:
         verbose_name = _('משפחה')
@@ -215,6 +354,7 @@ class Treatment(models.Model):
 
     # Scheduling
     scheduled_date = models.DateField(null=True, blank=True, verbose_name=_('תאריך מתוכנן'))
+    actual_date = models.DateField(null=True, blank=True, verbose_name=_('תאריך בפועל'))
     start_time = models.TimeField(null=True, blank=True, default=time(8, 0), verbose_name=_('שעת התחלה'))
     end_time = models.TimeField(null=True, blank=True, default=time(9, 0), verbose_name=_('שעת סיום'))
 
@@ -252,17 +392,18 @@ class Treatment(models.Model):
         return reverse('treatment_app:treatment-detail', kwargs={'pk': self.pk})
 
     def save(self, *args, **kwargs):
-        """
-        Override save method to automatically update treatment status.
-        """
-        # Auto-update status based on summary
-        if self.summary and self.status == self.TreatmentStatus.SCHEDULED:
+        # If no actual date and no scheduled date, set status to PENDING
+        if not self.actual_date and not self.scheduled_date:
+            self.status = self.TreatmentStatus.PENDING_SUMMARY
+
+        # If actual date is provided, set status to COMPLETED
+        if self.actual_date:
             self.status = self.TreatmentStatus.COMPLETED
-        
-        # Ensure end time is after start time
-        if self.start_time and self.end_time and self.start_time >= self.end_time:
-            self.end_time = datetime.combine(datetime.today(), self.start_time) + timedelta(hours=1)
-        
+
+        # If scheduled date is in the past and no actual date, mark as MISSED
+        if self.scheduled_date and not self.actual_date and self.scheduled_date < timezone.now().date():
+            self.status = self.TreatmentStatus.MISSED
+
         super().save(*args, **kwargs)
 
     def is_past_due(self):

@@ -676,6 +676,7 @@ class DocumentCreateView(LoginRequiredMixin, CreateView):
             kwargs['family'] = get_object_or_404(Family, pk=self.kwargs['family'])
         elif 'child' in self.kwargs:
             kwargs['child'] = get_object_or_404(Child, pk=self.kwargs['child'])
+        kwargs['user'] = self.request.user
         return kwargs
 
     def get_success_url(self):
