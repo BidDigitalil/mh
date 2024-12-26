@@ -48,28 +48,53 @@ class FamilyForm(forms.ModelForm):
         required=True
     )
 
-    # Dynamic parent fields
-    primary_parent_name = forms.CharField(
-        label='שם ההורה',
+    # Father details
+    father_name = forms.CharField(
+        label='שם האב',
         required=False,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
 
-    primary_parent_phone = forms.CharField(
-        label='טלפון ההורה',
+    father_phone = forms.CharField(
+        label='טלפון האב',
         required=False,
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
 
-    primary_parent_email = forms.CharField(
-        label='דוא"ל ההורה',
+    father_email = forms.EmailField(
+        label='דוא"ל האב',
         required=False,
         widget=forms.EmailInput(attrs={'class': 'form-control'})
     )
 
-    # Conditional consent forms
-    primary_parent_consent_form = forms.FileField(
-        label='טופס הסכמה להורה',
+    # Mother details
+    mother_name = forms.CharField(
+        label='שם האם',
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+
+    mother_phone = forms.CharField(
+        label='טלפון האם',
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+
+    mother_email = forms.EmailField(
+        label='דוא"ל האם',
+        required=False,
+        widget=forms.EmailInput(attrs={'class': 'form-control'})
+    )
+
+    # Consent forms
+    father_consent_form = forms.FileField(
+        label='טופס הסכמה אב',
+        required=False,
+        widget=forms.FileInput(attrs={'class': 'form-control-file'})
+    )
+
+    mother_consent_form = forms.FileField(
+        label='טופס הסכמה אם',
         required=False,
         widget=forms.FileInput(attrs={'class': 'form-control-file'})
     )
@@ -78,64 +103,28 @@ class FamilyForm(forms.ModelForm):
         user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         
-        # Remove original parent fields
-        fields_to_remove = [
-            'father_name', 'father_phone', 'father_email', 
-            'mother_name', 'mother_phone', 'mother_email',
-            'father_consent_form', 'mother_consent_form'
-        ]
-        for field in fields_to_remove:
-            if field in self.fields:
-                del self.fields[field]
+        # Dynamically show/hide fields based on family status
+        if self.initial.get('family_status') or (self.instance and self.instance.family_status):
+            family_status = self.initial.get('family_status') or self.instance.family_status
+            
+            if family_status == 'intact':
+                # For intact families, show only one set of parent details
+                pass
+            elif family_status == 'divorced':
+                # For divorced families, require both parent details and consent forms
+                self.fields['father_name'].required = True
+                self.fields['mother_name'].required = True
+                self.fields['father_phone'].required = True
+                self.fields['mother_phone'].required = True
+                self.fields['father_consent_form'].required = True
+                self.fields['mother_consent_form'].required = True
+            elif family_status == 'single_parent':
+                # For single parent, require details of the primary parent
+                pass
+            elif family_status == 'widowed':
+                # For widowed, require details of the surviving parent
+                pass
 
-        # Ensure consent_form and confidentiality_waiver are present
-        if 'consent_form' not in self.fields:
-            self.fields['consent_form'] = forms.FileField(
-                label='טופס הסכמה',
-                required=False,
-                widget=forms.FileInput(attrs={'class': 'form-control-file'})
-            )
-        
-        if 'confidentiality_waiver' not in self.fields:
-            self.fields['confidentiality_waiver'] = forms.FileField(
-                label='טופס ויתור סודיות',
-                required=False,
-                widget=forms.FileInput(attrs={'class': 'form-control-file'})
-            )
-
-        # Add icons and custom classes to fields
-        icon_map = {
-            'name': 'fa-users',
-            'address': 'fa-map-marker-alt',
-            'phone': 'fa-phone',
-            'email': 'fa-envelope',
-            'primary_parent_name': 'fa-male',
-            'primary_parent_phone': 'fa-phone',
-            'primary_parent_email': 'fa-envelope',
-            'social_worker': 'fa-user-tie',
-            'notes': 'fa-sticky-note',
-            'therapist': 'fa-user-md',
-        }
-        
-        for field_name, icon in icon_map.items():
-            if field_name in self.fields:
-                self.fields[field_name].widget.attrs.update({
-                    'class': 'form-control with-icon',
-                })
-                # Create a custom widget that adds an icon container
-                self.fields[field_name].widget = IconInputWidget(
-                    self.fields[field_name].widget, 
-                    icon=icon
-                )
-        
-        # Specific styling for file upload fields
-        file_fields = ['consent_form', 'confidentiality_waiver', 'primary_parent_consent_form']
-        for field_name in file_fields:
-            if field_name in self.fields:
-                self.fields[field_name].widget.attrs.update({
-                    'class': 'form-control-file btn btn-upload',
-                })
-        
         # If user is not a superuser, make therapist field read-only or hidden
         if user and not user.is_superuser:
             # If editing an existing family, show current therapist but make it non-editable
@@ -175,12 +164,22 @@ class FamilyForm(forms.ModelForm):
                 css_class='card-body'
             ),
             Fieldset(
-                _('פרטי הורה'),
+                _('פרטי אב'),
                 Row(
-                    Column('primary_parent_name', css_class='col-md-4'),
-                    Column('primary_parent_phone', css_class='col-md-4'),
-                    Column('primary_parent_email', css_class='col-md-4'),
+                    Column('father_name', css_class='col-md-4'),
+                    Column('father_phone', css_class='col-md-4'),
+                    Column('father_email', css_class='col-md-4'),
                 ),
+                Column('father_consent_form', css_class='col-md-6'),
+            ),
+            Fieldset(
+                _('פרטי אם'),
+                Row(
+                    Column('mother_name', css_class='col-md-4'),
+                    Column('mother_phone', css_class='col-md-4'),
+                    Column('mother_email', css_class='col-md-4'),
+                ),
+                Column('mother_consent_form', css_class='col-md-6'),
             ),
             Fieldset(
                 _('פרטי עובד סוציאלי'),
@@ -194,9 +193,6 @@ class FamilyForm(forms.ModelForm):
                     Column('consent_form', css_class='col-md-6'),
                     Column('confidentiality_waiver', css_class='col-md-6'),
                 ),
-                Row(
-                    Column('primary_parent_consent_form', css_class='col-md-6'),
-                ),
             ),
             'notes',
             Submit('submit', _('שמור'), css_class='btn btn-action')
@@ -204,20 +200,24 @@ class FamilyForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        
-        # Validate consent forms for divorced families
         family_status = cleaned_data.get('family_status')
-        if family_status in ['divorced', 'single_parent', 'widowed']:
-            if not cleaned_data.get('primary_parent_name'):
-                self.add_error('primary_parent_name', _('שם ההורה נדרש'))
-            
-            if not cleaned_data.get('primary_parent_phone'):
-                self.add_error('primary_parent_phone', _('טלפון ההורה נדרש'))
-            
-            if family_status == 'divorced':
-                if not cleaned_data.get('primary_parent_consent_form'):
-                    self.add_error('primary_parent_consent_form', _('טופס הסכמה נדרש עבור משפחות גרושות'))
-        
+
+        # Validate fields based on family status
+        if family_status == 'divorced':
+            # Require both parent details and consent forms
+            if not cleaned_data.get('father_name'):
+                self.add_error('father_name', _('שם האב נדרש למשפחות גרושות'))
+            if not cleaned_data.get('mother_name'):
+                self.add_error('mother_name', _('שם האם נדרש למשפחות גרושות'))
+            if not cleaned_data.get('father_phone'):
+                self.add_error('father_phone', _('טלפון האב נדרש למשפחות גרושות'))
+            if not cleaned_data.get('mother_phone'):
+                self.add_error('mother_phone', _('טלפון האם נדרש למשפחות גרושות'))
+            if not cleaned_data.get('father_consent_form'):
+                self.add_error('father_consent_form', _('טופס הסכמה לאב נדרש למשפחות גרושות'))
+            if not cleaned_data.get('mother_consent_form'):
+                self.add_error('mother_consent_form', _('טופס הסכמה לאם נדרש למשפחות גרושות'))
+
         return cleaned_data
 
     class Meta:
@@ -225,14 +225,15 @@ class FamilyForm(forms.ModelForm):
         fields = [
             'name', 'address', 'phone', 'email', 
             'family_status', 
-            'primary_parent_name', 'primary_parent_phone', 'primary_parent_email',
-            'primary_parent_consent_form',
-            'notes', 'therapist'
+            'father_name', 'father_phone', 'father_email',
+            'mother_name', 'mother_phone', 'mother_email',
+            'father_consent_form', 'mother_consent_form',
+            'notes', 'therapist', 'social_worker'
         ]
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'address': forms.TextInput(attrs={'class': 'form-control'}),
-            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control', 'type': 'tel'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'notes': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
