@@ -1,0 +1,41 @@
+{% extends "treatment_app/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h2>{{ title }}</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                {% crispy form %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">מידע</h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <h5 class="alert-heading">הוספת מטפל</h5>
+                    <p>בעת הוספת מטפל חדש:</p>
+                    <ul>
+                        <li>כתובת האימייל תשמש כשם המשתמש</li>
+                        <li>יש להגדיר סיסמה ראשונית</li>
+                        <li>המטפל יוכל לשנות את הסיסמה בהמשך</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -4,15 +4,13 @@ import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'treatment_center.settings')
 django.setup()
 
-from treatment_app.models import User
+from django.contrib.auth.models import User
 
-# בדיקה אם המשתמש קיים
-if not User.objects.filter(username='admin').exists():
-    User.objects.create_superuser(
-        username='admin',
-        email='admin@example.com',
-        password='Admin123!',
-        is_staff=True,
-        is_superuser=True
-    )
-    print("משתמש אדמין נוצר בהצלחה")
+def create_superuser():
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', 'admin@example.com', 'Admin123!')
+        print('Superuser created successfully!')
+    else:
+        print('Superuser already exists.')
+
+create_superuser()

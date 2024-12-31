@@ -1,3 +1,13 @@
+"""
+Script to create a new user in the treatment center management system.
+
+This script provides a command-line interface to create a new user with 
+specified details, including username, email, and password.
+
+Usage:
+    python create_user.py
+"""
+
 import os
 import django
 

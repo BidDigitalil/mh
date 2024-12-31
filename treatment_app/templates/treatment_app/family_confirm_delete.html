@@ -1,25 +1,36 @@
 {% extends "treatment_app/base.html" %}
-{% load crispy_forms_tags %}
+
+{% block title %}מחיקת משפחה - {{ family.name }}{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <div class="card">
-                <div class="card-header bg-danger text-white">
-                    <h4 class="mb-0">מחיקת משפחה</h4>
-                </div>
-                <div class="card-body">
-                    <p class="lead">האם אתה בטוח שברצונך למחוק את משפחת {{ object.family_name }}?</p>
-                    <p class="text-danger">פעולה זו לא ניתנת לביטול!</p>
-                    <form method="post">
-                        {% csrf_token %}
-                        <div class="d-flex justify-content-between">
-                            <a href="{% url 'treatment_app:family-detail' object.id %}" class="btn btn-secondary">ביטול</a>
-                            <button type="submit" class="btn btn-danger">מחק</button>
-                        </div>
-                    </form>
-                </div>
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h3 class="card-title mb-0">מחיקת משפחה</h3>
+            </div>
+            <div class="card-body">
+                <p class="lead">האם אתה בטוח שברצונך למחוק את משפחת {{ family.name }}?</p>
+                <p>פעולה זו תמחק את:</p>
+                <ul>
+                    <li>כל פרטי המשפחה</li>
+                    <li>כל הילדים השייכים למשפחה</li>
+                    <li>כל הטיפולים המשויכים לילדי המשפחה</li>
+                    <li>כל המסמכים השייכים למשפחה</li>
+                </ul>
+                <p class="text-danger"><strong>שים לב: לא ניתן לבטל פעולה זו!</strong></p>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'treatment_app:family-detail' family.pk %}" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> ביטול
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> מחק משפחה
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

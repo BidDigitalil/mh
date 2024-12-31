@@ -1,124 +1,317 @@
+"""
+Django models for the Treatment Center Management System.
+
+This module defines the core data models for managing families, children, 
+treatments, therapist profiles, and documents in a treatment center.
+
+Key Models:
+- Family: Represents a family unit with contact and parental information
+- Child: Stores details about individual children in a family
+- Treatment: Tracks treatment sessions and their details
+- TherapistProfile: Extends the default User model for therapists
+- Document: Manages various types of documents related to families and children
+
+The models use Django's built-in translation and validation features to 
+provide a robust and localized data management system.
+"""
+
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
-import os
+from django.core.validators import FileExtensionValidator
+from django.core.exceptions import ValidationError
+from django.utils import timezone
+from django.core.validators import MinValueValidator, MaxValueValidator
+from datetime import datetime, time, timedelta
 
-def validate_file_extension(value):
-    ext = os.path.splitext(value.name)[1]
-    valid_extensions = ['.pdf', '.doc', '.docx']
-    if not ext.lower() in valid_extensions:
-        raise ValidationError(_('קובץ לא נתמך. אנא העלה קובץ PDF או Word.'))
-
-class BaseModel(models.Model):
+class SocialWorker(models.Model):
     """
-    מודל בסיס שמכיל שדות משותפים לכל המודלים
+    מודל לעובד סוציאלי
     """
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('נוצר ב'))
-    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('עודכן ב'))
-    notes = models.TextField(blank=True, null=True, verbose_name=_('הערות'))
-
-    class Meta:
-        abstract = True
-
-class Therapist(models.Model):
-    """
-    מודל המייצג מטפל במערכת
-    """
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='therapist_profile')
+    name = models.CharField(max_length=100, verbose_name=_('שם'))
     phone = models.CharField(max_length=20, verbose_name=_('טלפון'))
-    specialization = models.CharField(max_length=100, verbose_name=_('התמחות'))
-    active = models.BooleanField(default=True, verbose_name=_('פעיל'))
-
-    class Meta:
-        verbose_name = _('מטפל')
-        verbose_name_plural = _('מטפלים')
+    email = models.EmailField(verbose_name=_('דוא"ל'))
+    organization = models.CharField(max_length=100, verbose_name=_('ארגון'), blank=True, null=True)
 
     def __str__(self):
-        return f'{self.user.get_full_name()}'
+        return f"{self.name} ({self.organization or 'ללא ארגון'})"
 
-class Family(BaseModel):
+    class Meta:
+        verbose_name = _('עובד סוציאלי')
+        verbose_name_plural = _('עובדים סוציאליים')
+
+class Family(models.Model):
     """
-    מודל המייצג משפחה במערכת
-    """
-    FAMILY_STATUS_CHOICES = [
-        ('married', _('נשואים')),
-        ('divorced', _('גרושים')),
-        ('single_father', _('אב יחיד')),
-        ('single_mother', _('אם יחידה')),
-        ('other', _('אחר')),
-    ]
+    Represents a family unit in the treatment center management system.
     
-    family_name = models.CharField(max_length=100, verbose_name=_('שם משפחה'))
+    Stores comprehensive information about a family, including:
+    - Basic contact details
+    - Parental information
+    - Associated therapist
+    - Consent and confidentiality documents
+    
+    Supports different family structures (both parents, single parent)
+    and maintains a record of important family-related documents.
+    """
+    PARENTS_TYPE_CHOICES = [
+        ('both', _('שני הורים')),
+        ('father', _('אב בלבד')),
+        ('mother', _('אם בלבד')),
+    ]
+
+    FAMILY_STATUS_CHOICES = [
+        ('intact', _('משפחה שלמה')),
+        ('divorced', _('גרושים')),
+        ('single_parent', _('הורה יחידני')),
+        ('widowed', _('אלמן/אלמנה')),
+        ('other', _('אחר'))
+    ]
+
+    PRIMARY_CONTACT_CHOICES = [
+        ('father', _('אב המשפחה')),
+        ('mother', _('אם המשפחה')),
+        ('other', _('אחר'))
+    ]
+
+    name = models.CharField(max_length=100, verbose_name=_('שם משפחה'))
+    address = models.CharField(max_length=200, verbose_name=_('כתובת'))
+    phone = models.CharField(max_length=20, verbose_name=_('טלפון'))
+    email = models.EmailField(verbose_name=_('דוא"ל'), blank=True, null=True)
+    parents_type = models.CharField(max_length=10, choices=PARENTS_TYPE_CHOICES, verbose_name=_('סוג הורות'), default='both')
     family_status = models.CharField(
         max_length=20, 
         choices=FAMILY_STATUS_CHOICES, 
-        default='married', 
-        verbose_name=_('סטטוס משפחתי')
+        verbose_name=_('סטטוס משפחתי'), 
+        blank=True, 
+        null=True
     )
-    address = models.TextField(verbose_name=_('כתובת'))
-    phone_number = models.CharField(max_length=20, verbose_name=_('טלפון ראשי'))
     
-    father_name = models.CharField(max_length=100, blank=True, null=True, verbose_name=_('שם האב'))
-    father_phone = models.CharField(max_length=20, blank=True, null=True, verbose_name=_('טלפון האב'))
-    father_email = models.EmailField(blank=True, null=True, verbose_name=_('אימייל האב'))
-    father_id = models.CharField(max_length=9, blank=True, null=True, verbose_name=_('תעודת זהות האב'))
+    # פרטי האב
+    father_name = models.CharField(max_length=100, verbose_name=_('שם האב'), blank=True, null=True)
+    father_phone = models.CharField(max_length=20, verbose_name=_('טלפון האב'), blank=True, null=True)
+    father_email = models.EmailField(verbose_name=_('דוא"ל האב'), blank=True, null=True)
     
-    mother_name = models.CharField(max_length=100, blank=True, null=True, verbose_name=_('שם האם'))
-    mother_phone = models.CharField(max_length=20, blank=True, null=True, verbose_name=_('טלפון האם'))
-    mother_email = models.EmailField(blank=True, null=True, verbose_name=_('אימייל האם'))
-    mother_id = models.CharField(max_length=9, blank=True, null=True, verbose_name=_('תעודת זהות האם'))
-
-    assigned_therapist = models.ForeignKey(
-        Therapist,
-        on_delete=models.SET_NULL,
-        null=True,
+    # פרטי האם
+    mother_name = models.CharField(max_length=100, verbose_name=_('שם האם'), blank=True, null=True)
+    mother_phone = models.CharField(max_length=20, verbose_name=_('טלפון האם'), blank=True, null=True)
+    mother_email = models.EmailField(verbose_name=_('דוא"ל האם'), blank=True, null=True)
+    
+    # מטפל
+    therapist = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name=_('מטפל'), related_name='families')
+    
+    # טפסים
+    consent_form = models.FileField(
+        upload_to='consent_forms/',
+        verbose_name=_('טופס הסכמה'),
         blank=True,
-        related_name='assigned_families',
-        verbose_name=_('מטפל מוקצה')
+        null=True,
+        validators=[FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx'])]
     )
+    confidentiality_waiver = models.FileField(
+        upload_to='confidentiality_waivers/',
+        verbose_name=_('טופס ויתור סודיות'),
+        blank=True,
+        null=True,
+        validators=[FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx'])]
+    )
+    consent_form_date = models.DateField(verbose_name=_('תאריך טופס הסכמה'), blank=True, null=True)
+    confidentiality_waiver_date = models.DateField(verbose_name=_('תאריך ויתור סודיות'), blank=True, null=True)
+    
+    # Additional consent fields for divorced families
+    father_consent_form = models.FileField(
+        upload_to='consent_forms/father/', 
+        null=True, 
+        blank=True, 
+        verbose_name='טופס הסכמה אב'
+    )
+    
+    mother_consent_form = models.FileField(
+        upload_to='consent_forms/mother/', 
+        null=True, 
+        blank=True, 
+        verbose_name='טופס הסכמה אם'
+    )
+    
+    father_consent_form_date = models.DateField(
+        verbose_name=_('תאריך טופס הסכמה אב'), 
+        blank=True, 
+        null=True
+    )
+    mother_consent_form_date = models.DateField(
+        verbose_name=_('תאריך טופס הסכמה אם'), 
+        blank=True, 
+        null=True
+    )
+    
+    # פרטים נוספים
+    social_worker = models.ForeignKey(
+        SocialWorker, 
+        on_delete=models.SET_NULL, 
+        verbose_name=_('עובד סוציאלי'), 
+        blank=True, 
+        null=True
+    )
+    social_worker_name = models.CharField(
+        max_length=100, 
+        verbose_name=_('שם העו״ס'), 
+        blank=True, 
+        null=True
+    )
+    social_worker_phone = models.CharField(
+        max_length=20, 
+        verbose_name=_('טלפון העו״ס'), 
+        blank=True, 
+        null=True
+    )
+    social_worker_email = models.EmailField(
+        verbose_name=_('דוא״ל העו״ס'), 
+        blank=True, 
+        null=True
+    )
+    notes = models.TextField(verbose_name=_('הערות'), blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('נוצר ב'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('עודכן ב'))
+    
+    primary_contact_type = models.CharField(
+        max_length=10, 
+        choices=PRIMARY_CONTACT_CHOICES, 
+        verbose_name=_('סוג איש קשר עיקרי'), 
+        blank=True, 
+        null=True
+    )
+
+    def is_divorced(self):
+        """
+        בדיקה האם המשפחה גרושה
+        """
+        return self.family_status == 'divorced'
+
+    def consent_forms_complete(self):
+        """
+        בדיקה האם טפסי ההסכמה מלאים עבור משפחות גרושות
+        """
+        if self.is_divorced():
+            return bool(self.father_consent_form and self.mother_consent_form)
+        return True
+
+    @property
+    def primary_contact_phone(self):
+        """
+        Dynamic primary contact phone based on primary_contact_type
+        """
+        if self.primary_contact_type == 'father':
+            return self.father_phone
+        elif self.primary_contact_type == 'mother':
+            return self.mother_phone
+        return None
+
+    @property
+    def primary_contact_name(self):
+        """
+        Dynamic primary contact name based on primary_contact_type
+        """
+        if self.primary_contact_type == 'father':
+            return self.father_name
+        elif self.primary_contact_type == 'mother':
+            return self.mother_name
+        return None
+
+    def clean(self):
+        if self.parents_type == 'father':
+            self.mother_name = None
+            self.mother_phone = None
+            self.mother_email = None
+        elif self.parents_type == 'mother':
+            self.father_name = None
+            self.father_phone = None
+            self.father_email = None
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
+
+    def get_consent_forms_required(self):
+        """
+        קובע אילו טפסי הסכמה נדרשים בהתאם לסטטוס המשפחתי
+        """
+        if self.family_status == 'divorced':
+            return ['father_consent_form', 'mother_consent_form']
+        return []
 
     class Meta:
         verbose_name = _('משפחה')
         verbose_name_plural = _('משפחות')
-        ordering = ['family_name']
+        ordering = ['name']
 
     def __str__(self):
-        return f'{self.family_name}'
+        return self.name
 
-    def clean(self):
-        super().clean()
-        status = self.family_status
+    def get_absolute_url(self):
+        return reverse('treatment_app:family-detail', kwargs={'pk': self.pk})
 
-        if status == 'single_father':
-            if not all([self.father_name, self.father_phone, self.father_id]):
-                raise ValidationError(_('יש למלא את כל פרטי האב עבור אב יחיד'))
-        
-        elif status == 'single_mother':
-            if not all([self.mother_name, self.mother_phone, self.mother_id]):
-                raise ValidationError(_('יש למלא את כל פרטי האם עבור אם יחידה'))
-        
-        elif status in ['married', 'divorced']:
-            if not all([self.father_name, self.father_phone, self.father_id,
-                       self.mother_name, self.mother_phone, self.mother_id]):
-                raise ValidationError(_('יש למלא את פרטי שני ההורים'))
-
-class Child(BaseModel):
+class Child(models.Model):
     """
-    מודל המייצג ילד במערכת
+    Represents a child within a family in the treatment center.
+    
+    Captures detailed information about a child, including:
+    - Basic personal details (name, birth date, gender)
+    - School and educational information
+    - Medical and health-related details
+    - Associated therapist and family
+    
+    Provides a comprehensive profile for tracking a child's 
+    treatment and personal information.
     """
     family = models.ForeignKey(
-        Family, 
-        on_delete=models.CASCADE, 
-        related_name='children', 
+        Family,
+        on_delete=models.CASCADE,
+        related_name='children',
         verbose_name=_('משפחה')
     )
-    name = models.CharField(max_length=100, verbose_name=_('שם'))
+    name = models.CharField(max_length=100, verbose_name=_('שם הילד'))
     birth_date = models.DateField(verbose_name=_('תאריך לידה'))
-    school = models.CharField(max_length=100, verbose_name=_('בית ספר'))
-    grade = models.CharField(max_length=20, verbose_name=_('כיתה'))
-    medical_info = models.TextField(blank=True, null=True, verbose_name=_('מידע רפואי'))
-    special_needs = models.TextField(blank=True, null=True, verbose_name=_('צרכים מיוחדים'))
+    gender = models.CharField(
+        max_length=10,
+        choices=[('male', _('זכר')), ('female', _('נקבה'))],
+        verbose_name=_('מגדר')
+    )
+    school = models.CharField(max_length=100, verbose_name=_('בית ספר'), blank=True)
+    grade = models.CharField(max_length=20, verbose_name=_('כיתה'), blank=True)
+    
+    # New fields for additional child information
+    teacher_name = models.CharField(max_length=100, verbose_name=_('שם המורה'), blank=True)
+    teacher_phone = models.CharField(max_length=20, verbose_name=_('טלפון המורה'), blank=True)
+    school_counselor_name = models.CharField(max_length=100, verbose_name=_('שם היועץ/ת'), blank=True)
+    school_counselor_phone = models.CharField(max_length=20, verbose_name=_('טלפון היועץ/ת'), blank=True)
+    
+    # Additional child-specific details
+    allergies = models.TextField(verbose_name=_('אלרגיות'), blank=True)
+    medications = models.TextField(verbose_name=_('תרופות'), blank=True)
+    special_needs = models.TextField(verbose_name=_('צרכים מיוחדים'), blank=True)
+    
+    medical_info = models.TextField(verbose_name=_('מידע רפואי'), blank=True)
+    notes = models.TextField(verbose_name=_('הערות'), blank=True)
+    
+    therapist = models.ForeignKey(
+        'TherapistProfile', 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True, 
+        verbose_name=_('מטפל')
+    )
+    
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('נוצר ב'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('עודכן ב'))
+
+    def save(self, *args, **kwargs):
+        # No restrictions on therapist selection
+        super().save(*args, **kwargs)
+
+    def clean(self):
+        # Remove therapist consistency validation
+        pass
 
     class Meta:
         verbose_name = _('ילד')
@@ -126,95 +319,188 @@ class Child(BaseModel):
         ordering = ['family', 'name']
 
     def __str__(self):
-        return f'{self.name} ({self.family.family_name})'
+        return f"{self.name} - {self.family.name}"
 
-class Treatment(BaseModel):
-    """
-    מודל המייצג טיפול במערכת
-    """
-    TREATMENT_STATUS_CHOICES = [
-        ('scheduled', _('מתוכנן')),
-        ('in_progress', _('בטיפול')),
-        ('completed', _('הושלם')),
-        ('cancelled', _('בוטל')),
-    ]
+    def get_absolute_url(self):
+        return reverse('treatment_app:child-detail', kwargs={'pk': self.pk})
 
-    child = models.ForeignKey(
-        Child,
-        on_delete=models.CASCADE,
-        related_name='treatments',
-        verbose_name=_('ילד')
-    )
-    therapist = models.ForeignKey(
-        Therapist,
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name='treatments',
-        verbose_name=_('מטפל')
-    )
-    date = models.DateTimeField(verbose_name=_('תאריך ושעה'))
-    status = models.CharField(
-        max_length=20,
-        choices=TREATMENT_STATUS_CHOICES,
-        default='scheduled',
-        verbose_name=_('סטטוס')
-    )
-    summary = models.TextField(blank=True, null=True, verbose_name=_('סיכום טיפול'))
+class Treatment(models.Model):
+    """
+    Represents a treatment session for a child or family.
+    
+    Tracks treatment details including scheduling, status, and summary.
+    Supports both individual child treatments and family-level interventions.
+    """
+    class TreatmentType(models.TextChoices):
+        INDIVIDUAL = 'INDIVIDUAL', _('טיפול פרטני')
+        GROUP = 'GROUP', _('טיפול קבוצתי')
+        FAMILY = 'FAMILY', _('טיפול משפחתי')
+        CONSULTATION = 'CONSULTATION', _('התייעצות')
+
+    class TreatmentStatus(models.TextChoices):
+        SCHEDULED = 'SCHEDULED', _('מתוכנן')
+        COMPLETED = 'COMPLETED', _('הושלם')
+        MISSED = 'MISSED', _('לא התקיים')
+        PENDING_SUMMARY = 'PENDING_SUMMARY', _('ממתין לסיכום')
+
+    # Relationships
+    family = models.ForeignKey('Family', on_delete=models.CASCADE, related_name='treatments', null=True, blank=True, verbose_name=_('משפחה'))
+    child = models.ForeignKey('Child', on_delete=models.CASCADE, related_name='treatments', null=True, blank=True, verbose_name=_('ילד'))
+    therapist = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='treatments', verbose_name=_('מטפל'))
+
+    # Treatment Details
+    type = models.CharField(max_length=20, choices=TreatmentType.choices, default=TreatmentType.INDIVIDUAL, verbose_name=_('סוג טיפול'))
+    status = models.CharField(max_length=20, choices=TreatmentStatus.choices, default=TreatmentStatus.SCHEDULED, verbose_name=_('סטטוס'))
+
+    # Scheduling
+    scheduled_date = models.DateField(null=True, blank=True, verbose_name=_('תאריך מתוכנן'))
+    actual_date = models.DateField(null=True, blank=True, verbose_name=_('תאריך בפועל'))
+    start_time = models.TimeField(null=True, blank=True, default=time(8, 0), verbose_name=_('שעת התחלה'))
+    end_time = models.TimeField(null=True, blank=True, default=time(9, 0), verbose_name=_('שעת סיום'))
+
+    # Treatment Summary
+    summary = models.TextField(null=True, blank=True, verbose_name=_('סיכום טיפול'))
+    next_steps = models.TextField(null=True, blank=True, verbose_name=_('המשך טיפול'))
+
+    # Metadata
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('נוצר ב'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('עודכן ב'))
 
     class Meta:
         verbose_name = _('טיפול')
         verbose_name_plural = _('טיפולים')
-        ordering = ['-date']
+        ordering = ['-scheduled_date', 'start_time']
+        constraints = [
+            models.CheckConstraint(
+                check=models.Q(family__isnull=False) | models.Q(child__isnull=False),
+                name='require_family_or_child'
+            )
+        ]
 
     def __str__(self):
-        return f'טיפול: {self.child.name} - {self.date.strftime("%d/%m/%Y %H:%M")}'
+        """
+        String representation of the treatment.
+        Prioritizes child name, then family name.
+        """
+        client_name = self.child.name if self.child else self.family.name if self.family else _('לקוח לא מזוהה')
+        return f"{client_name} - {self.get_type_display()} ({self.scheduled_date})"
 
-class Document(BaseModel):
+    def get_absolute_url(self):
+        """
+        Returns the URL for viewing this treatment's details.
+        """
+        return reverse('treatment_app:treatment-detail', kwargs={'pk': self.pk})
+
+    def save(self, *args, **kwargs):
+        # If no actual date and no scheduled date, set status to PENDING
+        if not self.actual_date and not self.scheduled_date:
+            self.status = self.TreatmentStatus.PENDING_SUMMARY
+
+        # If actual date is provided, set status to COMPLETED
+        if self.actual_date:
+            self.status = self.TreatmentStatus.COMPLETED
+
+        # If scheduled date is in the past and no actual date, mark as MISSED
+        if self.scheduled_date and not self.actual_date and self.scheduled_date < timezone.now().date():
+            self.status = self.TreatmentStatus.MISSED
+
+        super().save(*args, **kwargs)
+
+    def is_past_due(self):
+        """
+        Check if the treatment is past due.
+        """
+        return (self.scheduled_date and self.scheduled_date < timezone.now().date() and 
+                self.status == self.TreatmentStatus.SCHEDULED)
+
+    def needs_summary(self):
+        """
+        Check if the treatment requires a summary.
+        Returns True if:
+        1. Treatment is past due
+        2. No summary has been written
+        """
+        from django.utils import timezone
+        
+        # Check if treatment is past due
+        if not self.scheduled_date:
+            return False
+        
+        is_past_due = self.scheduled_date < timezone.now().date()
+        
+        # Check if summary is missing
+        summary_missing = not self.summary
+        
+        return is_past_due and summary_missing
+
+    def get_status_display_with_summary_warning(self):
+        """
+        Returns the status with an additional warning if summary is needed.
+        """
+        status = self.get_status_display()
+        if self.needs_summary():
+            status += " (נדרש סיכום!)"
+        return status
+
+class TherapistProfile(models.Model):
     """
-    מודל המייצג מסמך במערכת
+    Extended profile for therapists in the treatment center.
+    
+    Augments Django's built-in User model with:
+    - Contact information
+    - Professional specialization
+    - Additional notes
+    - Active status
+    
+    Provides a more comprehensive view of therapist details.
+    """
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('משתמש'))
+    phone = models.CharField(max_length=20, verbose_name=_('טלפון'), blank=True)
+    specialization = models.CharField(max_length=100, verbose_name=_('התמחות'), blank=True)
+    notes = models.TextField(verbose_name=_('הערות'), blank=True)
+    is_active = models.BooleanField(default=True, verbose_name=_('פעיל'))
+
+    class Meta:
+        verbose_name = _('פרופיל מטפל')
+        verbose_name_plural = _('פרופילי מטפלים')
+
+    def __str__(self):
+        return f"{self.user.get_full_name() or self.user.username}"
+
+class Document(models.Model):
+    """
+    Manages documents associated with families or children.
+    
+    Supports various document types:
+    - Medical
+    - Educational
+    - Psychological
+    - Financial
+    - Other
+    
+    Allows document upload and tracking with:
+    - Flexible association (family or child)
+    - Document metadata
+    - Validation rules
+    
+    Helps in maintaining a comprehensive document repository.
     """
     DOCUMENT_TYPES = [
-        ('consent', _('טופס הסכמה')),
-        ('treatment', _('טופס טיפול')),
         ('medical', _('מסמך רפואי')),
         ('educational', _('מסמך חינוכי')),
+        ('psychological', _('מסמך פסיכולוגי')),
+        ('financial', _('מסמך פיננסי')),
         ('other', _('אחר')),
     ]
 
-    name = models.CharField(max_length=200, verbose_name=_('שם המסמך'))
-    document_type = models.CharField(
-        max_length=20, 
-        choices=DOCUMENT_TYPES, 
-        default='other', 
-        verbose_name=_('סוג מסמך')
-    )
-    file = models.FileField(
-        upload_to='documents/',
-        validators=[validate_file_extension],
-        verbose_name=_('קובץ')
-    )
-    family = models.ForeignKey(
-        Family, 
-        on_delete=models.CASCADE, 
-        related_name='documents',
-        verbose_name=_('משפחה')
-    )
-    child = models.ForeignKey(
-        Child, 
-        on_delete=models.CASCADE, 
-        related_name='documents', 
-        null=True, 
-        blank=True,
-        verbose_name=_('ילד')
-    )
-    treatment = models.ForeignKey(
-        Treatment,
-        on_delete=models.SET_NULL,
-        related_name='documents',
-        null=True,
-        blank=True,
-        verbose_name=_('טיפול קשור')
-    )
+    family = models.ForeignKey(Family, on_delete=models.CASCADE, related_name='documents', null=True, blank=True)
+    child = models.ForeignKey(Child, on_delete=models.CASCADE, related_name='documents', null=True, blank=True)
+    name = models.CharField(max_length=255, verbose_name=_('שם המסמך'))
+    document_type = models.CharField(max_length=20, choices=DOCUMENT_TYPES, verbose_name=_('סוג המסמך'))
+    file = models.FileField(upload_to='documents/', verbose_name=_('קובץ'))
+    notes = models.TextField(blank=True, null=True, verbose_name=_('הערות'))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('נוצר בתאריך'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('עודכן בתאריך'))
 
     class Meta:
         verbose_name = _('מסמך')
@@ -222,11 +508,18 @@ class Document(BaseModel):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f'{self.name} - {self.family.family_name}'
+        if self.child:
+            return f"{self.name} - {self.child.name}"
+        return f"{self.name} - {self.family.name if self.family else _('ללא שיוך')}"
 
     def clean(self):
-        super().clean()
-        if self.child and self.child.family != self.family:
-            raise ValidationError(_('הילד חייב להיות שייך למשפחה הנבחרת'))
-        if self.treatment and self.treatment.child != self.child:
-            raise ValidationError(_('הטיפול חייב להיות קשור לילד הנבחר'))
+        if not self.family and not self.child:
+            raise ValidationError(_('חובה לשייך את המסמך למשפחה או לילד'))
+        if self.family and self.child and self.child.family != self.family:
+            raise ValidationError(_('הילד אינו שייך למשפחה זו'))
+        if self.child:
+            self.family = self.child.family
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)

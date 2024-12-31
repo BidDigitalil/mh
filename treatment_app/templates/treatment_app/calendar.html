@@ -1,0 +1,117 @@
+{% extends "treatment_app/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block extra_css %}
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/main.min.css' rel='stylesheet' />
+<style>
+    .fc-event {
+        cursor: pointer;
+        white-space: normal !important;
+        padding: 2px 4px;
+    }
+    .fc-event-title {
+        font-size: 0.8em;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title mb-0">
+                <i class="fas fa-calendar-alt"></i> לוח טיפולים
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="typeFilter">סינון לפי סוג טיפול</label>
+                        <select id="typeFilter" class="form-control">
+                            <option value="">כל סוגי הטיפולים</option>
+                            {% for type_value, type_display in type_choices %}
+                                <option value="{{ type_value }}">{{ type_display }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="statusFilter">סינון לפי סטטוס</label>
+                        <select id="statusFilter" class="form-control">
+                            <option value="">כל הסטטוסים</option>
+                            {% for status_value, status_display in status_choices %}
+                                <option value="{{ status_value }}">{{ status_display }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4 align-self-end">
+                    <a href="{% url 'treatment_app:treatment-create' %}" class="btn btn-success">
+                        <i class="fas fa-plus"></i> הוסף טיפול חדש
+                    </a>
+                </div>
+            </div>
+            
+            <div id="calendar"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/main.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/locales/he.js'></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+            right: 'prev,next today',
+            center: 'title',
+            left: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        locale: 'he',
+        height: 'auto',
+        events: function(fetchInfo, successCallback, failureCallback) {
+            var typeFilter = document.getElementById('typeFilter').value;
+            var statusFilter = document.getElementById('statusFilter').value;
+            
+            var url = "{% url 'treatment_app:treatment_calendar_data' %}?start=" + fetchInfo.startStr + 
+                      "&end=" + fetchInfo.endStr +
+                      (typeFilter ? "&type=" + typeFilter : "") +
+                      (statusFilter ? "&status=" + statusFilter : "");
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    successCallback(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching events:', error);
+                    failureCallback(error);
+                });
+        },
+        eventClick: function(info) {
+            if (info.event.url) {
+                window.location.href = info.event.url;
+                info.jsEvent.preventDefault(); // prevents browser from following link
+            }
+        }
+    });
+    calendar.render();
+
+    // Add event listeners for filters
+    document.getElementById('typeFilter').addEventListener('change', function() {
+        calendar.refetchEvents();
+    });
+
+    document.getElementById('statusFilter').addEventListener('change', function() {
+        calendar.refetchEvents();
+    });
+});
+</script>
+{% endblock %}

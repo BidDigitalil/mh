@@ -1,92 +1,220 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מרכז טיפולים</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <style>
-        body {
-            padding-top: 60px;
-            background-color: #f8f9fa;
-        }
-        .navbar {
-            background-color: #3498db;
-        }
-        .navbar-brand, .nav-link {
-            color: white !important;
-        }
-        .container {
-            margin-top: 20px;
-        }
-        .card {
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .btn-primary {
-            background-color: #3498db;
-            border-color: #3498db;
-        }
-        .btn-primary:hover {
-            background-color: #2980b9;
-            border-color: #2980b9;
-        }
-    </style>
+    <title>{% block title %}מרכז טיפול{% endblock %}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="{% static 'treatment_app/css/custom.css' %}" rel="stylesheet">
+    <link href="{% static 'treatment_app/css/dashboard.css' %}" rel="stylesheet">
+    
+    {% block extra_head %}{% endblock %}
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'treatment_app/css/forms.css' %}">
+    {% endblock %}
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'treatment_app:dashboard' %}">מרכז טיפולים</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'treatment_app:dashboard' %}">
+                    <i class="fas fa-heartbeat"></i> מרכז טיפול
+                </a>
                 {% if user.is_authenticated %}
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'treatment_app:family-list' %}">משפחות</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'treatment_app:family-create' %}">הוספת משפחה</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <span class="nav-link">שלום, {{ user.username }}</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">התנתק</a>
-                    </li>
-                </ul>
-                {% else %}
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">התחבר</a>
-                    </li>
-                </ul>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'treatment_app:family-list' %}">
+                                <i class="fas fa-family"></i> משפחות
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'treatment_app:child-list' %}">
+                                <i class="fas fa-child"></i> ילדים
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'treatment_app:treatment-list' %}">
+                                <i class="fas fa-notes-medical"></i> טיפולים
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="treatmentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-calendar-alt"></i> ניהול טיפולים
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="treatmentDropdown">
+                                <li><a class="dropdown-item" href="{% url 'treatment_app:treatment-list' %}">רשימת טיפולים</a></li>
+                                <li><a class="dropdown-item" href="{% url 'treatment_app:calendar_view' %}">לוח שנה</a></li>
+                                <li><a class="dropdown-item" href="{% url 'treatment_app:weekly_calendar' %}">תצוגת שבועית</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'treatment_app:treatment-create' %}">הוסף טיפול חדש</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'treatment_app:document-list' %}">
+                                <i class="fas fa-file"></i> מסמכים
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="navbar-nav">
+                        {% if user.is_superuser %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'treatment_app:therapist-list' %}">
+                                    <i class="fas fa-user-md"></i> ניהול מטפלים
+                                </a>
+                            </li>
+                        {% endif %}
+                        <a href="{% url 'logout' %}" class="btn btn-outline-danger">
+                            <i class="fas fa-sign-out-alt"></i> התנתק
+                        </a>
+                    </div>
+                </div>
                 {% endif %}
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <div class="container">
-        {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <!-- Main Content -->
+        <div class="container-fluid main-content py-4">
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% block content %}{% endblock %}
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer mt-auto py-3 bg-light text-center">
+            <div class="container">
+                <span class="text-muted">© {% now "Y" %} מרכז טיפול. כל הזכויות שמורות.</span>
             </div>
-            {% endfor %}
-        </div>
-        {% endif %}
-
-        {% block content %}
-        {% endblock %}
+        </footer>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
-    {% block extra_js %}{% endblock %}
+    <!-- Bootstrap JS and Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="{% static 'treatment_app/js/main.js' %}"></script>
+    
+    {% block extra_scripts %}{% endblock %}
+    
+    <!-- Generic Search Functionality -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Find all tables with searchable rows
+        const searchableTable = document.querySelector('table[data-searchable="true"]');
+        const searchInput = document.getElementById('live-search');
+        
+        if (searchInput && searchableTable) {
+            // Find the search icon
+            const searchIcon = searchInput.closest('.position-relative').querySelector('.fa-search');
+            
+            // Toggle icon visibility and functionality
+            searchInput.addEventListener('input', function() {
+                const hasValue = this.value.trim() !== '';
+                
+                if (hasValue) {
+                    // Replace search icon with clear icon
+                    searchIcon.classList.remove('fa-search');
+                    searchIcon.classList.remove('text-muted');
+                    searchIcon.classList.add('fa-times');
+                    searchIcon.classList.add('text-muted');
+                    searchIcon.style.cssText = `
+                        position: absolute; 
+                        top: 50%; 
+                        left: 12px; 
+                        transform: translateY(-50%);
+                        cursor: pointer;
+                    `;
+                } else {
+                    // Restore search icon
+                    searchIcon.classList.remove('fa-times');
+                    searchIcon.classList.add('fa-search');
+                    searchIcon.classList.add('text-muted');
+                    searchIcon.style.cssText = `
+                        position: absolute; 
+                        top: 50%; 
+                        left: 12px; 
+                        transform: translateY(-50%);
+                        cursor: default;
+                    `;
+                }
+            });
+            
+            // Add click event to icon
+            searchIcon.addEventListener('click', function() {
+                // Only clear if it's currently a clear icon
+                if (this.classList.contains('fa-times')) {
+                    searchInput.value = '';
+                    
+                    // Restore search icon
+                    this.classList.remove('fa-times');
+                    this.classList.add('fa-search');
+                    this.classList.add('text-muted');
+                    this.style.cssText = `
+                        position: absolute; 
+                        top: 50%; 
+                        left: 12px; 
+                        transform: translateY(-50%);
+                        cursor: default;
+                    `;
+                    
+                    // Trigger input event to refresh search
+                    const event = new Event('input');
+                    searchInput.dispatchEvent(event);
+                }
+            });
+            
+            // Main search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                const rows = searchableTable.querySelectorAll('tbody tr');
+                
+                let visibleCounter = 1;
+                rows.forEach(function(row) {
+                    // Get all searchable attributes
+                    const searchAttributes = row.querySelectorAll('[data-search-value]');
+                    
+                    // Check if any attribute matches the search term
+                    const isMatch = searchTerm === '' || 
+                        Array.from(searchAttributes).some(attr => 
+                            attr.getAttribute('data-search-value').toLowerCase().includes(searchTerm)
+                        );
+                    
+                    // Show or hide row
+                    row.style.display = isMatch ? '' : 'none';
+                    
+                    // Update row number if visible
+                    if (isMatch) {
+                        const firstCell = row.querySelector('td:first-child');
+                        if (firstCell) {
+                            firstCell.textContent = visibleCounter++;
+                        }
+                    }
+                });
+            });
+        }
+    });
+    </script>
 </body>
 </html>
