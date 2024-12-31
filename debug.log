@@ -29543,3 +29543,30 @@ INFO 2024-12-30 14:07:55,477 views 19656 19768 User is superuser: True
 INFO 2024-12-30 14:07:55,478 views 19656 19768 User ID: 1
 INFO 2024-12-30 14:07:55,478 views 19656 19768 Username: admin
 INFO 2024-12-30 14:07:55,487 basehttp 19656 19768 "GET / HTTP/1.1" 200 13000
+INFO 2024-12-31 16:00:00,756 autoreload 4580 4292 Watching for file changes with StatReloader
+INFO 2024-12-31 16:00:10,044 views 4580 3852 Dashboard access attempt by user: admin
+INFO 2024-12-31 16:00:10,045 views 4580 3852 User is superuser: True
+INFO 2024-12-31 16:00:10,046 views 4580 3852 User ID: 1
+INFO 2024-12-31 16:00:10,046 views 4580 3852 Username: admin
+INFO 2024-12-31 16:00:10,207 basehttp 4580 3852 "GET / HTTP/1.1" 200 13000
+INFO 2024-12-31 16:00:10,600 basehttp 4580 20648 "GET /static/treatment_app/js/main.js HTTP/1.1" 200 1049
+INFO 2024-12-31 16:00:10,617 basehttp 4580 6096 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 200 7068
+INFO 2024-12-31 16:00:10,629 basehttp 4580 21348 "GET /static/treatment_app/css/forms.css HTTP/1.1" 200 839
+INFO 2024-12-31 16:00:10,635 basehttp 4580 3852 "GET /static/treatment_app/css/custom.css HTTP/1.1" 200 6751
+INFO 2024-12-31 16:00:12,207 basehttp 4580 3852 "GET /treatments/ HTTP/1.1" 200 30980
+INFO 2024-12-31 16:00:13,241 basehttp 4580 3852 "GET /children/ HTTP/1.1" 200 18245
+INFO 2024-12-31 16:00:13,516 basehttp 4580 3852 "GET /children/ HTTP/1.1" 200 18245
+INFO 2024-12-31 16:00:14,219 basehttp 4580 3852 "GET /families/ HTTP/1.1" 200 20715
+INFO 2024-12-31 16:00:20,923 basehttp 4580 3852 "GET /family/1/ HTTP/1.1" 200 26496
+INFO 2024-12-31 16:00:43,986 basehttp 4580 12784 "GET /children/ HTTP/1.1" 200 18245
+INFO 2024-12-31 16:00:49,411 basehttp 4580 19644 "GET /children/ HTTP/1.1" 200 18245
+INFO 2024-12-31 16:00:54,127 basehttp 4580 19644 "GET /children/ HTTP/1.1" 200 18245
+INFO 2024-12-31 16:00:56,073 basehttp 4580 18332 "GET /family/1/ HTTP/1.1" 200 26496
+INFO 2024-12-31 16:10:09,655 basehttp 4580 1756 "GET /family/1/ HTTP/1.1" 200 26496
+INFO 2024-12-31 23:39:25,332 autoreload 21176 10640 Watching for file changes with StatReloader
+INFO 2024-12-31 23:39:31,082 views 21176 7056 Dashboard access attempt by user: admin
+INFO 2024-12-31 23:39:31,083 views 21176 7056 User is superuser: True
+INFO 2024-12-31 23:39:31,083 views 21176 7056 User ID: 1
+INFO 2024-12-31 23:39:31,083 views 21176 7056 Username: admin
+INFO 2024-12-31 23:39:31,217 basehttp 21176 7056 "GET / HTTP/1.1" 200 13000
+INFO 2024-12-31 23:39:32,899 basehttp 21176 7056 "GET /treatments/ HTTP/1.1" 200 30980
