@@ -1,50 +1,44 @@
 # Treatment Center Management System
 
 ## Project Overview
-This is a Django-based web application for managing a treatment center, providing functionalities for user management, family file tracking, and administrative operations.
+A Django-based management system for tracking and managing treatment center operations.
 
 ## Prerequisites
-- Python 3.8+
-- Django 5.0
-- Virtual Environment recommended
+- Python 3.8.10
+- Django 4.2.9
+- Virtual Environment: `venv_3.8.10`
 
-## Installation
-
+## Setup Instructions
 1. Clone the repository
-```bash
-git clone [repository-url]
-cd treatment_center
-```
-
-2. Create and activate a virtual environment
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-```
-
-3. Install dependencies
-```bash
-pip install -r requirements.txt
-```
-
-4. Set up the database
-```bash
-python manage.py migrate
-python manage.py createsuperuser
-```
-
-5. Run the development server
-```bash
-python manage.py runserver
-```
+2. Create a virtual environment:
+   ```
+   python -m venv venv_3.8.10
+   ```
+3. Activate the virtual environment:
+   - Windows: `venv_3.8.10\Scripts\activate`
+   - Linux/Mac: `source venv_3.8.10/bin/activate`
+4. Install dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
+5. Run migrations:
+   ```
+   python manage.py migrate
+   ```
+6. Start the development server:
+   ```
+   python manage.py runserver 4444
+   ```
 
 ## Key Dependencies
-- Django: Web framework
-- django-crispy-forms: Enhanced form rendering
-- django-filter: Advanced filtering
-- djangorestframework: API development
-- reportlab: PDF generation
-- Pillow: Image processing
+- Django 4.2.9
+- django-crispy-forms 2.0
+- django-filter 23.3
+- djangorestframework 3.13.1
+
+## Notes
+- Ensure you are using Python 3.8.10
+- This project uses a custom virtual environment setup
 
 ## Project Structure
 - `treatment_app/`: Main application directory
