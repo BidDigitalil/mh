@@ -481,12 +481,24 @@ class ChildListView(LoginRequiredMixin, ListView):
 
         # Hebrew grammar for age display
         if years == 0:
-            return f'{months} {months == 1 and "חודש" or "חודשים"}'
+            if months == 1:
+                return '1 חודש'
+            else:
+                return f'{months} חודשים'
         elif years == 1:
-            return f'שנה{months > 0 and f", {months} {months == 1 and "חודש" or "חודשים"}" or ""}'
+            if months == 0:
+                return 'שנה'
+            elif months == 1:
+                return 'שנה, 1 חודש'
+            else:
+                return f'שנה, {months} חודשים'
         else:
-            # Corrected formatting for multiple years and months
-            return f'{years} שנים{months > 0 and f", {months} {months == 1 and "חודש" or "חודשים"}" or ""}'
+            if months == 0:
+                return f'{years} שנים'
+            elif months == 1:
+                return f'{years} שנים, 1 חודש'
+            else:
+                return f'{years} שנים, {months} חודשים'
 
     def get_queryset(self):
         """

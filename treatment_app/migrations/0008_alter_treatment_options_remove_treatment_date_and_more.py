@@ -79,6 +79,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AddConstraint(
             model_name='treatment',
-            constraint=models.CheckConstraint(condition=models.Q(('family__isnull', False), ('child__isnull', False), _connector='OR'), name='require_family_or_child'),
+            constraint=models.CheckConstraint(check=models.Q(family__isnull=False) | models.Q(child__isnull=False), name='require_family_or_child'),
         ),
     ]
