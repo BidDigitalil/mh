@@ -1,0 +1,8 @@
+● treatment_center.service - Gunicorn service for Treatment Center Django Application
+     Loaded: loaded (/etc/systemd/system/treatment_center.service; enabled; vendor preset: enabled)
+     Active: activating (auto-restart) (Result: exit-code) since Wed 2025-01-01 16:15:32 IST; 83ms ago
+    Process: 2851433 ExecStart=/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/bin/gunicorn --config /home/mh.bigdigital.co.il/public_html/treatment_center1/gunicorn_config.py treatment_center.wsgi:application [0;1;31m(code=exited, status=200/CHDIR)[0m
+   Main PID: 2851433 (code=exited, status=200/CHDIR)
+
+Jan 01 16:15:32 bigdigital systemd[1]: [0;1;39m[0;1;31m[0;1;39mtreatment_center.service: Main process exited, code=exited, status=200/CHDIR[0m
+Jan 01 16:15:32 bigdigital systemd[1]: [0;1;38;5;185m[0;1;39m[0;1;38;5;185mtreatment_center.service: Failed with result 'exit-code'.[0m

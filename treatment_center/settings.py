@@ -24,9 +24,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!l-ny0^mld$_hb=x2xmy6qkhfjb*r$2_+vqomlyu-dm7exyjc@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+SESSION_COOKIE_SECURE = True
+# Gunicorn and Host Configuration
+ALLOWED_HOSTS = [
+    'localhost', 
+    '127.0.0.1', 
+    'mh.bigdigital.co.il', 
+    '.mh.bigdigital.co.il', 
+    'bigdigital',
+    'bigdigital.co.il',
+    '*'
+]
+
+# Proxy and SSL Configuration
+USE_X_FORWARDED_HOST = True
+
+# Additional security and performance settings
+SESSION_COOKIE_SECURE = True
 
 
 # Application definition
@@ -185,7 +201,49 @@ LOGGING = {
     },
 }
 
+# CSRF and Security Settings
+    "https://mh.bigdigital.co.il",
+    "https://www.mh.bigdigital.co.il"
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
+# CSRF and Security Settings
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SAMESITE = "Lax"
+CSRF_TRUSTED_ORIGINS = [
+    "https://mh.bigdigital.co.il",
+    "https://www.mh.bigdigital.co.il"
+]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# SSL and Security Settings
+SESSION_COOKIE_SECURE = True
+
+# Additional Security Headers
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# Trusted Origins for CSRF
+    "https://mh.bigdigital.co.il",
+    "https://www.mh.bigdigital.co.il"
+]
+
+
+# SSL and Security Settings
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SESSION_COOKIE_SECURE = True
+
+# Additional Security Headers
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# Trusted Origins for CSRF
+    "https://mh.bigdigital.co.il",
+    "https://www.mh.bigdigital.co.il"
+]
+

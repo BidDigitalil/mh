@@ -1,0 +1,24 @@
+[0;1;32m●[0m lshttpd.service - OpenLiteSpeed HTTP Server
+     Loaded: loaded (/etc/systemd/system/lshttpd.service; enabled; vendor preset: enabled)
+     Active: [0;1;32mactive (running)[0m since Wed 2025-01-01 13:21:56 IST; 3h 2min ago
+   Main PID: 2826308 (litespeed)
+     CGroup: /system.slice/lshttpd.service
+             ├─2826308 openlitespeed (lshttpd - main)
+             ├─2826309 openlitespeed (lscgid)
+             ├─2826310 openlitespeed (lshttpd - #01)
+             ├─2826311 openlitespeed (lshttpd - #02)
+             ├─2852888 lsphp
+             ├─2852889 lsphp
+             ├─2852892 lsphp
+             └─2852894 lsphp
+
+Jan 01 13:59:07 bigdigital systemd[1]: [0;1;39m[0;1;31m[0;1;39m/etc/systemd/system/lshttpd.service:9: PIDFile= references a path below legacy directory /var/run/, updating /var/run/openlitespeed.pid → /run/openlitespeed.pid; please update the unit file accordingly.[0m
+Jan 01 13:59:07 bigdigital systemd[1]: [0;1;39m[0;1;31m[0;1;39m/etc/systemd/system/lshttpd.service:9: PIDFile= references a path below legacy directory /var/run/, updating /var/run/openlitespeed.pid → /run/openlitespeed.pid; please update the unit file accordingly.[0m
+Jan 01 13:59:46 bigdigital systemd[1]: [0;1;39m[0;1;31m[0;1;39m/etc/systemd/system/lshttpd.service:9: PIDFile= references a path below legacy directory /var/run/, updating /var/run/openlitespeed.pid → /run/openlitespeed.pid; please update the unit file accordingly.[0m
+Jan 01 13:59:47 bigdigital systemd[1]: [0;1;39m[0;1;31m[0;1;39m/etc/systemd/system/lshttpd.service:9: PIDFile= references a path below legacy directory /var/run/, updating /var/run/openlitespeed.pid → /run/openlitespeed.pid; please update the unit file accordingly.[0m
+Jan 01 15:12:59 bigdigital systemd[1]: [0;1;39m[0;1;31m[0;1;39m/etc/systemd/system/lshttpd.service:9: PIDFile= references a path below legacy directory /var/run/, updating /var/run/openlitespeed.pid → /run/openlitespeed.pid; please update the unit file accordingly.[0m
+Jan 01 15:13:02 bigdigital systemd[1]: [0;1;39m[0;1;31m[0;1;39m/etc/systemd/system/lshttpd.service:9: PIDFile= references a path below legacy directory /var/run/, updating /var/run/openlitespeed.pid → /run/openlitespeed.pid; please update the unit file accordingly.[0m
+Jan 01 15:16:28 bigdigital systemd[1]: [0;1;39m[0;1;31m[0;1;39m/etc/systemd/system/lshttpd.service:9: PIDFile= references a path below legacy directory /var/run/, updating /var/run/openlitespeed.pid → /run/openlitespeed.pid; please update the unit file accordingly.[0m
+Jan 01 15:19:27 bigdigital systemd[1]: [0;1;39m[0;1;31m[0;1;39m/etc/systemd/system/lshttpd.service:9: PIDFile= references a path below legacy directory /var/run/, updating /var/run/openlitespeed.pid → /run/openlitespeed.pid; please update the unit file accordingly.[0m
+Jan 01 16:01:52 bigdigital systemd[1]: [0;1;39m[0;1;31m[0;1;39m/etc/systemd/system/lshttpd.service:9: PIDFile= references a path below legacy directory /var/run/, updating /var/run/openlitespeed.pid → /run/openlitespeed.pid; please update the unit file accordingly.[0m
+Jan 01 16:01:52 bigdigital systemd[1]: [0;1;39m[0;1;31m[0;1;39m/etc/systemd/system/lshttpd.service:9: PIDFile= references a path below legacy directory /var/run/, updating /var/run/openlitespeed.pid → /run/openlitespeed.pid; please update the unit file accordingly.[0m

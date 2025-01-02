@@ -29678,3 +29678,704 @@ INFO 2025-01-01 02:24:50,554 basehttp 11732 16740 "GET /child/new/ HTTP/1.1" 200
 INFO 2025-01-01 02:25:12,861 basehttp 11732 21200 "GET /child/new/ HTTP/1.1" 200 18325
 INFO 2025-01-01 02:26:51,414 basehttp 11732 992 "GET /child/new/ HTTP/1.1" 200 18325
 INFO 2025-01-01 02:26:53,042 basehttp 11732 992 "GET /children/ HTTP/1.1" 200 18245
+ERROR 2025-01-01 15:21:54,833 exception 2843148 140549358556992 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:21:54,884 log 2843148 140549358556992 Bad Request: /
+ERROR 2025-01-01 15:23:43,544 exception 2843148 140549358556992 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:23:43,561 log 2843148 140549358556992 Bad Request: /
+ERROR 2025-01-01 15:23:44,593 exception 2843148 140549358556992 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:23:44,610 log 2843148 140549358556992 Bad Request: /
+ERROR 2025-01-01 15:25:26,167 exception 2843148 140549358556992 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:25:26,187 log 2843148 140549358556992 Bad Request: /
+ERROR 2025-01-01 15:25:26,956 exception 2843148 140549358556992 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:25:26,972 log 2843148 140549358556992 Bad Request: /
+ERROR 2025-01-01 15:26:40,958 exception 2843145 140549358556992 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:26:40,999 log 2843145 140549358556992 Bad Request: /
+INFO 2025-01-01 15:27:12,152 autoreload 2843848 140101398095680 Watching for file changes with StatReloader
+ERROR 2025-01-01 15:27:26,409 exception 2843145 140549358556992 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:27:26,427 log 2843145 140549358556992 Bad Request: /
+ERROR 2025-01-01 15:27:27,189 exception 2843145 140549358556992 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:27:27,210 log 2843145 140549358556992 Bad Request: /
+INFO 2025-01-01 15:27:48,660 autoreload 2843926 139885082650432 Watching for file changes with StatReloader
+ERROR 2025-01-01 15:29:45,039 exception 2843950 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:29:45,078 log 2843950 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:29:46,118 exception 2843948 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:29:46,155 log 2843948 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:29:52,569 exception 2843949 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:29:52,604 log 2843949 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:29:52,836 exception 2843948 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:29:52,852 log 2843948 140640611964736 Bad Request: /
+INFO 2025-01-01 15:32:16,206 autoreload 2844494 140559935633216 Watching for file changes with StatReloader
+ERROR 2025-01-01 15:32:23,747 exception 2843946 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:32:23,789 log 2843946 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:36:23,121 exception 2843946 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:36:23,140 log 2843946 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:36:23,746 exception 2843946 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:36:23,764 log 2843946 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:41:54,588 exception 2843946 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:41:54,604 log 2843946 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:41:54,634 exception 2843946 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:41:54,650 log 2843946 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:42:23,272 exception 2843947 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:42:23,311 log 2843947 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:44:07,453 exception 2843947 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:44:07,474 log 2843947 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:44:48,177 exception 2843947 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:44:48,193 log 2843947 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:44:49,175 exception 2843947 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:44:49,198 log 2843947 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:45:10,345 exception 2843947 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:45:10,361 log 2843947 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:46:54,201 exception 2843947 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:46:54,219 log 2843947 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:48:59,261 exception 2843948 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:48:59,281 log 2843948 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:49:00,036 exception 2843946 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:49:00,053 log 2843946 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:49:00,734 exception 2843947 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:49:00,750 log 2843947 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:49:01,411 exception 2843948 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:49:01,426 log 2843948 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:50:35,194 exception 2843950 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:50:35,212 log 2843950 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:52:38,626 exception 2843950 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:52:38,641 log 2843950 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:52:53,617 exception 2843946 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:52:53,634 log 2843946 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:54:56,613 exception 2843946 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:54:56,630 log 2843946 140640611964736 Bad Request: /
+ERROR 2025-01-01 15:56:22,173 exception 2843946 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 15:56:22,198 log 2843946 140640611964736 Bad Request: /
+ERROR 2025-01-01 16:01:45,644 exception 2843949 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 16:01:45,668 log 2843949 140640611964736 Bad Request: /
+ERROR 2025-01-01 16:01:45,702 exception 2843946 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 16:01:45,722 log 2843946 140640611964736 Bad Request: /
+ERROR 2025-01-01 16:02:22,931 exception 2843950 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 16:02:22,947 log 2843950 140640611964736 Bad Request: /
+ERROR 2025-01-01 16:02:23,792 exception 2843950 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 16:02:23,808 log 2843950 140640611964736 Bad Request: /
+ERROR 2025-01-01 16:02:41,828 exception 2843950 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 16:02:41,845 log 2843950 140640611964736 Bad Request: /
+ERROR 2025-01-01 16:04:05,905 exception 2843946 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 16:04:05,922 log 2843946 140640611964736 Bad Request: /
+ERROR 2025-01-01 16:06:59,263 exception 2843946 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 16:06:59,324 log 2843946 140640611964736 Bad Request: /
+ERROR 2025-01-01 16:06:59,476 exception 2843946 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 16:06:59,491 log 2843946 140640611964736 Bad Request: /
+ERROR 2025-01-01 16:08:23,226 exception 2843950 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 16:08:23,243 log 2843950 140640611964736 Bad Request: /
+ERROR 2025-01-01 16:08:24,101 exception 2843948 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 16:08:24,121 log 2843948 140640611964736 Bad Request: /
+ERROR 2025-01-01 16:08:24,585 exception 2843948 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 16:08:24,601 log 2843948 140640611964736 Bad Request: /
+ERROR 2025-01-01 16:08:25,540 exception 2843948 140640611964736 Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/mh.bigdigital.co.il/public_html/treatment_center1/venv/lib/python3.8/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'mh.bigdigital.co.il:8000'. You may need to add 'mh.bigdigital.co.il' to ALLOWED_HOSTS.
+WARNING 2025-01-01 16:08:25,558 log 2843948 140640611964736 Bad Request: /
+INFO 2025-01-01 16:36:32,197 autoreload 2855363 140279510734656 Watching for file changes with StatReloader
+INFO 2025-01-01 16:39:07,151 autoreload 2855892 139818617304896 Watching for file changes with StatReloader
+INFO 2025-01-01 16:47:51,497 autoreload 2857545 139961789585216 Watching for file changes with StatReloader
+INFO 2025-01-01 16:48:28,217 autoreload 2857626 139787150743360 Watching for file changes with StatReloader
+INFO 2025-01-01 16:48:32,996 basehttp 2857626 139787101107968 code 400, message Bad request version ('\x04~ú®y&')
+ERROR 2025-01-01 16:48:32,996 basehttp 2857626 139787101107968 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 16:48:32,997 basehttp 2857626 139787025512192 code 400, message Bad request version ('\x94')
+ERROR 2025-01-01 16:48:32,997 basehttp 2857626 139787025512192 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 16:48:33,012 basehttp 2857626 139787025512192 code 400, message Bad request version ('ªª\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x8f')
+ERROR 2025-01-01 16:48:33,012 basehttp 2857626 139787025512192 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 16:48:33,013 basehttp 2857626 139787025512192 code 400, message Bad request version ('\x02:^Ûc\x97Â\x19I&,ò¦Bc\x92%ËÁnl\x18Q!"9')
+ERROR 2025-01-01 16:48:33,013 basehttp 2857626 139787025512192 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 16:55:52,036 basehttp 2859895 139651193730816 "GET / HTTP/1.1" 302 0
+INFO 2025-01-01 16:55:52,100 basehttp 2859895 139651193730816 "GET /accounts/login/?next=/ HTTP/1.1" 200 9328
+INFO 2025-01-01 16:55:52,170 basehttp 2859895 139651184551680 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 200 7068
+INFO 2025-01-01 16:55:52,171 basehttp 2859895 139651193730816 "GET /static/treatment_app/css/custom.css HTTP/1.1" 200 6397
+INFO 2025-01-01 16:55:52,178 basehttp 2859895 139651176158976 "GET /static/treatment_app/js/main.js HTTP/1.1" 200 1021
+INFO 2025-01-01 16:55:52,182 basehttp 2859895 139651167766272 "GET /static/treatment_app/css/forms.css HTTP/1.1" 200 839
+WARNING 2025-01-01 16:55:52,674 log 2859895 139651167766272 Not Found: /favicon.ico
+WARNING 2025-01-01 16:55:52,675 basehttp 2859895 139651167766272 "GET /favicon.ico HTTP/1.1" 404 8914
+INFO 2025-01-01 16:57:12,050 basehttp 2859895 139651167766272 "GET /accounts/login/?next=/ HTTP/1.1" 200 9328
+WARNING 2025-01-01 16:58:40,589 log 2859895 139651193730816 Forbidden (CSRF cookie not set.): /accounts/login/
+WARNING 2025-01-01 16:58:40,590 basehttp 2859895 139651193730816 "POST /accounts/login/?next=/ HTTP/1.1" 403 2925
+INFO 2025-01-01 16:58:44,366 basehttp 2859895 139651193730816 "GET /accounts/login/?next=/ HTTP/1.1" 200 9328
+WARNING 2025-01-01 16:58:56,418 log 2859895 139651167766272 Forbidden (CSRF cookie not set.): /accounts/login/
+WARNING 2025-01-01 16:58:56,418 basehttp 2859895 139651167766272 "POST /accounts/login/?next=/ HTTP/1.1" 403 2925
+WARNING 2025-01-01 16:59:00,700 log 2859895 139651167766272 Forbidden (CSRF cookie not set.): /accounts/login/
+WARNING 2025-01-01 16:59:00,700 basehttp 2859895 139651167766272 "POST /accounts/login/?next=/ HTTP/1.1" 403 2925
+INFO 2025-01-01 16:59:02,440 basehttp 2859895 139651167766272 "GET /accounts/login/?next=/ HTTP/1.1" 200 9328
+INFO 2025-01-01 16:59:19,043 basehttp 2859895 139651167766272 "GET /accounts/login/?next=/ HTTP/1.1" 200 9328
+INFO 2025-01-01 17:00:10,517 basehttp 2859895 139651167766272 "GET /accounts/login/?next=/ HTTP/1.1" 200 9328
+INFO 2025-01-01 17:00:11,344 basehttp 2859895 139651167766272 "GET /accounts/login/?next=/ HTTP/1.1" 200 9328
+INFO 2025-01-01 17:00:49,592 basehttp 2859895 139651193730816 "GET /accounts/login/?next=/ HTTP/1.1" 200 9328
+INFO 2025-01-01 17:00:50,248 basehttp 2859895 139651193730816 "GET /accounts/login/?next=/ HTTP/1.1" 200 9328
+WARNING 2025-01-01 17:01:03,683 log 2859895 139651193730816 Forbidden (CSRF cookie not set.): /accounts/login/
+WARNING 2025-01-01 17:01:03,683 basehttp 2859895 139651193730816 "POST /accounts/login/?next=/ HTTP/1.1" 403 2925
+INFO 2025-01-01 17:01:09,629 basehttp 2859895 139651167766272 code 400, message Bad request version ('õx\x17µÐaÝ¸¿íN·öÖyû\x94ÀkëAæ±¨³l')
+ERROR 2025-01-01 17:01:09,629 basehttp 2859895 139651167766272 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:01:09,650 basehttp 2859895 139651167766272 code 400, message Bad request version ('\x83]³X<K+$º')
+ERROR 2025-01-01 17:01:09,651 basehttp 2859895 139651167766272 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:01:11,403 basehttp 2859895 139651167766272 "GET /accounts/login/?next=/ HTTP/1.1" 200 9328
+INFO 2025-01-01 17:01:11,468 basehttp 2859895 139651167766272 "GET /static/treatment_app/css/custom.css HTTP/1.1" 200 6397
+INFO 2025-01-01 17:01:11,474 basehttp 2859895 139651193730816 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 200 7068
+INFO 2025-01-01 17:01:11,474 basehttp 2859895 139651176158976 "GET /static/treatment_app/css/forms.css HTTP/1.1" 200 839
+INFO 2025-01-01 17:01:11,476 basehttp 2859895 139651184551680 "GET /static/treatment_app/js/main.js HTTP/1.1" 200 1021
+WARNING 2025-01-01 17:01:18,833 log 2859895 139651167766272 Forbidden (CSRF cookie not set.): /accounts/login/
+WARNING 2025-01-01 17:01:18,833 basehttp 2859895 139651167766272 "POST /accounts/login/?next=/ HTTP/1.1" 403 2925
+INFO 2025-01-01 17:02:31,843 basehttp 2859895 139651167766272 code 400, message Bad request version ('J<Gê\x15s/ê±\x1b2\x14Ç¶5[öÅtD*ÔÛhñiQ¾´Pø¤\x96')
+ERROR 2025-01-01 17:02:31,843 basehttp 2859895 139651167766272 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:02:31,858 basehttp 2859895 139651167766272 code 400, message Bad request version ('©\x01Â-¨\x99k\x9b:A13;')
+ERROR 2025-01-01 17:02:31,858 basehttp 2859895 139651167766272 You're accessing the development server over HTTPS, but it only supports HTTP.
+WARNING 2025-01-01 17:03:01,405 log 2859895 139651167766272 Forbidden (CSRF cookie not set.): /accounts/login/
+WARNING 2025-01-01 17:03:01,406 basehttp 2859895 139651167766272 "POST /accounts/login/?next=/ HTTP/1.1" 403 2925
+INFO 2025-01-01 17:03:03,840 basehttp 2859895 139651167766272 "GET / HTTP/1.1" 302 0
+INFO 2025-01-01 17:03:03,856 basehttp 2859895 139651167766272 "GET /accounts/login/?next=/ HTTP/1.1" 200 9328
+WARNING 2025-01-01 17:03:17,310 log 2859895 139651167766272 Forbidden (CSRF cookie not set.): /accounts/login/
+WARNING 2025-01-01 17:03:17,310 basehttp 2859895 139651167766272 "POST /accounts/login/?next=/ HTTP/1.1" 403 2925
+INFO 2025-01-01 17:07:33,916 basehttp 2859895 139651167766272 code 400, message Bad request syntax ('\x16\x03\x01\x06Ü\x01\x00\x06Ø\x03\x03SãZ:e´w\x11\x96pB*')
+ERROR 2025-01-01 17:07:33,917 basehttp 2859895 139651167766272 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:07:33,934 basehttp 2859895 139651167766272 code 400, message Bad request version ('Ú¸ºí\x1a\x0eæÀ\x06ï»E\x13²\x9a2ÁoIr!<')
+ERROR 2025-01-01 17:07:33,934 basehttp 2859895 139651167766272 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:07:37,420 basehttp 2859895 139651167766272 code 400, message Bad request version ("'")
+ERROR 2025-01-01 17:07:37,420 basehttp 2859895 139651167766272 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:07:37,440 basehttp 2859895 139651167766272 code 400, message Bad request version ('ÑÒ\x05,')
+ERROR 2025-01-01 17:07:37,440 basehttp 2859895 139651167766272 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:07:38,825 basehttp 2859895 139651167766272 "GET /accounts/login/?next=/ HTTP/1.1" 200 9328
+INFO 2025-01-01 17:07:38,874 basehttp 2859895 139651167766272 "GET /static/treatment_app/css/custom.css HTTP/1.1" 200 6397
+INFO 2025-01-01 17:07:38,878 basehttp 2859895 139651184551680 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 200 7068
+INFO 2025-01-01 17:07:38,890 basehttp 2859895 139651176158976 "GET /static/treatment_app/css/forms.css HTTP/1.1" 200 839
+INFO 2025-01-01 17:07:38,891 basehttp 2859895 139651193730816 "GET /static/treatment_app/js/main.js HTTP/1.1" 200 1021
+WARNING 2025-01-01 17:07:49,202 log 2859895 139651193730816 Forbidden (CSRF cookie not set.): /accounts/login/
+WARNING 2025-01-01 17:07:49,203 basehttp 2859895 139651193730816 "POST /accounts/login/?next=/ HTTP/1.1" 403 2925
+WARNING 2025-01-01 17:07:55,683 log 2859895 139651193730816 Forbidden (CSRF cookie not set.): /accounts/login/
+WARNING 2025-01-01 17:07:55,683 basehttp 2859895 139651193730816 "POST /accounts/login/?next=/ HTTP/1.1" 403 2925
+INFO 2025-01-01 17:08:00,306 basehttp 2859895 139651158476544 code 400, message Bad request version ('\x02\x96¢K\x14')
+ERROR 2025-01-01 17:08:00,306 basehttp 2859895 139651158476544 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:08:00,320 basehttp 2859895 139651158476544 code 400, message Bad request version ('JJ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063ºº\x00\x00\x00\x17\x00\x00\x00-\x00\x02\x01\x01\x00+\x00\x07\x06ÚÚ\x03\x04\x03\x03\x00')
+ERROR 2025-01-01 17:08:00,320 basehttp 2859895 139651158476544 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:09:17,892 basehttp 2859895 139651176158976 code 400, message Bad request version ('\x02h2\x08http/1.1\x00')
+ERROR 2025-01-01 17:09:17,892 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:09:17,909 basehttp 2859895 139651176158976 code 400, message Bad request version ('ÔÛ>JÇ\x8fÙy¹»r\x83\x08NHþË\x8fû\x94V')
+ERROR 2025-01-01 17:09:17,909 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:11:33,968 basehttp 2859895 139651176158976 code 400, message Bad request version ('0\x893Ì.4\x90¸\\\x12®+@\x06\x92\x1a\x14m9\x80ï')
+ERROR 2025-01-01 17:11:33,968 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:11:33,983 basehttp 2859895 139651176158976 code 400, message Bad request version ('{\x12\x81£ö\x81Mf´ÎT°fý³')
+ERROR 2025-01-01 17:11:33,984 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:11:34,104 basehttp 2859895 139651193730816 code 400, message Bad request version ('C.1ø5a¹\x89Ø{\x99')
+ERROR 2025-01-01 17:11:34,104 basehttp 2859895 139651193730816 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:11:34,111 basehttp 2859895 139651176158976 code 400, message Bad request version ("\x9bp\x00\x90®öø'ðhÎ/ÕÞ\x10")
+ERROR 2025-01-01 17:11:34,111 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:11:34,118 basehttp 2859895 139651176158976 code 400, message Bad request version ('õ\x84H¬º')
+ERROR 2025-01-01 17:11:34,118 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:11:34,125 basehttp 2859895 139651176158976 code 400, message Bad request syntax ('\x16\x03\x01\x06¼\x01\x00\x06¸\x03\x03\x08l\x02É¨j0°ó\x06è\x14ôR/\x96\x15\x84\x9b\x16û\x12(')
+ERROR 2025-01-01 17:11:34,125 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:11:36,076 basehttp 2859895 139651176158976 code 400, message Bad request version ('ÿ¦ÐT\x01Í\x84º·ã\x958')
+ERROR 2025-01-01 17:11:36,076 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:11:36,091 basehttp 2859895 139651176158976 code 400, message Bad request version ('ªª\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x8f\x8a\x8a\x00\x00\x00')
+ERROR 2025-01-01 17:11:36,092 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:11:36,203 basehttp 2859895 139651176158976 code 400, message Bad request version ('\x02h2\x08http/1.1\x00\x1b\x00\x03\x02\x00\x02\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00+\x00\x07\x06\x1a\x1a\x03\x04\x03\x03\x00')
+ERROR 2025-01-01 17:11:36,203 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:11:36,221 basehttp 2859895 139651176158976 code 400, message Bad request version ("+½æÂLf¬\x8déHFÝÕf\x07ê\x84w|\x8c4'¦\x822©\x05Ç\x98¦»\x91Ú\x9aIS\x12|ÍÊ\x98úÇIí\x8cN%(±Sz")
+ERROR 2025-01-01 17:11:36,221 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:13:48,967 basehttp 2859895 139651176158976 code 400, message Bad request version ('5\x16ô\x8d7÷Ô{§\x1a\x8ct¼\x10¸{2\x13Õµ\x94^\x90N½Ð÷MÈÊ\x08PÒ\x03~ìê\\ønâ¹ü\x11¦âþEP\x84?ðÌ\x99î=tó\x9e#°Ö\x00')
+ERROR 2025-01-01 17:13:48,967 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:13:48,972 basehttp 2859895 139651176158976 code 400, message Bad request version ('+\x11r\x92Ù¥')
+ERROR 2025-01-01 17:13:48,972 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:13:48,984 basehttp 2859895 139651176158976 code 400, message Bad request version ('ÚÚ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06¯jj\x00\x00\x00\x12\x00\x00\x00\x17\x00\x00\x00')
+ERROR 2025-01-01 17:13:48,985 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:13:48,995 basehttp 2859895 139651176158976 code 400, message Bad request version ('»P×\x0fs\x07+ÊX«û¨\x81+\x04H\x01¸\x01\x94æ]\x08äÊ§0t:\x05/ya>cp\x16à":µyI{\x10\x16Ü\x08mïI~Ì\x11')
+ERROR 2025-01-01 17:13:48,995 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:13:49,680 basehttp 2859895 139651176158976 code 400, message Bad request version ('%')
+ERROR 2025-01-01 17:13:49,680 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:13:49,681 basehttp 2859895 139651193730816 code 400, message Bad request version ('ºº\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x8fªª\x00\x00\x003\x04ï\x04í')
+ERROR 2025-01-01 17:13:49,681 basehttp 2859895 139651193730816 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:13:49,696 basehttp 2859895 139651193730816 code 400, message Bad request version ('\x02h2\x08http/1.1\x00')
+ERROR 2025-01-01 17:13:49,697 basehttp 2859895 139651193730816 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:13:49,697 basehttp 2859895 139651176158976 code 400, message Bad request version ("Ü>ûe\x92ÒvP\x16²o|ì#ë±\x07ÕKK,»@gü\x86¦)\x18VÅI··¡x\x1a¬òÚ>ç'\x18Úà5ýu5I\x87\x90^ü[m\x881\x8b²\x9e8")
+ERROR 2025-01-01 17:13:49,697 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+WARNING 2025-01-01 17:13:57,606 log 2859895 139651176158976 Forbidden (CSRF cookie not set.): /accounts/login/
+WARNING 2025-01-01 17:13:57,607 basehttp 2859895 139651176158976 "POST /accounts/login/?next=/ HTTP/1.1" 403 2925
+WARNING 2025-01-01 17:16:44,273 log 2859895 139651193730816 Forbidden (CSRF cookie not set.): /accounts/login/
+WARNING 2025-01-01 17:16:44,274 basehttp 2859895 139651193730816 "POST /accounts/login/?next=/ HTTP/1.1" 403 2925
+INFO 2025-01-01 17:16:46,541 basehttp 2859895 139651193730816 "GET / HTTP/1.1" 302 0
+INFO 2025-01-01 17:16:46,558 basehttp 2859895 139651193730816 "GET /accounts/login/?next=/ HTTP/1.1" 200 9328
+INFO 2025-01-01 17:16:46,627 basehttp 2859895 139651193730816 "GET /static/treatment_app/css/custom.css HTTP/1.1" 304 0
+INFO 2025-01-01 17:16:46,630 basehttp 2859895 139651176158976 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-01-01 17:16:46,636 basehttp 2859895 139651167766272 "GET /static/treatment_app/css/forms.css HTTP/1.1" 304 0
+INFO 2025-01-01 17:16:46,638 basehttp 2859895 139651184551680 "GET /static/treatment_app/js/main.js HTTP/1.1" 304 0
+WARNING 2025-01-01 17:17:14,895 log 2859895 139651184551680 Forbidden (CSRF cookie not set.): /accounts/login/
+WARNING 2025-01-01 17:17:14,895 basehttp 2859895 139651184551680 "POST /accounts/login/?next=/ HTTP/1.1" 403 2925
+INFO 2025-01-01 17:17:21,512 basehttp 2859895 139651176158976 code 400, message Bad request version ('ÚÚ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06szz\x00\x00\x003\x04ï\x04í')
+ERROR 2025-01-01 17:17:21,513 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:17:21,540 basehttp 2859895 139651176158976 code 400, message Bad request version ('Gd@Àº\x07\x191Ø\x8d.Ã?\x10õ')
+ERROR 2025-01-01 17:17:21,540 basehttp 2859895 139651176158976 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:17:23,383 basehttp 2859895 139651176158976 "GET /accounts/login/?next=/ HTTP/1.1" 200 9328
+INFO 2025-01-01 17:17:23,471 basehttp 2859895 139651176158976 "GET /static/treatment_app/css/custom.css HTTP/1.1" 200 6397
+INFO 2025-01-01 17:17:23,472 basehttp 2859895 139651193730816 "GET /static/treatment_app/css/forms.css HTTP/1.1" 200 839
+INFO 2025-01-01 17:17:23,480 basehttp 2859895 139651158476544 "GET /static/treatment_app/css/dashboard.css HTTP/1.1" 200 7068
+INFO 2025-01-01 17:17:23,481 basehttp 2859895 139651150083840 "GET /static/treatment_app/js/main.js HTTP/1.1" 200 1021
+WARNING 2025-01-01 17:17:33,540 log 2859895 139651184551680 Forbidden (CSRF cookie not set.): /accounts/login/
+WARNING 2025-01-01 17:17:33,540 basehttp 2859895 139651184551680 "POST /accounts/login/?next=/ HTTP/1.1" 403 2925
+INFO 2025-01-01 17:17:45,512 basehttp 2859895 139651184551680 "GET /accounts/login/?next=/ HTTP/1.1" 200 9328
+WARNING 2025-01-01 17:17:51,260 log 2859895 139651184551680 Forbidden (CSRF cookie not set.): /accounts/login/
+WARNING 2025-01-01 17:17:51,260 basehttp 2859895 139651184551680 "POST /accounts/login/?next=/ HTTP/1.1" 403 2925
+INFO 2025-01-01 17:19:32,147 autoreload 2864814 139878244927296 Watching for file changes with StatReloader
+INFO 2025-01-01 17:19:37,536 autoreload 2864823 140562514118464 Watching for file changes with StatReloader
+INFO 2025-01-01 17:19:44,654 autoreload 2864850 140664118892352 Watching for file changes with StatReloader
+WARNING 2025-01-01 17:20:09,775 log 2859895 139651184551680 Forbidden (CSRF cookie not set.): /accounts/login/
+WARNING 2025-01-01 17:20:09,776 basehttp 2859895 139651184551680 "POST /accounts/login/?next=/ HTTP/1.1" 403 2925
+INFO 2025-01-01 17:20:18,670 basehttp 2859895 139651184551680 code 400, message Bad request version ('©\x88=×Å\x06ç(&ÐøTø\x8c[\x17#uA*Akx(|KabIu±\x9bÌ$È;TK\x83ha\x15[È\x9eÅ')
+ERROR 2025-01-01 17:20:18,671 basehttp 2859895 139651184551680 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:20:18,686 basehttp 2859895 139651184551680 code 400, message Bad request version ('B¸¦Û\x8f`\x83½Çð*/8|\x00')
+ERROR 2025-01-01 17:20:18,686 basehttp 2859895 139651184551680 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:20:18,931 basehttp 2859895 139651184551680 code 400, message Bad request version ('Ò\x93')
+INFO 2025-01-01 17:20:18,931 basehttp 2859895 139651167766272 code 400, message Bad request version ('c¯\x9bRÆ:Ç[©©Y2?±õA\x96á\x93kÖû\x10áþh_i')
+ERROR 2025-01-01 17:20:18,931 basehttp 2859895 139651184551680 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-01-01 17:20:18,932 basehttp 2859895 139651167766272 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:20:18,947 basehttp 2859895 139651167766272 code 400, message Bad request version ('T\x9e\x03C\x89G)&§\x02ù\x19Lzn')
+ERROR 2025-01-01 17:20:18,947 basehttp 2859895 139651167766272 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-01-01 17:20:18,966 basehttp 2859895 139651167766272 code 400, message Bad request version ('\x1a\x1a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x8fzz\x00\x00Di\x00\x05\x00\x03\x02h2\x00\x00\x00\x18\x00\x16\x00\x00\x13mh.bigdigital.co.il\x00+\x00\x07\x06\x8a\x8a\x03\x04\x03\x03\x00')
+ERROR 2025-01-01 17:20:18,967 basehttp 2859895 139651167766272 You're accessing the development server over HTTPS, but it only supports HTTP.
+WARNING 2025-01-01 17:20:44,033 log 2859895 139651167766272 Forbidden (CSRF cookie not set.): /accounts/login/
+WARNING 2025-01-01 17:20:44,033 basehttp 2859895 139651167766272 "POST /accounts/login/?next=/ HTTP/1.1" 403 2925
+INFO 2025-01-01 17:20:46,541 basehttp 2859895 139651167766272 "GET / HTTP/1.1" 302 0
+INFO 2025-01-01 17:20:46,555 basehttp 2859895 139651167766272 "GET /accounts/login/?next=/ HTTP/1.1" 200 9328
+WARNING 2025-01-01 17:20:54,979 log 2859895 139651167766272 Forbidden (CSRF cookie not set.): /accounts/login/
+WARNING 2025-01-01 17:20:54,980 basehttp 2859895 139651167766272 "POST /accounts/login/?next=/ HTTP/1.1" 403 2925
+INFO 2025-01-01 17:22:01,702 basehttp 2859895 139651167766272 "GET /accounts/login/?next=/ HTTP/1.1" 200 9328
+WARNING 2025-01-01 17:22:04,876 log 2859895 139651167766272 Forbidden (CSRF cookie not set.): /accounts/login/
+WARNING 2025-01-01 17:22:04,876 basehttp 2859895 139651167766272 "POST /accounts/login/?next=/ HTTP/1.1" 403 2925
